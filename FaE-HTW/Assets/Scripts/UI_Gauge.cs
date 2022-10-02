@@ -11,6 +11,7 @@ public class UI_Gauge : MonoBehaviour
     [SerializeField] Image staminaBack;
     float staminaBackAmount;
     public float timeTack;
+    [SerializeField] Slider attackCharge;
     void Start()
     {
         staminaBackAmount = player.MyStartingStamina;
@@ -20,6 +21,13 @@ public class UI_Gauge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player.State == PlayerContorl.STATE.CHARGE_ATTACK)
+        {
+            attackCharge.gameObject.SetActive(true);
+            attackCharge.value = player.StateTimer / 2f;
+        }
+        else
+            attackCharge.gameObject.SetActive(false);
         timeTack += Time.deltaTime;
         hp.value = player.Health / player.MyStartingHealth;
         stamina.value = player.Stamina / player.MyStartingStamina;

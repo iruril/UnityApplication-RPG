@@ -12,10 +12,13 @@ public class UI_Option : MonoBehaviour
     [SerializeField] Text mouseSenseTextY;
     float mouseSenseX;
     float mouseSenseY;
-    void Start()
+    public void Set()
     {
         mouseSenseSliderX.value = 0.2f;
         mouseSenseSliderY.value = 0.2f;
+        mouseSenseX = mouseSenseSliderX.value * 99 + 1f;
+        mouseSenseY = mouseSenseSliderY.value * 99 + 1f;
+        this.gameObject.SetActive(false);
     }
 
     void Update()
@@ -25,14 +28,9 @@ public class UI_Option : MonoBehaviour
         mouseSenseTextX.text = Mathf.FloorToInt(mouseSenseX).ToString();
         mouseSenseTextY.text = Mathf.FloorToInt(mouseSenseY).ToString();
     }
-    public void senseSetup()
+    public void senseSet(bool isStop)
     {
-        Camera.mouseSenseX = mouseSenseX * 0.05f;
-        Camera.mouseSenseY = mouseSenseY * 0.05f; ;
-    }
-    public void senseStop()
-    {
-        Camera.mouseSenseX = 0;
-        Camera.mouseSenseY = 0;
+        Camera.mouseSenseX = isStop ? 0 : mouseSenseX * 0.05f;
+        Camera.mouseSenseY = isStop ? 0 : mouseSenseY * 0.05f;
     }
 }
