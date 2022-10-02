@@ -13,7 +13,7 @@ public class UI_Gauge : MonoBehaviour
     public float timeTack;
     void Start()
     {
-        staminaBackAmount = player.myStartingStamina;
+        staminaBackAmount = player.MyStartingStamina;
         timeTack = 0f;
     }
 
@@ -21,12 +21,12 @@ public class UI_Gauge : MonoBehaviour
     void Update()
     {
         timeTack += Time.deltaTime;
-        hp.value = player.health / player.myStartingHealth;
-        stamina.value = player.stamina / player.myStartingStamina;
+        hp.value = player.Health / player.MyStartingHealth;
+        stamina.value = player.Stamina / player.MyStartingStamina;
         if (timeTack > 0.5f)
         {
-            staminaBackAmount = Mathf.Abs(staminaBackAmount - player.stamina) < 1 ? player.stamina : Mathf.Lerp(player.stamina, staminaBackAmount, 0.5f);
-            staminaBack.fillAmount = staminaBackAmount / player.myStartingStamina;
+            staminaBackAmount = Mathf.Abs(staminaBackAmount - player.Stamina) < 1 ? player.Stamina : Mathf.Lerp(player.Stamina, staminaBackAmount, 0.5f);
+            staminaBack.fillAmount = staminaBackAmount / player.MyStartingStamina;
             timeTack = 0f;
         }
     }
