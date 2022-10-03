@@ -761,6 +761,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3631255647500903298, guid: f4365d79afb908f41807d30a47b4c3e7, type: 3}
+      propertyPath: realPlayer
+      value: 
+      objectReference: {fileID: 629992761}
     - target: {fileID: 3631255647500903310, guid: f4365d79afb908f41807d30a47b4c3e7, type: 3}
       propertyPath: m_Name
       value: Map
@@ -4029,12 +4033,20 @@ PrefabInstance:
       value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 2828116808624435227, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
+      propertyPath: DashSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2828116808624435227, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
       propertyPath: ProjectileStart
       value: 
       objectReference: {fileID: 1458353885}
     - target: {fileID: 2828116808624435227, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
       propertyPath: SwitchToChargeTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2828116808624435227, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
+      propertyPath: ChargeAttackStaminaAmount
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2828116808624435228, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
       propertyPath: m_Name
