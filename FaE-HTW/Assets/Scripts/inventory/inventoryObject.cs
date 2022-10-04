@@ -21,6 +21,7 @@ public class inventoryObject : MonoBehaviour
     Vector3 zero;
     int gold;
     [SerializeField] GameObject fieldItemPrefab;
+    public GameObject FieldFKey;
     void Start()
     {
         inventoryObj.GetComponent<RectTransform>().sizeDelta = new Vector2(xSize * cell, ySize * cell);//인벤창 크기
@@ -51,6 +52,7 @@ public class inventoryObject : MonoBehaviour
             itemObjects.Add(temp);
         }//아이템 가시화
         inventoryCanvas.SetActive(false);//시작시 인벤창 닫혀있음
+        FieldFKey = null;
     }
 
     public void setItemPos(GameObject item, Vector3 newOrigonPos)//인벤 내 아이템 위치 이동시 실행(겹침확인)
@@ -143,6 +145,8 @@ public class inventoryObject : MonoBehaviour
                 items.items.Add(tempItem.itemData);
                 Destroy(newItem);
                 jsonSave();
+                Destroy(FieldFKey);
+                FieldFKey = null;
                 return;
             }
         }
@@ -175,7 +179,7 @@ public class inventoryObject : MonoBehaviour
     {
         print("상세 파라미터 표시");
     }
-    public void throwItem(GameObject itemObj)
+    public void throwItem(GameObject itemObj)//인벤토리에서 아이템 버릴 때
     {
         items.items.Remove(itemObj.GetComponent<itemObject>().itemData);
         itemObjects.Remove(itemObj.gameObject);
@@ -185,7 +189,7 @@ public class inventoryObject : MonoBehaviour
         jsonSave();
     }
 
-    public GameObject MakeFieldItem(itemData data, Vector3 position)
+    public GameObject MakeFieldItem(itemData data, Vector3 position)//필드에 아이템 생성
     {
         GameObject temp = Instantiate(fieldItemPrefab, position, Quaternion.identity);
         temp.GetComponent<fieldItem>().setup(data);

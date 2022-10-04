@@ -161,11 +161,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3631255647500903310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 090d05ab9448bc442b2455627b0ab0c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 75f1ba982670bb54d83ba150be952a4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max: {x: 0, y: 0}
-  min: {x: 0, y: 0}
+  max: {x: 25, y: 25}
+  min: {x: -25, y: -25}
   realPlayer: {fileID: 0}
-  mapPlayer: {fileID: 0}
+  mapPlayer: {fileID: 3631255647107528336}
   temp: 0
