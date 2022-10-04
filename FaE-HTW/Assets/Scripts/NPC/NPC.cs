@@ -13,6 +13,7 @@ public class NPC : MonoBehaviour
     [SerializeField] GameObject canvasObj;
     [SerializeField] GameObject nameObj;
     Text nameUI;
+    bool isInCamera;
     void Start()
     {
         speech = UI_Control.Inst.speech;
@@ -21,12 +22,19 @@ public class NPC : MonoBehaviour
         canvasObj.SetActive(true);
         nameUI = nameObj.transform.GetChild(0).GetComponent<Text>();
         nameUI.text = Name;
+        isInCamera = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        nameObj.SetActive(!UI_Control.Inst.map.activeSelf);
+        Vector3 inCameraPosition = Camera.main.WorldToScreenPoint(this.transform.position);
+        isInCamera = 0 <= inCameraPosition.x
+            && inCameraPosition.x <= canvasObj.GetComponent<RectTransform>().rect.width
+            && 0 <= inCameraPosition.y
+            && inCameraPosition.y <= canvasObj.GetComponent<RectTransform>().rect.height
+            && inCameraPosition.z >= 0;
+        nameObj.SetActive(!UI_Control.Inst.map.activeSelf && isInCamera);
         if(nameObj.activeSelf)
             nameObj.transform.position = Camera.main.WorldToScreenPoint(this.transform.position + Vector3.up * 2f);
         if (playerClose && Input.GetKeyDown(KeyCode.F))
@@ -56,3 +64,4 @@ public class NPC : MonoBehaviour
         }
     }
 }
+
