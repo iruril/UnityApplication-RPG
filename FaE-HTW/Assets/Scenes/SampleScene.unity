@@ -762,6 +762,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3631255647500903298, guid: f4365d79afb908f41807d30a47b4c3e7, type: 3}
+      propertyPath: max.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631255647500903298, guid: f4365d79afb908f41807d30a47b4c3e7, type: 3}
+      propertyPath: max.y
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631255647500903298, guid: f4365d79afb908f41807d30a47b4c3e7, type: 3}
+      propertyPath: min.x
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631255647500903298, guid: f4365d79afb908f41807d30a47b4c3e7, type: 3}
+      propertyPath: min.y
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631255647500903298, guid: f4365d79afb908f41807d30a47b4c3e7, type: 3}
+      propertyPath: mapPlayer
+      value: 
+      objectReference: {fileID: 1223639544}
+    - target: {fileID: 3631255647500903298, guid: f4365d79afb908f41807d30a47b4c3e7, type: 3}
       propertyPath: realPlayer
       value: 
       objectReference: {fileID: 629992761}
@@ -859,7 +879,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 466095825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9daeec7621b5f243b53f8145e087871, type: 3}
+  m_Script: {fileID: 11500000, guid: 20b2df95688e19c4da650d67766176ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hp: {fileID: 185881999}
@@ -971,7 +991,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 629992761}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 076f6b43f731150418236a59f5b4362c, type: 3}
+  m_Script: {fileID: 11500000, guid: ec28214310ea4ff4691579577f192c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!120 &629992763
@@ -1521,7 +1541,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 797195638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70d9c930f48201541b945e837078a82e, type: 3}
+  m_Script: {fileID: 11500000, guid: 17efccf7e1a6290439bd962b7414413d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 1687258583}
@@ -2391,6 +2411,11 @@ RectTransform:
   m_AnchoredPosition: {x: 160, y: -100}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1223639544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3631255647107528336, guid: f4365d79afb908f41807d30a47b4c3e7, type: 3}
+  m_PrefabInstance: {fileID: 439630774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1239212036
 GameObject:
   m_ObjectHideFlags: 0
@@ -3413,12 +3438,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1954030908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d933b700da0bb6469b269a4620d5e3e, type: 3}
+  m_Script: {fileID: 11500000, guid: ae71ecaf3a684eb448c9ba0c1b40a5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   optionObj: {fileID: 797195638}
   option: {fileID: 797195642}
-  inventory: {fileID: 955689357}
+  inventory: {fileID: 1954030908}
   speech: {fileID: 1954030913}
   map: {fileID: 308839263}
   windows:

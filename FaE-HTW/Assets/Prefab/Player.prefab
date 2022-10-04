@@ -125,25 +125,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 2828116808624435228}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 076f6b43f731150418236a59f5b4362c, type: 3}
+  m_Script: {fileID: 11500000, guid: ec28214310ea4ff4691579577f192c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myStartingHealth: 100
-  health: 0
-  myStartingStamina: 100
-  stamina: 0
-  dead: 0
-  dealtDamage: 0
-  dashStaminaAmount: 20
-  runStaminaAmount: 10
-  dashDistance: 5
-  Speed: 6
+  MyElement: 0
+  EnemyElement: 0
+  MyStartingHealth: 100
+  Health: 0
+  MyStartingStamina: 100
+  Stamina: 0
+  Dead: 0
+  DealtDamage: 0
+  DashStaminaAmount: 20
+  RunStaminaAmount: 10
+  ChargeAttackStaminaAmount: 10
+  DashDistance: 5
+  Speed: 5
   RunSpeed: 10
-  DashSpeed: 25
-  myCurrentSpeed: 0
+  DashSpeed: 30
+  MyCurrentSpeed: 0
   JumpPower: 5
+  ShootDistance: 50
+  SwitchToChargeTime: 2
+  FireRate: 0.25
   Camera: {fileID: 0}
-  DefaultForward: {x: 0, y: 0, z: 1}
-  step: -1
-  next_step: -1
-  step_timer: 0
+  ProjectileStart: {fileID: 0}
+  State: -1
+  NextState: -1
+  StateTimer: 0
