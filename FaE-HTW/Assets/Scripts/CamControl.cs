@@ -8,7 +8,7 @@ public class CamControl : MonoBehaviour
     public float xmove = 0; 
     public float ymove = 0;  
     public float distanceMoveMod = 8.0f;
-    public float distanceAimMod = 3.0f;
+    public float distanceAimMod = 2.0f;
 
     Vector3 revDistanceMove;
     Vector3 revDistanceAim;
@@ -33,7 +33,7 @@ public class CamControl : MonoBehaviour
     private void Start()
     {
         revDistanceMove = new Vector3(0.0f, -2.0f, distanceMoveMod);
-        revDistanceAim = new Vector3(-1.5f, 0.0f, distanceAimMod);
+        revDistanceAim = new Vector3(-1.0f, -0.5f, distanceAimMod);
 
         this.step = STATE.MOVE;
         this.next_step = STATE.MOVE;
