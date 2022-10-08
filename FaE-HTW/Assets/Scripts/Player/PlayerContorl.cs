@@ -452,6 +452,11 @@ public class PlayerContorl : PlayerStatusControl
         }
     }
 
+    public bool GetIsGrounded()
+    {
+        return player.isGrounded;
+    }
+
     private void chargedAttack()
     {
         projectileLine.startColor = Color.blue; //이 라인들은 추후 속성변환 항목에서 다뤄질 예정임.
