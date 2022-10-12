@@ -19,7 +19,7 @@ public class PlayerContorl : PlayerStatusControl
     public Transform ProjectileStart;
 
     private LineRenderer projectileLine;
-    private WaitForSeconds shotDuration = new WaitForSeconds(0.1f); //투사체 라인 유지 시간
+    private WaitForSeconds shotDuration = new WaitForSeconds(0.25f); //투사체 라인 유지 시간
     private Vector3 rayOrigin;
     private RaycastHit hitInfo;
     private RaycastHit[] hitInfo_all;
@@ -452,19 +452,24 @@ public class PlayerContorl : PlayerStatusControl
         Vector3 snapGround = Vector3.zero;
         if (player.isGrounded) snapGround = Vector3.down;
         float startTime = Time.time; //대쉬를 누른 시간
-        while (Time.time < startTime + 0.1f) //대쉬가 지속될 시간, 0.1초
+        while (Time.time < startTime + 0.3f) //대쉬가 지속될 시간, 0.1초
         {
             player.Move(this.transform.forward * DashSpeed * Time.deltaTime + snapGround);
             yield return null;
         }
     }
 
+    public bool GetIsGrounded()
+    {
+        return player.isGrounded;
+    }
+
     private void attack()
     {
-        projectileLine.startColor = Color.red; //이 라인들은 추후 속성변환 항목에서 다뤄질 예정임.
-        projectileLine.endColor = Color.red; //이 라인들은 추후 속성변환 항목에서 다뤄질 예정임.
-        projectileLine.startWidth = 0.3f;
-        projectileLine.endWidth = 0.3f;
+        projectileLine.startColor = Color.yellow; //기본공격은 속성값이 없어, 고정값만 가진다.
+        projectileLine.endColor = Color.white; //기본공격은 속성값이 없어, 고정값만 가진다.
+        projectileLine.startWidth = 1.0f;
+        projectileLine.endWidth = 1.0f;
 
         switch (this.isAimAttack)
         {
@@ -475,12 +480,15 @@ public class PlayerContorl : PlayerStatusControl
                 if(Physics.Raycast(rayOrigin, camera.transform.forward, out hitInfo, ShootDistance))
                 {
                     projectileLine.SetPosition(1, hitInfo.point);
+                    this.gameObject.GetComponent<PlayerLineSkill>().ShowAttackEffect((int)this.State, (int)this.MyElement, ProjectileStart);
+                    this.gameObject.GetComponent<PlayerLineSkill>().ShowHitEffect(hitInfo.point);
                     StartCoroutine(shootEffect());
                     //hitInfo.collider.GetComponent<StatusControl>();  맞는 대상의 정보를 가져옴. 추후 다뤄질 예정.
                 }
                 else
                 {
                     projectileLine.SetPosition(1, rayOrigin + (camera.transform.forward * ShootDistance));
+                    this.gameObject.GetComponent<PlayerLineSkill>().ShowAttackEffect((int)this.State, (int)this.MyElement, ProjectileStart);
                     StartCoroutine(shootEffect());
                 }
                 break;
@@ -490,41 +498,42 @@ public class PlayerContorl : PlayerStatusControl
                 if (Physics.Raycast(rayOrigin, player.transform.forward, out hitInfo, ShootDistance))
                 {
                     projectileLine.SetPosition(1, hitInfo.point);
+                    this.gameObject.GetComponent<PlayerLineSkill>().ShowAttackEffect((int)this.State, (int)this.MyElement, ProjectileStart);
+                    this.gameObject.GetComponent<PlayerLineSkill>().ShowHitEffect(hitInfo.point);
                     StartCoroutine(shootEffect());
                     //hitInfo.collider.GetComponent<StatusControl>();  맞는 대상의 정보를 가져옴. 추후 다뤄질 예정.
                 }
                 else
                 {
                     projectileLine.SetPosition(1, ProjectileStart.position + (player.transform.forward * ShootDistance));
+                    this.gameObject.GetComponent<PlayerLineSkill>().ShowAttackEffect((int)this.State, (int)this.MyElement, ProjectileStart);
                     StartCoroutine(shootEffect());
                 }
                 break;
         }
     }
 
-    public bool GetIsGrounded()
-    {
-        return player.isGrounded;
-    }
-
     private void chargedAttack()
     {
-        projectileLine.startColor = Color.blue; //이 라인들은 추후 속성변환 항목에서 다뤄질 예정임.
-        projectileLine.endColor = Color.blue; //이 라인들은 추후 속성변환 항목에서 다뤄질 예정임.
-        projectileLine.startWidth = 0.5f;
-        projectileLine.endWidth = 0.5f;
+        projectileLine.startColor = mySkillStartColor; //현재 속성에 따라서 스킬 색깔이 바뀐다.
+        projectileLine.endColor = mySkillEndColor; //현재 속성에 따라서 스킬 색깔이 바뀐다.
+        projectileLine.startWidth = 2.5f;
+        projectileLine.endWidth = 2.5f;
 
         rayOrigin = camera.GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         projectileLine.SetPosition(0, ProjectileStart.position);
         if (Physics.Raycast(rayOrigin, camera.transform.forward, out hitInfo, ShootDistance))
         {
             projectileLine.SetPosition(1, hitInfo.point);
+            this.gameObject.GetComponent<PlayerLineSkill>().ShowAttackEffect((int)this.State, (int)this.MyElement, ProjectileStart);
+            this.gameObject.GetComponent<PlayerLineSkill>().ShowHitEffect(hitInfo.point);
             StartCoroutine(shootEffect());
             //hitInfo.collider.GetComponent<StatusControl>();  맞는 대상의 정보를 가져옴. 추후 다뤄질 예정.
         }
         else
         {
             projectileLine.SetPosition(1, rayOrigin + (camera.transform.forward * ShootDistance));
+            this.gameObject.GetComponent<PlayerLineSkill>().ShowAttackEffect((int)this.State, (int)this.MyElement, ProjectileStart);
             StartCoroutine(shootEffect());
         }
     }
@@ -547,10 +556,10 @@ public class PlayerContorl : PlayerStatusControl
 
     private void elementUltSkill()
     {
-        projectileLine.startColor = Color.cyan; //이 라인들은 추후 속성변환 항목에서 다뤄질 예정임.
-        projectileLine.endColor = Color.white; //이 라인들은 추후 속성변환 항목에서 다뤄질 예정임.
-        projectileLine.startWidth = 0.7f;
-        projectileLine.endWidth = 0.5f;
+        projectileLine.startColor = mySkillStartColor; //현재 속성에 따라서 스킬 색깔이 바뀐다.
+        projectileLine.endColor = mySkillEndColor; //현재 속성에 따라서 스킬 색깔이 바뀐다.
+        projectileLine.startWidth = 4.0f;
+        projectileLine.endWidth = 4.0f;
 
         rayOrigin = camera.GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         projectileLine.SetPosition(0, ProjectileStart.position);

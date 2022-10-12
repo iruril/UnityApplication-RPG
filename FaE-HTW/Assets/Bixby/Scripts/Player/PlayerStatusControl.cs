@@ -24,7 +24,7 @@ public class PlayerStatusControl : ElementControl, IDamgeable
 
     public float Speed = 5.0f;
     public float RunSpeed = 10.0f;
-    public float DashSpeed = 30.0f;
+    public float DashSpeed = 20.0f;
     public float MyCurrentSpeed;
     public float JumpPower = 5.0f;
 
@@ -32,7 +32,7 @@ public class PlayerStatusControl : ElementControl, IDamgeable
     public float SwitchToChargeTime = 2.0f;
     public float FireRate = 0.25f;
 
-    protected float rotationSpeed = 60.0f;
+    protected float rotationSpeed = 20.0f;
     protected float nextFire = 0.0f;
 
     protected override void Start()

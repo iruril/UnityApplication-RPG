@@ -5,11 +5,19 @@ using UnityEngine.UI;
 
 public class UI_Option : MonoBehaviour
 {
-    [SerializeField] CamControl Camera;
-    [SerializeField] Slider mouseSenseSliderX;
-    [SerializeField] Slider mouseSenseSliderY;
-    [SerializeField] Text mouseSenseTextX;
-    [SerializeField] Text mouseSenseTextY;
+    private void Awake()
+    {
+        cameraControl = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamControl>();
+        mouseSenseSliderX = this.transform.GetChild(0).GetComponent<Slider>();
+        mouseSenseSliderY = this.transform.GetChild(1).GetComponent<Slider>();
+        mouseSenseTextX = this.transform.GetChild(3).GetComponent<Text>();
+        mouseSenseTextY = this.transform.GetChild(4).GetComponent<Text>();
+    }
+    CamControl cameraControl;
+    Slider mouseSenseSliderX;
+    Slider mouseSenseSliderY;
+    Text mouseSenseTextX;
+    Text mouseSenseTextY;
     float mouseSenseX;
     float mouseSenseY;
     public void Set()
@@ -30,7 +38,7 @@ public class UI_Option : MonoBehaviour
     }
     public void senseSet(bool isStop)
     {
-        Camera.mouseSenseX = isStop ? 0 : mouseSenseX * 0.05f;
-        Camera.mouseSenseY = isStop ? 0 : mouseSenseY * 0.05f;
+        cameraControl.mouseSenseX = isStop ? 0 : mouseSenseX * 0.05f;
+        cameraControl.mouseSenseY = isStop ? 0 : mouseSenseY * 0.05f;
     }
 }

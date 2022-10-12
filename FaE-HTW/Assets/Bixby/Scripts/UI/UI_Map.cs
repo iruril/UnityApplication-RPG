@@ -8,10 +8,12 @@ public class UI_Map : MonoBehaviour
     [SerializeField] Vector2 min;
     float realMaxX, realMaxZ, realMinX, realMinZ;
     float mapX, mapY;
-    [SerializeField] GameObject realPlayer;
-    [SerializeField] GameObject mapPlayer;
+    GameObject realPlayer;
+    GameObject mapPlayer;
     void Start()
     {
+        realPlayer = GameObject.FindGameObjectWithTag("Player");
+        mapPlayer = this.transform.GetChild(0).gameObject;
         realMaxX = max.x;
         realMaxZ = max.y;
         realMinX = min.x;

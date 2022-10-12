@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class fieldItem : MonoBehaviour
 {
-    public itemData itemData;
+    public itemData ItemData;
     float angle;
-    [SerializeField] GameObject keyF;
+    GameObject keyF;
     bool isPlayerClose;
     void Start()
     {
-        this.transform.localScale = new Vector3(itemData.xSize, itemData.ySize, 1f);
+        this.transform.localScale = new Vector3(ItemData.xSize, ItemData.ySize, 1f);
         Vector3 tempPos = this.transform.position;
         //tempPos.y = itemData.ySize / 2f;
         this.transform.position = tempPos;
         isPlayerClose = false;
+        keyF = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Bixby/Prefab/UI/letter-f.prefab", typeof(GameObject)) as GameObject;
     }
     public void setup(itemData data)
     {
-        itemData = data;
+        ItemData = data;
         angle = 0f;
         //keyInst = null;
-        this.transform.localScale = new Vector3(itemData.xSize, itemData.ySize, 1f);
+        this.transform.localScale = new Vector3(ItemData.xSize, ItemData.ySize, 1f);
         Vector3 tempPos = this.transform.position;
         //tempPos.y = itemData.ySize / 2f;
         this.transform.position = tempPos;

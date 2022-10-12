@@ -35,7 +35,7 @@ public class CamControl : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         revDistanceMove = new Vector3(0.0f, -2.0f, distanceMoveMod);
-        revDistanceAim = new Vector3(-1.0f, -0.5f, distanceAimMod);
+        revDistanceAim = new Vector3(-1.2f, -0.5f, distanceAimMod);
 
         this.step = STATE.MOVE;
         this.next_step = STATE.MOVE;

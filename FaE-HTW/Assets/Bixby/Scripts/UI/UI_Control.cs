@@ -5,19 +5,31 @@ using UnityEngine;
 public class UI_Control : MonoBehaviour
 {
     public static UI_Control Inst { get; private set; }
-    private void Awake() => Inst = this;
-    [SerializeField] GameObject optionObj;
-    public UI_Option option;
-    [SerializeField] GameObject inventory;
-    public Speech speech;
-    public GameObject map;
-    [SerializeField] List<GameObject> windows;
+    private void Awake()
+    {
+        Inst = this;
+        optionObj = GameObject.Find("Option");
+        option = optionObj.GetComponent<UI_Option>();
+        inventory = GameObject.Find("Inventory");
+        Speech = this.gameObject.GetComponent<Speech>();
+        Map = GameObject.Find("Map");
+        windows = new List<GameObject>();
+        windows.Add(inventory);
+        windows.Add(Map);
+        aimPoint = GameObject.Find("AimPoint");
+    }
+    GameObject optionObj;
+    UI_Option option;
+    GameObject inventory;
+    public Speech Speech;
+    public GameObject Map;
+    List<GameObject> windows;
     GameObject openedWindow;
-    [SerializeField] GameObject AimPoint;
+    GameObject aimPoint;
     void Start()
     {
         option.Set();
-        map.SetActive(false);
+        Map.SetActive(false);
         openedWindow = null;
     }
 
@@ -35,19 +47,19 @@ public class UI_Control : MonoBehaviour
                     windowSet(inventory);
                     break;
                 case "m":
-                    windowSet(map);
+                    windowSet(Map);
                     break;
             }
         }
         if (openedWindow == null)
         {
             Cursor.lockState = CursorLockMode.Locked;
-            AimPoint.SetActive(true);
+            aimPoint.SetActive(true);
         }
         else
         {
             Cursor.lockState = CursorLockMode.None;
-            AimPoint.SetActive(false);
+            aimPoint.SetActive(false);
         }
     }
     public void optionWindow()

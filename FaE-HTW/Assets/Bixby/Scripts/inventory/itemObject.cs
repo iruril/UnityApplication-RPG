@@ -9,16 +9,16 @@ public class itemObject : MonoBehaviour
     
     Vector3 zeroPos;
     Vector3 maxPos;
-    public Vector3 size;
-    public Vector3 originPos;
+    Vector3 size;
+    public Vector3 OriginPos;
     bool isEquip;
-    [SerializeField] GameObject equip;
-    public itemData itemData;
+    GameObject equip;
+    public itemData ItemData;
     float cell;
     public void Setup(float sizeX, float sizeY, float posX, float posY, bool isEquip, float cell, Vector3 zero, itemData itemData)
     {
         this.zeroPos = zero;
-        maxPos = zeroPos + (Vector3.right * inventoryObject.Inst.xSize * cell) + (Vector3.down * inventoryObject.Inst.ySize * cell);
+        maxPos = zeroPos + (Vector3.right * inventoryObject.Inst.XSize * cell) + (Vector3.down * inventoryObject.Inst.YSize * cell);
 
         this.size = new Vector3(sizeX * cell, sizeY * cell, 1f);
         this.GetComponent<RectTransform>().sizeDelta = this.size;
@@ -26,15 +26,16 @@ public class itemObject : MonoBehaviour
         this.transform.localPosition = new Vector3(
                     zeroPos.x + posX * cell + size.x / 2f,
                     zeroPos.y - posY * cell - size.y / 2f);
-        this.originPos = this.transform.localPosition;
+        this.OriginPos = this.transform.localPosition;
 
+        equip = this.transform.GetChild(0).gameObject;
         this.isEquip = isEquip;
         equip.SetActive(isEquip);
 
-        this.itemData = itemData;
+        this.ItemData = itemData;
         this.cell = cell;
         Color imageColor = new Color();
-        switch (this.itemData.itemID)
+        switch (this.ItemData.itemID)
         {
             case 0:
                  imageColor = Color.red;
@@ -116,7 +117,7 @@ public class itemObject : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             { //좌클릭
                 //print("마우스 좌클릭");
-                originPos = this.transform.localPosition;
+                OriginPos = this.transform.localPosition;
             }
             else if (Input.GetMouseButtonDown(1))
             { //우클릭

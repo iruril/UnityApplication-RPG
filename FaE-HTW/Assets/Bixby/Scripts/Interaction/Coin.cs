@@ -36,7 +36,7 @@ public class Coin : MonoBehaviour
         if (other.tag == "Player")
         {
             //인벤토리에 골드 변경
-            inventoryObject.Inst.gold++;
+            inventoryObject.Inst.Gold++;
             Destroy(gameObject);
         }
     }
