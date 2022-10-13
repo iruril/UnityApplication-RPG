@@ -56,6 +56,7 @@ public class PlayerContorl : PlayerStatusControl
     {
         base.Start();
 
+        this.isJumpPressed = false;
         this.isAimAttack = false;
         this.State = STATE.NONE;
         this.NextState = STATE.IDLE;
@@ -328,6 +329,7 @@ public class PlayerContorl : PlayerStatusControl
         switch (this.State)
         {
             case STATE.IDLE:
+                move();
                 StaminaRegerenate();
                 break;
             case STATE.MOVE:
@@ -384,7 +386,7 @@ public class PlayerContorl : PlayerStatusControl
     private bool isAFK()
     {
         latestActionTime += Time.deltaTime;
-        if(Input.anyKeyDown)
+        if (Input.anyKey)
         {
             isOnAFK = false;
             latestActionTime = 0;
