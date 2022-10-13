@@ -31,6 +31,7 @@ public class PlayerContorl : PlayerStatusControl
 
     public STATE State = STATE.NONE; // 현재 상태.
     public STATE NextState = STATE.NONE; // 다음 상태.
+    public STATE PrevState = STATE.NONE; // 이전 상태.
     public float StateTimer = 0.0f; // 타이머
     public enum STATE
     {
@@ -79,6 +80,7 @@ public class PlayerContorl : PlayerStatusControl
                 case STATE.IDLE:
                     if ((Input.GetAxis("Vertical") != 0) || (Input.GetAxis("Horizontal") != 0))
                     {
+                        this.PrevState = this.State;
                         this.NextState = STATE.MOVE; 
                     }
                     if (Input.GetMouseButton(1))
@@ -86,84 +88,164 @@ public class PlayerContorl : PlayerStatusControl
                     if (Input.GetMouseButton(0) && Time.time > nextFire)
                     {
                         this.isAimAttack = false;
+                        this.PrevState = this.State;
                         this.NextState = STATE.ATTACK;
                     }
                     if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.DASH;
+                    }
                     if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.ELEMENT_SKILL;
+                    }
                     if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.ELEMENT_ULT_SKILL;
+                    }
                     break;
                 case STATE.MOVE:
                     if (Input.GetMouseButton(1))
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.AIM;
+                    }
                     if (Input.GetMouseButton(0) && Time.time > nextFire)
                     {
                         this.isAimAttack = false;
+                        this.PrevState = this.State;
                         this.NextState = STATE.ATTACK;
                     }
                     if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.DASH;
+                    }
                     if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.ELEMENT_SKILL;
+                    }
                     if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.ELEMENT_ULT_SKILL;
+                    }
                     if (isAFK())
                     {
+                        this.PrevState = this.State;
                         this.NextState = STATE.IDLE;
                     }
                     break;
                 case STATE.AIM:
                     if (!Input.GetMouseButton(1))
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.MOVE;
+                    }
                     if (Input.GetMouseButton(0) && Time.time > nextFire)
                     {
                         this.isAimAttack = true;
+                        this.PrevState = this.State;
                         this.NextState = STATE.ATTACK;
                     }
                     if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.DASH;
+                    }
                     if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.ELEMENT_SKILL;
+                    }
                     if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.ELEMENT_ULT_SKILL;
+                    }
                     break;
                 case STATE.DASH:
                     if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.RUN;
+                    }
                     else
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.MOVE;
-                    break;
+                    }
+                        break;
                 case STATE.RUN:
                     if (!Input.GetKey(KeyCode.LeftShift) || Stamina <= 0)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.MOVE;
+                    }
                     if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.ELEMENT_SKILL;
+                    }
                     if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.ELEMENT_ULT_SKILL;
+                    }
                     break;
                 case STATE.ATTACK:
-                    if (this.StateTimer >= SwitchToChargeTime) this.NextState = STATE.CHARGE_ATTACK;
+                    if (this.StateTimer >= SwitchToChargeTime)
+                    {
+                        this.PrevState = this.State;
+                        this.NextState = STATE.CHARGE_ATTACK;
+                    }
                     if (!Input.GetMouseButton(0))
                     {
                         nextFire = Time.time + FireRate;
                         attack();
-                        this.NextState = STATE.MOVE;
+                        if (this.PrevState == STATE.AIM)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.AIM;
+                        }
+                        else
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.MOVE;
+                        }
                     }
                     if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.DASH;
+                    }
                     break;
                 case STATE.CHARGE_ATTACK:
                     if (!Input.GetMouseButton(0))
                     {
-                        nextFire = Time.time + FireRate;
-                        chargedAttack();
-                        StaminaUse(ChargeAttackStaminaAmount);
-                        this.NextState = STATE.MOVE;
+                        if (this.Stamina >= ChargeAttackStaminaAmount)
+                        {
+                            nextFire = Time.time + FireRate;
+                            StaminaUse(ChargeAttackStaminaAmount);
+                            chargedAttack();
+                        }
+                        else
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.MOVE;
+                        }
+                        this.PrevState = this.State;
+                        this.NextState = STATE.AIM;
                     }
                     if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
+                    {
+                        this.PrevState = this.State;
                         this.NextState = STATE.DASH;
+                    }
                     break;
                 case STATE.ELEMENT_SKILL:
                     
@@ -174,10 +256,12 @@ public class PlayerContorl : PlayerStatusControl
                         nextFire = Time.time + FireRate;
                         elementUltSkill();
                         StartCoroutine(fallBack());
+                        this.PrevState = this.State;
                         this.NextState = STATE.MOVE;
                     }
                     if(this.StateTimer >= 3.0f)
                     {
+                        this.PrevState = this.State;
                         this.NextState = STATE.MOVE;
                     }
                     break;

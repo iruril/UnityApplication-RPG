@@ -19,6 +19,8 @@ public class Speech : MonoBehaviour
     void Start()
     {
         speechWindow.SetActive(false);
+        Button nextSpeech = speechWindow.transform.GetChild(2).GetComponent<Button>();
+        nextSpeech.onClick.AddListener(() => speechNext());
     }
     public void setUp(string name, int index)//말 걸었을 때
     {

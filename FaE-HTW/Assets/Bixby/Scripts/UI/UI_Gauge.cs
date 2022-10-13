@@ -13,28 +13,33 @@ public class UI_Gauge : MonoBehaviour
     float timeTack;
     Slider attackCharge;
     CamControl cameraControl;
+    Vector3 staminaOriginPos;
+    GameObject staminaObj;
     void Start()
     {
+        staminaObj = this.transform.GetChild(1).gameObject;
         hp = this.transform.GetChild(0).GetComponent<Slider>();
-        stamina = this.transform.GetChild(1).GetComponent<Slider>();
+        stamina = staminaObj.GetComponent<Slider>();
         attackCharge = this.transform.GetChild(2).GetComponent<Slider>();
         playerControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerContorl>();
-        staminaBack = this.transform.GetChild(1).GetChild(1).gameObject;
+        staminaBack = staminaObj.transform.GetChild(1).gameObject;
         cameraControl = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamControl>();
         staminaBackAmount = playerControl.MyStartingStamina;
         timeTack = 0f;
+        staminaOriginPos = staminaObj.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerControl.State == PlayerContorl.STATE.ATTACK && cameraControl.step == CamControl.STATE.AIM)
-        {
-            attackCharge.gameObject.SetActive(true);
+        staminaObj.SetActive(stamina.value != 1);
+        staminaObj.transform.position = cameraControl.step == CamControl.STATE.AIM ? staminaOriginPos :
+            Vector3.Lerp(staminaObj.transform.position, Camera.main.WorldToScreenPoint(playerControl.gameObject.transform.position + Vector3.up * 1.3f) + Vector3.right * 200f, Time.deltaTime * 15.0f);
+
+        staminaObj.transform.localScale = cameraControl.step == CamControl.STATE.AIM ? Vector3.one : new Vector3(0.7f, 1, 1);
+        attackCharge.gameObject.SetActive(playerControl.State == PlayerContorl.STATE.ATTACK && cameraControl.step == CamControl.STATE.AIM);
+        if (attackCharge.gameObject.activeSelf)
             attackCharge.value = playerControl.StateTimer / playerControl.SwitchToChargeTime;
-        }
-        else
-            attackCharge.gameObject.SetActive(false);
         timeTack += Time.deltaTime;
         hp.value = playerControl.Health / playerControl.MyStartingHealth;
         stamina.value = playerControl.Stamina / playerControl.MyStartingStamina;

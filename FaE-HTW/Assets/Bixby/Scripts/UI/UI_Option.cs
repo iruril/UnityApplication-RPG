@@ -12,6 +12,8 @@ public class UI_Option : MonoBehaviour
         mouseSenseSliderY = this.transform.GetChild(1).GetComponent<Slider>();
         mouseSenseTextX = this.transform.GetChild(3).GetComponent<Text>();
         mouseSenseTextY = this.transform.GetChild(4).GetComponent<Text>();
+        Button closeBtn = this.transform.GetChild(2).GetComponent<Button>();
+        closeBtn.onClick.AddListener(() => UI_Control.Inst.windowSet(this.gameObject));
     }
     CamControl cameraControl;
     Slider mouseSenseSliderX;

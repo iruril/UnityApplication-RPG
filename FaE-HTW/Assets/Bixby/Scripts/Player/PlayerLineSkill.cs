@@ -28,25 +28,25 @@ public class PlayerLineSkill : MonoBehaviour
             switch (elementType)
             {
                 case -1:
-                    Instantiate(NormalSkill, pos);
+                    Instantiate(NormalSkill, pos.position, pos.rotation);
                     break;
                 case 0:
-                    Instantiate(ChargeSkill_Fire, pos);
+                    Instantiate(ChargeSkill_Fire, pos.position, pos.rotation);
                     break;
                 case 1:
-                    Instantiate(ChargeSkill_Ice, pos);
+                    Instantiate(ChargeSkill_Ice, pos.position, pos.rotation);
                     break;
                 case 2:
-                    Instantiate(ChargeSkill_Water, pos);
+                    Instantiate(ChargeSkill_Water, pos.position, pos.rotation);
                     break;
                 case 3:
-                    Instantiate(ChargeSkill_Electro, pos);
+                    Instantiate(ChargeSkill_Electro, pos.position, pos.rotation);
                     break;
             }
         }
         else
         {
-            Instantiate(NormalSkill, pos);
+            Instantiate(NormalSkill, pos.position, pos.rotation);
         }
     }
     public void ShowHitEffect(Vector3 pos)
