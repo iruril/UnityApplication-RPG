@@ -1,0 +1,261 @@
+fileFormatVersion: 2
+guid: 7edb747e20d698a4d9326468b9b0823f
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      74: -203655887218126122
+    second: mixamo.com
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'Head' not found\n"
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: FemaleMage_A@Flying Back Death(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: shadow
+      parentName: FemaleMage_A@Flying Back Death(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Margot
+      parentName: FemaleMage_A@Flying Back Death(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: rig:rig
+      parentName: FemaleMage_A@Flying Back Death(Clone)
+      position: {x: -0.0015997203, y: -0.003106919, z: -0.0017410076}
+      rotation: {x: 0.07446206, y: 0.4216326, z: -0.029372364, w: 0.9032268}
+      scale: {x: 1, y: 1, z: 1}
+    - name: rig:GlobalSRT
+      parentName: rig:rig
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: rig:UpperBody
+      parentName: rig:GlobalSRT
+      position: {x: 0.000029810355, y: 0.016179018, z: -0.00041736942}
+      rotation: {x: -0.0052452013, y: -0.21000665, z: 0.055170633, w: 0.976128}
+      scale: {x: 1, y: 1, z: 1}
+    - name: rig:Lumbar1
+      parentName: rig:UpperBody
+      position: {x: -0, y: 0.0007888326, z: 0.000012035012}
+      rotation: {x: 0.5735616, y: -0.74139726, z: -0.16090243, w: 0.30897853}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1}
+    - name: rig:Lumbar2
+      parentName: rig:Lumbar1
+      position: {x: -0.0037933125, y: -2.0816681e-19, z: -3.0814878e-35}
+      rotation: {x: 0.000000074505806, y: -0.00000008940697, z: -0.10796368, w: 0.99415493}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: rig:RShoulder
+      parentName: rig:Lumbar2
+      position: {x: -0.004354859, y: -0.00019122005, z: -0.0007189614}
+      rotation: {x: 0.0147114955, y: 0.70976377, z: 0.036461663, w: 0.7033416}
+      scale: {x: -1.0000002, y: -1.0000001, z: -1.0000004}
+    - name: rig:RBicep
+      parentName: rig:RShoulder
+      position: {x: -0.002459881, y: 9.020562e-19, z: -1.02973795e-17}
+      rotation: {x: -0.005512347, y: -0.020132298, z: -0.21952036, w: 0.9753846}
+      scale: {x: 1.0000002, y: 1.0000002, z: 0.9999997}
+    - name: rig:RForearm
+      parentName: rig:RBicep
+      position: {x: -0.0051193177, y: 0, z: 2.6508742e-18}
+      rotation: {x: 0.000021426005, y: -0.000538744, z: 0.0073141074, w: 0.9999731}
+      scale: {x: 1.0000002, y: 0.9999998, z: 1.0000001}
+    - name: rig:RHand
+      parentName: rig:RForearm
+      position: {x: -0.0046187104, y: -3.642919e-18, z: -1.5997403e-18}
+      rotation: {x: 0.7124738, y: -0.009071012, z: -0.016697055, w: 0.7014414}
+      scale: {x: 0.99999994, y: 0.9999996, z: 0.99999994}
+    - name: rig:right_weapon
+      parentName: rig:RHand
+      position: {x: -0.0025038798, y: 5.350171e-21, z: -1.3877787e-19}
+      rotation: {x: -0.9998125, y: 0.002740972, z: -0.019169558, w: 0.00005256238}
+      scale: {x: -0.99999994, y: -1.0000001, z: -1}
+    - name: rig:LShoulder
+      parentName: rig:Lumbar2
+      position: {x: -0.004354859, y: -0.00019122005, z: 0.0007189614}
+      rotation: {x: -0.70976377, y: 0.014711678, z: 0.70334166, w: -0.03646166}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000001}
+    - name: rig:LBicep
+      parentName: rig:LShoulder
+      position: {x: -0.002459881, y: 3.4694467e-19, z: -1.367721e-18}
+      rotation: {x: -0.008991425, y: 0.009667515, z: 0.14878839, w: 0.988781}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: rig:LForearm
+      parentName: rig:LBicep
+      position: {x: -0.0051193177, y: 6.938894e-20, z: -1.9754163e-18}
+      rotation: {x: -0.000000096391865, y: -0.000000013038513, z: 0.039840907, w: 0.999206}
+      scale: {x: 1.0000005, y: 1.0000001, z: 1.0000001}
+    - name: rig:LHand
+      parentName: rig:LForearm
+      position: {x: -0.0046187104, y: -2.8449465e-18, z: -1.8973538e-20}
+      rotation: {x: 0.71247387, y: -0.009070963, z: -0.016697098, w: 0.70144135}
+      scale: {x: 0.9999997, y: 0.9999998, z: 0.9999998}
+    - name: rig:left_weapon
+      parentName: rig:LHand
+      position: {x: -0.0025038798, y: 2.1104592e-19, z: -1.04083406e-19}
+      rotation: {x: 0.00005245208, y: -0.019169398, z: -0.0027408914, w: 0.99981254}
+      scale: {x: 1.0000012, y: 1.0000011, z: 1}
+    - name: rig:Neck
+      parentName: rig:Lumbar2
+      position: {x: -0.004529387, y: -5.551115e-19, z: -3.3942154e-19}
+      rotation: {x: -0.70603245, y: 0.038961716, z: 0.038961716, w: -0.7060327}
+      scale: {x: 1, y: 1.0000002, z: 1}
+    - name: rig:Head
+      parentName: rig:Neck
+      position: {x: -0.0018373398, y: -2.4651902e-33, z: 3.4694467e-19}
+      rotation: {x: -0.00000011920926, y: -0.07251415, z: 0.000000034458928, w: -0.9973674}
+      scale: {x: 1, y: 1.0000001, z: 1.0000004}
+    - name: rig:LThigh
+      parentName: rig:UpperBody
+      position: {x: -0.0032087078, y: -0.0011832488, z: -0.000018052518}
+      rotation: {x: 0.73479605, y: 0.60912466, z: -0.25510094, w: -0.15480813}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000004}
+    - name: rig:LShin
+      parentName: rig:LThigh
+      position: {x: -0.0050406763, y: 2.0816681e-19, z: -3.469447e-20}
+      rotation: {x: 0.000000029802319, y: -0, z: 0.14918108, w: -0.98880994}
+      scale: {x: 1.0000005, y: 1, z: 1.0000001}
+    - name: rig:LFootBone1
+      parentName: rig:LShin
+      position: {x: -0.005537649, y: 6.938894e-20, z: 1.3062467e-17}
+      rotation: {x: 0.05457096, y: -0.041228626, z: 0.49692902, w: 0.86509174}
+      scale: {x: 1.0000005, y: 1.0000001, z: 0.99999994}
+    - name: rig:LFootBone2
+      parentName: rig:LFootBone1
+      position: {x: -0.00213918, y: 1.3877787e-19, z: -8.250798e-20}
+      rotation: {x: -0.00000002235174, y: 0.00000001862645, z: -0.12773517, w: -0.99180835}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000001}
+    - name: rig:RThigh
+      parentName: rig:UpperBody
+      position: {x: 0.0032087078, y: -0.0011832488, z: -0.000018052518}
+      rotation: {x: -0.7024757, y: -0.59033424, z: 0.34965637, w: 0.1891397}
+      scale: {x: 1, y: 0.9999999, z: 1.0000001}
+    - name: rig:RShin
+      parentName: rig:RThigh
+      position: {x: -0.0050406763, y: 2.0816681e-19, z: -3.7296553e-19}
+      rotation: {x: 0.000000014901161, y: 0.000000014901161, z: -0.1491811, w: 0.98880994}
+      scale: {x: 0.99999976, y: 0.99999994, z: 1}
+    - name: rig:RFootBone1
+      parentName: rig:RShin
+      position: {x: -0.005537649, y: 1.3877787e-18, z: -3.0184189e-18}
+      rotation: {x: -0.025874987, y: -0.016274875, z: -0.4950248, w: -0.868341}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1}
+    - name: rig:RFootBone2
+      parentName: rig:RFootBone1
+      position: {x: -0.00213918, y: 1.3877787e-19, z: -1.6042933e-19}
+      rotation: {x: 0.00000001117587, y: 0.00000006332993, z: 0.12773523, w: 0.9918083}
+      scale: {x: 1.0000004, y: 1.0000005, z: 0.99999976}
+    - name: weapon:weapon
+      parentName: FemaleMage_A@Flying Back Death(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: weapon:left_weapon
+      parentName: weapon:weapon
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: weapon:right_weapon
+      parentName: weapon:weapon
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

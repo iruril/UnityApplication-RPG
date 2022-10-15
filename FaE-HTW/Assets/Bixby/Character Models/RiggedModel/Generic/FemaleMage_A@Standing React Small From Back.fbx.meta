@@ -1,12 +1,17 @@
 fileFormatVersion: 2
-guid: eb460094caeee0149bb83431ff21ad18
+guid: 4ea35776eba25cb4f8f71e41acb6c25e
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
     second: mixamo.com
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Margot
+    second: {fileID: 2100000, guid: 1f6c365df44a6f54caa28b100eab4280, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

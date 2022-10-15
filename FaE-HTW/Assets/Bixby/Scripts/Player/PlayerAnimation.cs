@@ -14,18 +14,12 @@ public class PlayerAnimation : MonoBehaviour
         animator = this.gameObject.transform.GetChild(1).GetComponent<Animator>();
 
         // Animator 변수 초기화
-        animator.SetBool("isRun", false);
-        animator.SetBool("isJump", false);
-        animator.SetBool("isAtk", false);
-        animator.SetBool("isFall", false);
-        animator.SetBool("isDead", false);
+        initializeAnimParameter();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // 우선 구현을 위해 switch가 아닌 if를 사용했으니 State 관련 정리가 완료되면 switch 형태로 구현 지향할 것
-
         //if(체력이 다 달았을 때)
         //    {
         //    animator.SetBool("isDead", true);
@@ -33,9 +27,10 @@ public class PlayerAnimation : MonoBehaviour
 
         if (!modelContorl.GetIsGrounded())      // 공중에 뜬 상태일 때
         {
+            animator.SetBool("isCombat", true);
             animator.SetBool("isJump", true);   // Jump 애니메이션 실행
 
-            if(animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")               // 공중에 떠 있으면서(상위 조건문) 점프 애니메이션이 실행중인 상태고,
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")               // 공중에 떠 있으면서(상위 조건문) 점프 애니메이션이 실행중인 상태고,
                 && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)  // 애니메이션 진행 상황이 90&을 넘어갔을 때
             {
                 //animator.SetBool("isFall", true);   // Fall 애니메이션 실행
@@ -47,16 +42,86 @@ public class PlayerAnimation : MonoBehaviour
             animator.SetBool("isFall", false);
         }
 
+        switch (modelContorl.State)
+        {
+            case PlayerContorl.STATE.IDLE:                              // 비전투 상태
+                animator.SetBool("isCombat", false);                    // 비전투 상태 활성화
+                animator.SetBool("isAim", false);                       // 조준 애니메이션 정지
+                break;
 
-        //if (modelContorl.State == PlayerContorl.STATE.MOVE) // Move 상태일 때
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) 
-            || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))  // WASD 입력이 발생할 때
-            animator.SetBool("isRun", true);                        // 이동 애니메이션 실행
-        else animator.SetBool("isRun", false);
+            case PlayerContorl.STATE.MOVE:                              // 이동 상태
+                animator.SetBool("isCombat", true);                     // 비전투 상태 비활성화
+                animator.SetBool("isAtk", false);                       // 공격 애니메이션 정지
+                animator.SetBool("isAim", false);                       // 조준 애니메이션 정지
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A)
+                || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))  // WASD 입력이 발생할 때
+                {
+                    animator.SetBool("isRun", true);                    // 이동 애니메이션 실행
+                }
+                else animator.SetBool("isRun", false);                  // 이동 애니메이션 정지
 
-        // 아무튼 공격 상태일 때(모션이 아직 없어서 임의로 설정)
-        if (modelContorl.State == PlayerContorl.STATE.ATTACK || modelContorl.State == PlayerContorl.STATE.CHARGE_ATTACK || modelContorl.State == PlayerContorl.STATE.ELEMENT_ULT_SKILL)
-            animator.SetBool("isAtk", true);    // 공격 애니메이션 실행
-        else animator.SetBool("isAtk", false);
+                break;
+
+            case PlayerContorl.STATE.ATTACK:                            // 약 공격 상태
+                animator.SetBool("isCombat", true);                     // 비전투 상태 비활성화
+                animator.SetBool("isAtk", true);                        // 공격 애니메이션 실행
+
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Normal Attack")                 // 공격 애니메이션이 실행중인 상태고,
+                && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f                   // 애니메이션 진행 상황이 90&을 넘어갔고
+                && Input.GetMouseButton(0))                                                         // 마우스 좌 클릭 입력이 활성화되어 있을 때
+                {
+                    animator.SetBool("isCharge", true);                 // 차지 상태 활성화
+                }
+
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A)
+                || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))  // WASD 입력이 발생할 때
+                {
+                    animator.SetBool("isRun", true);                    // 이동 애니메이션 실행
+                }
+                else animator.SetBool("isRun", false);                  // 이동 애니메이션 정지
+
+                break;
+
+            case PlayerContorl.STATE.CHARGE_ATTACK:                     // 강 공격 상태
+                if(Input.GetMouseButtonUp(0))                           // 마우스 좌 클릭 입력이 해제됐다면
+                    animator.SetBool("isCharge", false);                // 차지 상태 해제
+                else animator.SetBool("isCharge", true);                // 차지 상태 유지
+
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A)
+                || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))  // WASD 입력이 발생할 때
+                {
+                    animator.SetBool("isRun", true);                    // 이동 애니메이션 실행
+                }
+                else animator.SetBool("isRun", false);                  // 이동 애니메이션 정지
+
+                break;
+
+            case PlayerContorl.STATE.ELEMENT_ULT_SKILL:                 // 궁극기 사용 상태
+                animator.SetBool("isCombat", true);                     // 비전투 상태 비활성화
+                animator.SetBool("isAtk", true);                        // 공격 애니메이션 실행
+                break;
+
+            case PlayerContorl.STATE.AIM:                               // 조준 상태
+                animator.SetBool("isAim", true);                        // 조준 애니메이션 실행
+
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A)
+                || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))  // WASD 입력이 발생할 때
+                {
+                    animator.SetBool("isRun", true);                    // 이동 애니메이션 실행
+                }
+                else animator.SetBool("isRun", false);                  // 이동 애니메이션 정지
+                break;
+        }
+    }
+
+    void initializeAnimParameter()        // 애니메이션 패러미터 초기화 함수
+    {
+        animator.SetBool("isRun", false);
+        animator.SetBool("isJump", false);
+        animator.SetBool("isAtk", false);
+        animator.SetBool("isFall", false);
+        animator.SetBool("isCombat", false);
+        animator.SetBool("isCharge", false);
+        animator.SetBool("isAim", false);
     }
 }
