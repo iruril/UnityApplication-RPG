@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStatusControl : ElementControl, IDamgeable
 {
-    public const float GravityForce = 9.8f;
+    public const float GravityForce = 30.0f;
 
     public float MyStartingHealth = 100.0f;
     public float Health;

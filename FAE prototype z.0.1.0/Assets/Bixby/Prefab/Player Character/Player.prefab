@@ -95,10 +95,10 @@ MonoBehaviour:
   RunSpeed: 15
   DashSpeed: 30
   MyCurrentSpeed: 0
-  JumpPower: 5
+  JumpPower: 10
   ShootDistance: 50
   SwitchToChargeTime: 1
-  FireRate: 0.25
+  FireRate: 0.5
   ProjectileStart: {fileID: 2970369940586204732}
   State: -1
   NextState: -1
