@@ -15,6 +15,7 @@ public class PlayerContorl : PlayerStatusControl
 
     private Vector3 playerDirection = Vector3.forward;
     private bool isJumpPressed = false;
+    private bool isSwimming = false;
 
     public Transform ProjectileStart;
 
@@ -45,10 +46,11 @@ public class PlayerContorl : PlayerStatusControl
         CHARGE_ATTACK = 6, // 강공격
         ELEMENT_SKILL = 7, // 원소스킬
         ELEMENT_ULT_SKILL = 8, // 원소궁극기
-        STUNNED = 9, // 경직
-        DEAD = 10, // 사망
+        SWIMMING = 9, // 수영 중
+        STUNNED = 10, // 경직
+        DEAD = 11, // 사망
 
-        NUM = 11, // 상태 종류
+        NUM = 12, // 상태 종류
     };
 
     // Start is called before the first frame update
@@ -74,313 +76,389 @@ public class PlayerContorl : PlayerStatusControl
 
         vectorAlign();
         this.StateTimer += Time.deltaTime;
-        if (this.NextState == STATE.NONE)
+        if (UI_Control.Inst.OpenedWindow == null)
         {
-            switch (this.State)
+            if (this.NextState == STATE.NONE)
             {
-                case STATE.IDLE:
-                    if ((Input.GetAxis("Vertical") != 0) || (Input.GetAxis("Horizontal") != 0))
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.MOVE; 
-                    }
-                    if (Input.GetMouseButton(1))
-                        this.NextState = STATE.AIM;
-                    if (Input.GetMouseButton(0) && Time.time > nextFire)
-                    {
-                        this.isAimAttack = false;
-                        this.PrevState = this.State;
-                        this.NextState = STATE.ATTACK;
-                    }
-                    if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.DASH;
-                    }
-                    if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.ELEMENT_SKILL;
-                    }
-                    if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.ELEMENT_ULT_SKILL;
-                    }
-                    break;
-                case STATE.MOVE:
-                    if (Input.GetMouseButton(1))
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.AIM;
-                    }
-                    if (Input.GetMouseButton(0) && Time.time > nextFire)
-                    {
-                        this.isAimAttack = false;
-                        this.PrevState = this.State;
-                        this.NextState = STATE.ATTACK;
-                    }
-                    if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.DASH;
-                    }
-                    if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.ELEMENT_SKILL;
-                    }
-                    if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.ELEMENT_ULT_SKILL;
-                    }
-                    if (isAFK())
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.IDLE;
-                    }
-                    break;
-                case STATE.AIM:
-                    if (!Input.GetMouseButton(1))
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.MOVE;
-                    }
-                    if (Input.GetMouseButton(0) && Time.time > nextFire)
-                    {
-                        this.isAimAttack = true;
-                        this.PrevState = this.State;
-                        this.NextState = STATE.ATTACK;
-                    }
-                    if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.DASH;
-                    }
-                    if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.ELEMENT_SKILL;
-                    }
-                    if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.ELEMENT_ULT_SKILL;
-                    }
-                    break;
-                case STATE.DASH:
-                    if (Input.GetKey(KeyCode.LeftShift))
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.RUN;
-                    }
-                    else
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.MOVE;
-                    }
+                if (isSwimming == true)
+                {
+                    this.PrevState = this.State;
+                    this.NextState = STATE.SWIMMING;
+                }
+                switch (this.State)
+                {
+                    case STATE.IDLE:
+                        if ((Input.GetAxis("Vertical") != 0) || (Input.GetAxis("Horizontal") != 0))
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.MOVE;
+                        }
+                        if (Input.GetMouseButton(1))
+                            this.NextState = STATE.AIM;
+                        if (Input.GetMouseButton(0) && Time.time > nextFire)
+                        {
+                            this.isAimAttack = false;
+                            this.PrevState = this.State;
+                            this.NextState = STATE.ATTACK;
+                        }
+                        if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.DASH;
+                        }
+                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.ELEMENT_SKILL;
+                        }
+                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.ELEMENT_ULT_SKILL;
+                        }
                         break;
-                case STATE.RUN:
-                    if (!Input.GetKey(KeyCode.LeftShift) || Stamina <= 0)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.MOVE;
-                    }
-                    if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.ELEMENT_SKILL;
-                    }
-                    if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.ELEMENT_ULT_SKILL;
-                    }
-                    break;
-                case STATE.ATTACK:
-                    if (this.StateTimer >= SwitchToChargeTime)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.CHARGE_ATTACK;
-                    }
-                    if (!Input.GetMouseButton(0))
-                    {
-                        nextFire = Time.time + FireRate;
-                        attack();
-                        if (this.PrevState == STATE.AIM)
+                    case STATE.MOVE:
+                        if (Input.GetMouseButton(1))
                         {
                             this.PrevState = this.State;
                             this.NextState = STATE.AIM;
                         }
+                        if (Input.GetMouseButton(0) && Time.time > nextFire)
+                        {
+                            this.isAimAttack = false;
+                            this.PrevState = this.State;
+                            this.NextState = STATE.ATTACK;
+                        }
+                        if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.DASH;
+                        }
+                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.ELEMENT_SKILL;
+                        }
+                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.ELEMENT_ULT_SKILL;
+                        }
+                        if (isAFK())
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.IDLE;
+                        }
+                        break;
+                    case STATE.AIM:
+                        if (!Input.GetMouseButton(1))
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.MOVE;
+                        }
+                        if (Input.GetMouseButton(0) && Time.time > nextFire)
+                        {
+                            this.isAimAttack = true;
+                            this.PrevState = this.State;
+                            this.NextState = STATE.ATTACK;
+                        }
+                        if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.DASH;
+                        }
+                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.ELEMENT_SKILL;
+                        }
+                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.ELEMENT_ULT_SKILL;
+                        }
+                        break;
+                    case STATE.DASH:
+                        if (Input.GetKey(KeyCode.LeftShift))
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.RUN;
+                        }
                         else
                         {
                             this.PrevState = this.State;
                             this.NextState = STATE.MOVE;
                         }
-                    }
-                    if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.DASH;
-                    }
-                    break;
-                case STATE.CHARGE_ATTACK:
-                    if (!Input.GetMouseButton(0))
-                    {
-                        if (this.Stamina >= ChargeAttackStaminaAmount)
+                        break;
+                    case STATE.RUN:
+                        if (!Input.GetKey(KeyCode.LeftShift) || Stamina <= 0)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.MOVE;
+                        }
+                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.ELEMENT_SKILL;
+                        }
+                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.ELEMENT_ULT_SKILL;
+                        }
+                        break;
+                    case STATE.ATTACK:
+                        if (this.StateTimer >= SwitchToChargeTime)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.CHARGE_ATTACK;
+                        }
+                        if (!Input.GetMouseButton(0))
                         {
                             nextFire = Time.time + FireRate;
-                            StaminaUse(ChargeAttackStaminaAmount);
-                            chargedAttack();
+                            attack();
+                            if (this.PrevState == STATE.AIM)
+                            {
+                                this.PrevState = this.State;
+                                this.NextState = STATE.AIM;
+                            }
+                            else
+                            {
+                                this.PrevState = this.State;
+                                this.NextState = STATE.MOVE;
+                            }
                         }
-                        else
+                        if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.DASH;
+                        }
+                        break;
+                    case STATE.CHARGE_ATTACK:
+                        if (!Input.GetMouseButton(0))
+                        {
+                            if (this.Stamina >= ChargeAttackStaminaAmount)
+                            {
+                                nextFire = Time.time + FireRate;
+                                StaminaUse(ChargeAttackStaminaAmount);
+                                chargedAttack();
+                            }
+                            else
+                            {
+                                this.PrevState = this.State;
+                                this.NextState = STATE.MOVE;
+                            }
+                            this.PrevState = this.State;
+                            this.NextState = STATE.AIM;
+                        }
+                        if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.DASH;
+                        }
+                        break;
+                    case STATE.ELEMENT_SKILL:
+
+                        break;
+                    case STATE.ELEMENT_ULT_SKILL:
+                        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Q))
+                        {
+                            nextFire = Time.time + FireRate;
+                            elementUltSkill();
+                            StartCoroutine(fallBack());
+                            this.PrevState = this.State;
+                            this.NextState = STATE.MOVE;
+                        }
+                        if (this.StateTimer >= 3.0f)
                         {
                             this.PrevState = this.State;
                             this.NextState = STATE.MOVE;
                         }
-                        this.PrevState = this.State;
-                        this.NextState = STATE.AIM;
-                    }
-                    if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > DashStaminaAmount && player.isGrounded)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.DASH;
-                    }
-                    break;
-                case STATE.ELEMENT_SKILL:
-                    
-                    break;
-                case STATE.ELEMENT_ULT_SKILL:
-                    if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Q))
-                    {
-                        nextFire = Time.time + FireRate;
-                        elementUltSkill();
-                        StartCoroutine(fallBack());
+                        break;
+                    case STATE.SWIMMING:
+                        //Water Tag에 접촉 해제하면 스테이트를 Move로 변경.
+                        //지속적으로 스태미나 소모 시켜야 함.
+                        if (isSwimming == false)
+                        {
+                            this.PrevState = this.State;
+                            this.NextState = STATE.MOVE;
+                        }
+                        if(Stamina <= 0)
+                        {
+                            //die();
+                        }
+                        break;
+                    case STATE.STUNNED:
+                        //스턴 모션이 끝나면, 바로 Move로 상태 이동해야함.
                         this.PrevState = this.State;
                         this.NextState = STATE.MOVE;
-                    }
-                    if(this.StateTimer >= 3.0f)
-                    {
-                        this.PrevState = this.State;
-                        this.NextState = STATE.MOVE;
-                    }
-                    break;
+                        break;
+                    case STATE.DEAD:
+                        //죽으면 리스폰.
+                        break;
+                }
             }
-        }
 
-        // 상태가 변화했을 때------------.
-        while (this.NextState != STATE.NONE)
-        { // 상태가 NONE이외 = 상태가 변화했다.
-            var offset = camera.transform.forward;
+            // 상태가 변화했을 때------------.
+            while (this.NextState != STATE.NONE)
+            { // 상태가 NONE이외 = 상태가 변화했다.
+                var offset = camera.transform.forward;
 
-            this.State = this.NextState;
-            this.NextState = STATE.NONE;
+                this.State = this.NextState;
+                this.NextState = STATE.NONE;
+                switch (this.State)
+                {
+                    case STATE.IDLE:
+
+                        break;
+                    case STATE.MOVE:
+                        MyCurrentSpeed = Speed;
+                        camera.GetComponent<CamControl>().isOnAim = false;
+                        break;
+                    case STATE.AIM:
+                        offset.y = 0;
+                        camera.GetComponent<CamControl>().isOnAim = true;
+                        break;
+                    case STATE.DASH:
+                        camera.GetComponent<CamControl>().isOnAim = false;
+                        StaminaUse(DashStaminaAmount);
+                        isDashed = false;
+                        break;
+                    case STATE.RUN:
+                        MyCurrentSpeed = RunSpeed;
+                        camera.GetComponent<CamControl>().isOnAim = false;
+                        break;
+                    case STATE.ATTACK:
+                        MyCurrentSpeed = Speed;
+                        switch (this.isAimAttack)
+                        {
+                            case true:
+                                camera.GetComponent<CamControl>().isOnAim = true;
+                                break;
+                            case false:
+                                break;
+                        }
+                        break;
+                    case STATE.CHARGE_ATTACK:
+                        MyCurrentSpeed = Speed;
+                        camera.GetComponent<CamControl>().isOnAim = true;
+                        break;
+                    case STATE.ELEMENT_SKILL:
+                        offset.y = 0;
+                        transform.LookAt(player.transform.position + offset);
+                        break;
+                    case STATE.ELEMENT_ULT_SKILL:
+                        offset.y = 0;
+                        transform.LookAt(player.transform.position + offset);
+                        camera.GetComponent<CamControl>().isOnAim = true;
+                        break;
+                    case STATE.SWIMMING:
+                        MyCurrentSpeed = SwimSpeed;
+                        camera.GetComponent<CamControl>().isOnAim = false;
+                        break;
+                    case STATE.STUNNED:
+
+                        break;
+                    case STATE.DEAD:
+
+                        break;
+                }
+                this.StateTimer = 0.0f;
+            }
+            // 각 상황에서 반복할 것----------.
             switch (this.State)
             {
                 case STATE.IDLE:
-
+                    move();
+                    StaminaRegerenate();
                     break;
                 case STATE.MOVE:
-                    MyCurrentSpeed = Speed;
-                    camera.GetComponent<CamControl>().isOnAim = false;
+                    move();
+                    StaminaRegerenate();
                     break;
                 case STATE.AIM:
-                    offset.y = 0;
-                    camera.GetComponent<CamControl>().isOnAim = true;
+                    aimModeMove();
+                    StaminaRegerenate();
                     break;
                 case STATE.DASH:
-                    camera.GetComponent<CamControl>().isOnAim = false;
-                    StaminaUse(DashStaminaAmount);
-                    isDashed = false;
+                    dash();
                     break;
                 case STATE.RUN:
-                    MyCurrentSpeed = RunSpeed;
-                    camera.GetComponent<CamControl>().isOnAim = false;
+                    move();
+                    StaminaTickUse(RunStaminaAmount);
                     break;
                 case STATE.ATTACK:
-                    MyCurrentSpeed = Speed;
                     switch (this.isAimAttack)
                     {
                         case true:
-                            camera.GetComponent<CamControl>().isOnAim = true;
+                            aimModeMove();
                             break;
                         case false:
+                            if (this.StateTimer < 0.3f)
+                            {
+                                move();
+                            }
+                            else
+                            {
+                                camera.GetComponent<CamControl>().isOnAim = true;
+                                aimModeMove();
+                            }
                             break;
                     }
                     break;
                 case STATE.CHARGE_ATTACK:
-                    MyCurrentSpeed = Speed;
-                    camera.GetComponent<CamControl>().isOnAim = true;
+                    aimModeMove();
                     break;
                 case STATE.ELEMENT_SKILL:
-                    offset.y = 0;
-                    transform.LookAt(player.transform.position + offset);
+                    elementSkill();
                     break;
                 case STATE.ELEMENT_ULT_SKILL:
-                    offset.y = 0;
-                    transform.LookAt(player.transform.position + offset);
-                    camera.GetComponent<CamControl>().isOnAim = true;
+                    ultLockOn();
+                    break;
+                case STATE.SWIMMING:
+                    swimming();
+                    if (Stamina >= 0)
+                    {
+                        StaminaTickUse(SwimStaminaAmount);
+                    }
+                    break;
+                case STATE.STUNNED:
+
+                    break;
+                case STATE.DEAD:
+                    playerDirection.y -= GravityForce * Time.deltaTime;
                     break;
             }
-            this.StateTimer = 0.0f;
-        }
-        // 각 상황에서 반복할 것----------.
-        switch (this.State)
-        {
-            case STATE.IDLE:
-                move();
-                StaminaRegerenate();
-                break;
-            case STATE.MOVE:
-                move();
-                StaminaRegerenate();
-                break;
-            case STATE.AIM:
-                aimModeMove();
-                StaminaRegerenate();
-                break;
-            case STATE.DASH:
-                dash();
-                break;
-            case STATE.RUN:
-                move();
-                StaminaTickUse(RunStaminaAmount);
-                break;
-            case STATE.ATTACK:
-                switch (this.isAimAttack)
-                {
-                    case true:
-                        aimModeMove();
-                        break;
-                    case false:
-                        if (this.StateTimer < 0.3f)
-                        {
-                            move();
-                        }
-                        else
-                        {
-                            camera.GetComponent<CamControl>().isOnAim = true;
-                            aimModeMove();
-                        }
-                        break;
-                }
-                break;
-            case STATE.CHARGE_ATTACK:
-                aimModeMove();
-                break;
-            case STATE.ELEMENT_SKILL:
-                elementSkill();
-                break;
-            case STATE.ELEMENT_ULT_SKILL:
-                ultLockOn();
-                break;
         }
 
         if (isHitted)
         {
 
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Water")
+        {
+            Debug.Log("Swimming!");
+            isSwimming = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Water")
+        {
+            Debug.Log("Not Swimming!");
+            isSwimming = false;
+        }
+    }
+
+    protected override void die()
+    {
+        base.die();
+        this.PrevState = this.State;
+        this.NextState = STATE.DEAD;
     }
 
     private bool isAFK()
@@ -501,6 +579,82 @@ public class PlayerContorl : PlayerStatusControl
         {
             if (player.isGrounded) snapGround = Vector3.down;
             isJumpPressed = false;
+        }
+
+        player.Move(playerDirection * Time.deltaTime + snapGround);
+    }
+    private void swimming() //수영 중.
+    {
+        Vector3 snapGround = Vector3.down;
+
+        if ((Input.GetKey(KeyCode.A)) && (Input.GetKey(KeyCode.S)))
+        {
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
+               Quaternion.LookRotation(-(playerRight + playerForward).normalized),
+               Time.deltaTime * rotationSpeed);
+        }
+
+        else if ((Input.GetKey(KeyCode.D)) && (Input.GetKey(KeyCode.W)))
+        {
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
+               Quaternion.LookRotation((playerRight + playerForward).normalized),
+               Time.deltaTime * rotationSpeed);
+        }
+
+        else if ((Input.GetKey(KeyCode.A)) && (Input.GetKey(KeyCode.W)))
+        {
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
+               Quaternion.LookRotation(-(playerRight - playerForward).normalized),
+               Time.deltaTime * rotationSpeed);
+        }
+
+        else if ((Input.GetKey(KeyCode.D)) && (Input.GetKey(KeyCode.S)))
+        {
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
+               Quaternion.LookRotation(-(-playerRight + playerForward).normalized),
+               Time.deltaTime * rotationSpeed);
+        }
+
+        else if (Input.GetKey(KeyCode.W))
+        {
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
+                Quaternion.LookRotation(playerForward),
+                Time.deltaTime * rotationSpeed);
+        }
+
+        else if (Input.GetKey(KeyCode.S))
+        {
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
+                Quaternion.LookRotation(-playerForward),
+                Time.deltaTime * rotationSpeed);
+        }
+
+        else if (Input.GetKey(KeyCode.D))
+        {
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
+                Quaternion.LookRotation(playerRight),
+                Time.deltaTime * rotationSpeed);
+        }
+
+        else if (Input.GetKey(KeyCode.A))
+        {
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
+               Quaternion.LookRotation(-playerRight),
+               Time.deltaTime * rotationSpeed);
+        }
+
+        if (player.isGrounded)
+        {
+            if ((Input.GetAxis("Vertical") != 0) || (Input.GetAxis("Horizontal") != 0))
+                playerDirection = new Vector3(0, 0, 1);
+            else playerDirection = new Vector3(0, 0, 0);
+
+            playerDirection = player.transform.TransformDirection(playerDirection);
+            playerDirection *= MyCurrentSpeed;
+        }
+        else
+        {
+            playerDirection.y -= GravityForce * Time.deltaTime;
         }
 
         player.Move(playerDirection * Time.deltaTime + snapGround);

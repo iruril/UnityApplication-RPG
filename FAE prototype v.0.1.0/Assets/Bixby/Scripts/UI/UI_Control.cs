@@ -78,7 +78,7 @@ public class UI_Control : MonoBehaviour
             }
             Cursor.lockState = CursorLockMode.None;
             aimPoint.SetActive(false);
-
+            Time.timeScale = 0f;
         }
         else
         {
@@ -97,6 +97,7 @@ public class UI_Control : MonoBehaviour
             }
             Cursor.lockState = CursorLockMode.Locked;
             aimPoint.SetActive(true);
+            Time.timeScale = 1f;
         }
     }
     public bool windowClose()//±×³É Ã¢ ´Ý±â

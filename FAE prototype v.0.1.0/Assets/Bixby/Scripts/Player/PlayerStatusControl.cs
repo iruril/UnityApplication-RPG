@@ -17,12 +17,14 @@ public class PlayerStatusControl : ElementControl, IDamgeable
 
     public float DashStaminaAmount = 20.0f;
     public float RunStaminaAmount = 10.0f;
+    public float SwimStaminaAmount = 10.0f;
     public float ChargeAttackStaminaAmount = 10.0f;
 
     protected bool isDashed;
     public float DashDistance = 5.0f;
 
     public float Speed = 5.0f;
+    public float SwimSpeed = 4.0f;
     public float RunSpeed = 10.0f;
     public float DashSpeed = 20.0f;
     public float MyCurrentSpeed;
