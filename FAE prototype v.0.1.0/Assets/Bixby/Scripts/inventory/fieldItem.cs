@@ -40,7 +40,7 @@ public class fieldItem : MonoBehaviour
             if (inventoryObject.Inst.FieldFKey == null)
             {
                 isPlayerClose = true;
-                inventoryObject.Inst.FieldFKey = Instantiate(inventoryObject.Inst.KeyF, GameObject.Find("Canvas").transform);
+                inventoryObject.Inst.FieldFKey = Instantiate(inventoryObject.Inst.getObj("KeyF"), GameObject.Find("Canvas").transform);
                 var wantedPos = Camera.main.WorldToScreenPoint(this.transform.position);
                 inventoryObject.Inst.FieldFKey.transform.position = wantedPos + Vector3.right * 200f;
             }

@@ -14,6 +14,8 @@ public class itemData
     public float xSize;
     public float ySize;
     public bool isEquip;
+    public int price;
+    public bool isSell;
 }
 public class itemJsonData
 {

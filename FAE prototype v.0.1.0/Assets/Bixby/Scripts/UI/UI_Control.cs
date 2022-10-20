@@ -13,10 +13,8 @@ public class UI_Control : MonoBehaviour
         inventory = GameObject.Find("Inventory");
         Speech = this.gameObject.GetComponent<Speech>();
         Map = GameObject.Find("Map");
-        windows = new List<GameObject>();
-        windows.Add(inventory);
-        windows.Add(Map);
         aimPoint = GameObject.Find("AimPoint");
+        Shop = this.gameObject.GetComponent<Shop>();
     }
     GameObject optionObj;
     UI_Option option;
@@ -24,13 +22,19 @@ public class UI_Control : MonoBehaviour
     public Speech Speech;
     public GameObject Map;
     List<GameObject> windows;
-    GameObject openedWindow;
+    public GameObject OpenedWindow;
     GameObject aimPoint;
+    public Shop Shop;
     void Start()
     {
+        windows = new List<GameObject>();
+        windows.Add(inventory);
+        windows.Add(Map);
+        windows.Add(Shop.getWindow());
         option.Set();
         Map.SetActive(false);
-        openedWindow = null;
+        OpenedWindow = null;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -51,38 +55,61 @@ public class UI_Control : MonoBehaviour
                     break;
             }
         }
-        if (openedWindow == null)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            aimPoint.SetActive(true);
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            aimPoint.SetActive(false);
-        }
     }
-    public void optionWindow()
+    void optionWindow()
     {
-        foreach (var item in windows)//ÀÏ´Ü Ã¢ ´Ý±â
-        {
-            if (item.activeSelf)
-            {
-                windowSet(item);
-                return;
-            }
-        }
-        windowSet(optionObj);
+        if (!windowClose())
+            windowSet(optionObj);
     }
     public void windowSet(GameObject window)//Ã¢ ¿­°í ´Ý±â
     {
-        if (!(openedWindow == null || openedWindow == window))
+        if (!(OpenedWindow == null || OpenedWindow == window))
             return;
         window.SetActive(!window.activeSelf);
         option.senseSet(window.activeSelf);
         if (window.activeSelf)
-            openedWindow = window;
+        {
+            OpenedWindow = window;
+            switch (window.name)
+            {
+                case "Shop":
+                    inventory.SetActive(true);
+                    break;
+            }
+            Cursor.lockState = CursorLockMode.None;
+            aimPoint.SetActive(false);
+
+        }
         else
-            openedWindow = null;
+        {
+            OpenedWindow = null;
+            switch (window.name)
+            {
+                case "Shop":
+                    inventory.SetActive(false);
+                    inventory.transform.GetChild(2).gameObject.SetActive(false);
+                    break;
+                case "Inventory":
+                    inventory.transform.GetChild(2).gameObject.SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+            Cursor.lockState = CursorLockMode.Locked;
+            aimPoint.SetActive(true);
+        }
+    }
+    public bool windowClose()//±×³É Ã¢ ´Ý±â
+    {
+        bool result = false;
+        foreach (var item in windows)
+        {
+            if (item.activeSelf)
+            {
+                windowSet(item);
+                result = true;
+            }
+        }
+        return result;
     }
 }

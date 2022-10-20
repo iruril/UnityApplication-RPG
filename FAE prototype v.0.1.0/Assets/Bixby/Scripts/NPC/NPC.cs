@@ -13,6 +13,7 @@ public class NPC : MonoBehaviour
     GameObject nameObj;
     Text nameUI;
     GameObject notify;
+    Shop shop;
     void Start()
     {
         canvasObj = this.transform.GetChild(0).gameObject;
@@ -25,6 +26,7 @@ public class NPC : MonoBehaviour
         nameUI = nameObj.transform.GetChild(0).GetComponent<Text>();
         nameUI.text = npcName;
         nameObj.SetActive(playerClose);
+        shop = UI_Control.Inst.Shop;
     }
 
     // Update is called once per frame
@@ -37,7 +39,10 @@ public class NPC : MonoBehaviour
             nameObj.transform.position = Camera.main.WorldToScreenPoint(this.transform.position + Vector3.up * 2f);
         if (playerClose && Input.GetKeyDown(KeyCode.F))
         {
-            speech.setUp(npcName, talkIndex);
+            if (npcName == "shop")
+                shop.SetUp();
+            else
+                speech.setUp(npcName, talkIndex);
             Destroy(keyInst);
             keyInst = null;
         }
@@ -46,7 +51,7 @@ public class NPC : MonoBehaviour
     {
         if (other.tag == "Player" && keyInst == null)
         {
-            keyInst = Instantiate(inventoryObject.Inst.KeyF, GameObject.Find("Canvas").transform);
+            keyInst = Instantiate(inventoryObject.Inst.getObj("KeyF"), GameObject.Find("Canvas").transform);
             var wantedPos = Camera.main.WorldToScreenPoint(this.transform.position);
             keyInst.transform.position = wantedPos + Vector3.right * 200f;
             playerClose = true;
