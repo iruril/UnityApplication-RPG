@@ -71,6 +71,51 @@ public class ElementControl : ElementRule, IElementReaction
         }
     }
 
+    protected void checkIsPopTime()
+    {
+        if(ElementStack.Count >= 2)
+        {
+            elementReaction();
+        }
+        else
+            return;
+    }
+
+    protected void elementReaction()
+    {
+        ElementType firstElement = ElementStack.Pop();
+        ElementType secondElement = ElementStack.Pop();
+
+        if(firstElement == ElementType.FIRE && secondElement == ElementType.ICE) //À¶ÇØ
+        {
+            Fusion();
+        }
+        else if (firstElement == ElementType.WATER && secondElement == ElementType.ICE) //ºù°á
+        {
+            Freezing();
+        }
+        else if(firstElement == ElementType.ELECTRICITY && secondElement == ElementType.ICE) //Àüµµ
+        {
+            Transmission();
+        }
+        else if(firstElement == ElementType.ELECTRICITY && secondElement == ElementType.FIRE) //Æø¹ß
+        {
+            Explosion();
+        }
+        else if(firstElement == ElementType.ELECTRICITY && secondElement == ElementType.WATER) //°¨Àü
+        {
+            ElectricShock();
+        }
+        else if(firstElement == ElementType.WATER && secondElement == ElementType.FIRE) //Áõ¹ß
+        {
+            Evaporation();
+        }
+        else
+        {
+            return;
+        }
+    }
+
     protected void attackedOnNormal()
     {
         int adventage = CheckAdventage(MyElement, EnemyElement);
@@ -103,6 +148,31 @@ public class ElementControl : ElementRule, IElementReaction
 
                 break;
         }
+    }
+
+    public virtual void Fusion()
+    {
+
+    }
+    public virtual void Freezing()
+    {
+
+    }
+    public virtual void ElectricShock()
+    {
+
+    }
+    public virtual void Explosion()
+    {
+
+    }
+    public virtual void Evaporation()
+    {
+
+    }
+    public virtual void Transmission()
+    {
+
     }
 }
 

@@ -5,4 +5,5 @@ using UnityEngine;
  public interface IDamgeable
 {
     void TakeHit(float damage);
+    void TakeElementHit(float damage, ElementControl.ElementType elementType);
 }
