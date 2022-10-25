@@ -31,7 +31,7 @@ public class PlayerAnimation : MonoBehaviour
             animator.SetBool("isJump", true);   // Jump 애니메이션 실행
 
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")               // 공중에 떠 있으면서(상위 조건문) 점프 애니메이션이 실행중인 상태고,
-                && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.75f)  // 애니메이션 진행 상황이 70&을 넘어갔을 때
+                && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.475f)  // 애니메이션 진행 상황이 47.5&을 넘어갔을 때
             {
                 animator.SetBool("isFall", true);   // Fall 애니메이션 실행
             }
@@ -54,7 +54,17 @@ public class PlayerAnimation : MonoBehaviour
             }
         }
 
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&                // Dash 애니메이션이 실행되는 상태에서
+            Input.GetKeyDown(KeyCode.LeftShift))                                    // LeftShift 입력이 발생할 때
+        {
+            animator.Play("Dash", 0);
+        }
 
+        if(animator.GetCurrentAnimatorStateInfo(1).IsName("Charge") &&              // Charge 애니메이션이 실행되는 상태에서
+            !Input.GetKey(KeyCode.Mouse0))                                         // 좌 클릭 입력이 진행 중이지 않을 때
+        {
+            animator.SetBool("isCharge", false);                                    // 애니메이션 굳는 버그 수정 용
+        }
 
         switch (modelContorl.State)
         {
@@ -67,9 +77,24 @@ public class PlayerAnimation : MonoBehaviour
                 animator.SetBool("isCombat", true);                     // 비전투 상태 비활성화
                 animator.SetBool("isAtk", false);                       // 공격 애니메이션 정지
                 animator.SetBool("isAim", false);                       // 조준 애니메이션 정지
+                animator.SetBool("isSwimming", false);                  // 수영 애니메이션 정지
+                animator.SetBool("isDash", false);                      // 대시 애니메이션 정지
 
                 moveCheck();
 
+                break;
+
+            case PlayerContorl.STATE.DASH:                              // 대시 상태
+                animator.SetBool("isDash", true);                       // 대시 애니메이션 실행
+                break;
+
+            case PlayerContorl.STATE.RUN:                               // 달리기 상태
+                animator.SetBool("isDash", false);                      // 대시 애니메이션 정지
+                moveCheck();
+                break;
+
+            case PlayerContorl.STATE.SWIMMING:                          // 수영 상태
+                animator.SetBool("isSwimming", true);                   // 수영 애니메이션 실행
                 break;
 
             case PlayerContorl.STATE.ATTACK:                            // 약 공격 상태
@@ -120,6 +145,8 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("isCharge", false);
         animator.SetBool("isAim", false);
         animator.SetBool("isLanding", false);
+        animator.SetBool("isSwimming", false);
+        animator.SetBool("isDash", false);
     }
 
 

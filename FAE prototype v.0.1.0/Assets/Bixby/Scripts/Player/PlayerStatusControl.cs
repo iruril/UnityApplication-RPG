@@ -57,21 +57,6 @@ public class PlayerStatusControl : ElementControl, IDamgeable
         }
     }
 
-    public virtual void TakeElementHit(float damage, ElementControl.ElementType elementType)
-    {
-        isHitted = true;
-        if (elementType != ElementType.NONE && elementType != ElementStack.Peek())
-        {
-            this.ElementStack.Push(elementType);
-        }
-        Health -= damage;
-        DealtDamage = Mathf.Round(damage * 10) * 0.1f;
-        if (Health <= 0 && !Dead)
-        {
-            die();
-        }
-    }
-
     public virtual void StaminaUse(float amount)
     {
         Stamina -= amount;

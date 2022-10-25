@@ -73,7 +73,7 @@ public class ElementControl : ElementRule, IElementReaction
 
     protected void checkIsPopTime()
     {
-        if(ElementStack.Count >= 2)
+        if (ElementStack.Count >= 2)
         {
             elementReaction();
         }
@@ -86,7 +86,7 @@ public class ElementControl : ElementRule, IElementReaction
         ElementType firstElement = ElementStack.Pop();
         ElementType secondElement = ElementStack.Pop();
 
-        if(firstElement == ElementType.FIRE && secondElement == ElementType.ICE) //À¶ÇØ
+        if (firstElement == ElementType.FIRE && secondElement == ElementType.ICE) //À¶ÇØ
         {
             Fusion();
         }
@@ -94,19 +94,19 @@ public class ElementControl : ElementRule, IElementReaction
         {
             Freezing();
         }
-        else if(firstElement == ElementType.ELECTRICITY && secondElement == ElementType.ICE) //Àüµµ
+        else if (firstElement == ElementType.ELECTRICITY && secondElement == ElementType.ICE) //Àüµµ
         {
             Transmission();
         }
-        else if(firstElement == ElementType.ELECTRICITY && secondElement == ElementType.FIRE) //Æø¹ß
+        else if (firstElement == ElementType.ELECTRICITY && secondElement == ElementType.FIRE) //Æø¹ß
         {
             Explosion();
         }
-        else if(firstElement == ElementType.ELECTRICITY && secondElement == ElementType.WATER) //°¨Àü
+        else if (firstElement == ElementType.ELECTRICITY && secondElement == ElementType.WATER) //°¨Àü
         {
             ElectricShock();
         }
-        else if(firstElement == ElementType.WATER && secondElement == ElementType.FIRE) //Áõ¹ß
+        else if (firstElement == ElementType.WATER && secondElement == ElementType.FIRE) //Áõ¹ß
         {
             Evaporation();
         }

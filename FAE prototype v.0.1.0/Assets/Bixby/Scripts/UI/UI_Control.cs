@@ -15,6 +15,7 @@ public class UI_Control : MonoBehaviour
         Map = GameObject.Find("Map");
         aimPoint = GameObject.Find("AimPoint");
         Shop = this.gameObject.GetComponent<Shop>();
+        Mission = this.gameObject.GetComponent<Mission>();
     }
     GameObject optionObj;
     UI_Option option;
@@ -25,6 +26,7 @@ public class UI_Control : MonoBehaviour
     public GameObject OpenedWindow;
     GameObject aimPoint;
     public Shop Shop;
+    public Mission Mission;
     void Start()
     {
         windows = new List<GameObject>();

@@ -6,10 +6,12 @@ public class UI_MinimapCam : MonoBehaviour
 {
     GameObject player;
     GameObject camDirection;
+    GameObject minimap;
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         camDirection = GameObject.Find("camDirection");
+        minimap = GameObject.Find("Minimap");
     }
     void Update()
     {
@@ -20,5 +22,10 @@ public class UI_MinimapCam : MonoBehaviour
         camRotate.z = -camRotate.y;
         camRotate.y = camRotate.x = 0f;
         camDirection.transform.rotation = Quaternion.Euler(camRotate);
+        if (UI_Control.Inst.OpenedWindow == null)
+            minimap.SetActive(true);
+        else
+            minimap.SetActive(!(UI_Control.Inst.OpenedWindow.name == "Inventory"
+                                    || UI_Control.Inst.OpenedWindow.name == "Shop"));
     }
 }
