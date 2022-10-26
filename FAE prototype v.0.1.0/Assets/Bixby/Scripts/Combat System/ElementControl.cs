@@ -41,34 +41,7 @@ public class ElementControl : ElementRule, IElementReaction
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            this.mySkillStartColor = FireSkillStartColor;
-            this.mySkillEndColor = FireSkillEndColor;
-            this.MyElement = ElementType.FIRE;
-            Debug.Log("current element : FIRE");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            this.mySkillStartColor = IceSkillStartColor;
-            this.mySkillEndColor = IceSkillEndColor;
-            this.MyElement = ElementType.ICE;
-            Debug.Log("current element : ICE");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            this.mySkillStartColor = WaterSkillStartColor;
-            this.mySkillEndColor = WaterSkillEndColor;
-            this.MyElement = ElementType.WATER;
-            Debug.Log("current element : WATER");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            this.mySkillStartColor = ElectroSkillStartColor;
-            this.mySkillEndColor = ElectroSkillEndColor;
-            this.MyElement = ElementType.ELECTRICITY;
-            Debug.Log("current element : ELECTRICITY");
-        }
+
     }
 
     protected void checkIsPopTime()
@@ -116,25 +89,23 @@ public class ElementControl : ElementRule, IElementReaction
         }
     }
 
-    protected void attackedOnNormal()
+    protected float attackedOnNormal(float damage, ElementType myElement, ElementType otherElement)
     {
         int adventage = CheckAdventage(MyElement, EnemyElement);
         switch (adventage)
         {
             case 1:
-
-                break;
+                return damage * 2;
             case 0:
-
-                break;
+                return damage * 1;
             case -1:
-
-                break;
+                return damage / 2;
         }
+        return 0;
     }
 
-    protected void attackedOnSheild()
-    {
+    protected void attackedOnSheild() // 반동을 입을 가능성이 있기 때문에, 반환형은 일단 void로 한다. 
+    { // 자기 자신에게 대미지를 줘야 할 상황(자기 자신에 대한 접근)이 생길 가능성이 있다.
         int adventage = CheckAdventage(MyElement, EnemyElement);
         switch (adventage)
         {
@@ -152,27 +123,89 @@ public class ElementControl : ElementRule, IElementReaction
 
     public virtual void Fusion()
     {
-
+        //일단, 공격속도를 50퍼센트 늦춘다.
+        StartCoroutine(fusion(10.0f));
     }
     public virtual void Freezing()
     {
-
+        StartCoroutine(freezing(10.0f));
+        //이동속도를 50퍼센트 늦춘다.
     }
     public virtual void ElectricShock()
     {
-
+        StartCoroutine(eletricShock(5.0f, 10.0f));
     }
     public virtual void Explosion()
     {
-
+        //instaciate();
     }
     public virtual void Evaporation()
     {
-
+        StartCoroutine(evaporation(10.0f));
     }
     public virtual void Transmission()
     {
+        //instanciate();
+    }
 
+    IEnumerator fusion(float time)
+    {
+        float temp = this.gameObject.GetComponent<PlayerStatusControl>().FireRate;
+
+        this.gameObject.GetComponent<PlayerStatusControl>().FireRate =
+        this.gameObject.GetComponent<PlayerStatusControl>().FireRate * 1.5f;
+        while (time > 0)
+        {
+            time--;
+            yield return new WaitForSeconds(1.0f);
+        }
+        this.gameObject.GetComponent<PlayerStatusControl>().FireRate = temp;
+    }
+
+    IEnumerator freezing(float time)
+    {
+        this.gameObject.GetComponent<PlayerStatusControl>().SpeedMultiply = 0.5f;
+        while (time > 0)
+        {
+            time--;
+            yield return new WaitForSeconds(1.0f);
+        }
+        this.gameObject.GetComponent<PlayerStatusControl>().SpeedMultiply = 1.0f;
+    }
+
+    IEnumerator eletricShock(float time, float damage)
+    {
+        while(time > 0)
+        {
+            this.gameObject.GetComponent<PlayerStatusControl>().TakeHit(damage);
+            time--;
+            yield return new WaitForSeconds(1.0f);
+        }
+    }
+
+    IEnumerator evaporation(float time)
+    {
+        this.gameObject.GetComponent<PlayerStatusControl>().AdditionalDamage = 1.5f; //50퍼 받피증
+        while (time > 0)
+        {
+            time--;
+            yield return new WaitForSeconds(1.0f);
+        }
+        this.gameObject.GetComponent<PlayerStatusControl>().AdditionalDamage = 1.0f;
+    }
+
+    // 임시 추가부분. 적과 연동하기 위한 코드, 작성자: 류창렬
+    protected void enemyElementCheck(EnemyElement element)
+    {
+        if ((int)element == 0)
+            this.EnemyElement = ElementType.NONE;
+        else if ((int)element == 1)
+            this.EnemyElement = ElementType.FIRE;
+        else if ((int)element == 2)
+            this.EnemyElement = ElementType.ICE;
+        else if ((int)element == 3)
+            this.EnemyElement = ElementType.WATER;
+        else if ((int)element == 4)
+            this.EnemyElement = ElementType.ELECTRICITY;
     }
 }
-

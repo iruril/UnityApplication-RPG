@@ -312,7 +312,7 @@ public class PlayerContorl : PlayerStatusControl
 
                         break;
                     case STATE.MOVE:
-                        MyCurrentSpeed = Speed;
+                        MyCurrentSpeed = Speed * SpeedMultiply;
                         camera.GetComponent<CamControl>().isOnAim = false;
                         break;
                     case STATE.AIM:
@@ -325,11 +325,11 @@ public class PlayerContorl : PlayerStatusControl
                         isDashed = false;
                         break;
                     case STATE.RUN:
-                        MyCurrentSpeed = RunSpeed;
+                        MyCurrentSpeed = RunSpeed * SpeedMultiply;
                         camera.GetComponent<CamControl>().isOnAim = false;
                         break;
                     case STATE.ATTACK:
-                        MyCurrentSpeed = Speed;
+                        MyCurrentSpeed = Speed * SpeedMultiply;
                         switch (this.isAimAttack)
                         {
                             case true:
@@ -340,7 +340,7 @@ public class PlayerContorl : PlayerStatusControl
                         }
                         break;
                     case STATE.CHARGE_ATTACK:
-                        MyCurrentSpeed = Speed;
+                        MyCurrentSpeed = Speed * SpeedMultiply;
                         camera.GetComponent<CamControl>().isOnAim = true;
                         break;
                     case STATE.ELEMENT_SKILL:
@@ -353,7 +353,7 @@ public class PlayerContorl : PlayerStatusControl
                         camera.GetComponent<CamControl>().isOnAim = true;
                         break;
                     case STATE.SWIMMING:
-                        MyCurrentSpeed = SwimSpeed;
+                        MyCurrentSpeed = SwimSpeed * SpeedMultiply;
                         camera.GetComponent<CamControl>().isOnAim = false;
                         break;
                     case STATE.STUNNED:
@@ -723,7 +723,11 @@ public class PlayerContorl : PlayerStatusControl
                     this.gameObject.GetComponent<PlayerLineSkill>().ShowAttackEffect((int)this.State, (int)this.MyElement, ProjectileStart);
                     this.gameObject.GetComponent<PlayerLineSkill>().ShowHitEffect(hitInfo.point);
                     StartCoroutine(shootEffect());
-                    //hitInfo.collider.GetComponent<StatusControl>();  맞는 대상의 정보를 가져옴. 추후 다뤄질 예정.
+                    if (hitInfo.collider.tag == "Enemy")
+                    {
+                        enemyElementCheck(hitInfo.collider.GetComponent<Enemy>().Stat.enemyElement);
+                        hitInfo.collider.GetComponent<Enemy>().TakeDamage(attackDamage);
+                    }
                 }
                 else
                 {
@@ -741,7 +745,11 @@ public class PlayerContorl : PlayerStatusControl
                     this.gameObject.GetComponent<PlayerLineSkill>().ShowAttackEffect((int)this.State, (int)this.MyElement, ProjectileStart);
                     this.gameObject.GetComponent<PlayerLineSkill>().ShowHitEffect(hitInfo.point);
                     StartCoroutine(shootEffect());
-                    //hitInfo.collider.GetComponent<StatusControl>();  맞는 대상의 정보를 가져옴. 추후 다뤄질 예정.
+                    if (hitInfo.collider.tag == "Enemy")
+                    {
+                        enemyElementCheck(hitInfo.collider.GetComponent<Enemy>().Stat.enemyElement);
+                        hitInfo.collider.GetComponent<Enemy>().TakeDamage(attackDamage);
+                    }
                 }
                 else
                 {
@@ -768,7 +776,11 @@ public class PlayerContorl : PlayerStatusControl
             this.gameObject.GetComponent<PlayerLineSkill>().ShowAttackEffect((int)this.State, (int)this.MyElement, ProjectileStart);
             this.gameObject.GetComponent<PlayerLineSkill>().ShowHitEffect(hitInfo.point);
             StartCoroutine(shootEffect());
-            //hitInfo.collider.GetComponent<StatusControl>();  맞는 대상의 정보를 가져옴. 추후 다뤄질 예정.
+            if (hitInfo.collider.tag == "Enemy")
+            {
+                enemyElementCheck(hitInfo.collider.GetComponent<Enemy>().Stat.enemyElement);
+                hitInfo.collider.GetComponent<Enemy>().TakeDamage(attackedOnNormal(attackDamage, MyElement, EnemyElement));
+            }
         }
         else
         {
