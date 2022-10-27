@@ -54,7 +54,7 @@ namespace MBT
             
                 if(colliders.Length > 0)
                 {
-                    colliders[0].GetComponent<PlayerContorl>().TakeElementHit(10.0f, ObjRef.Value.GetComponent<Enemy>().Element);
+                    colliders[0].GetComponent<PlayerContorl>().TakeElementHit(10.0f, ObjRef.Value.GetComponent<Enemy>().Stat.enemyElement);
                     Debug.Log("Hit");
                 }
             }

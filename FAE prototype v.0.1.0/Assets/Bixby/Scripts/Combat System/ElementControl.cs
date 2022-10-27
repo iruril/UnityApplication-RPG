@@ -38,11 +38,6 @@ public class ElementControl : ElementRule, IElementReaction
         EnemyElement = ElementType.NONE;
     }
 
-    // Update is called once per frame
-    protected virtual void Update()
-    {
-
-    }
 
     protected void checkIsPopTime()
     {
@@ -89,7 +84,7 @@ public class ElementControl : ElementRule, IElementReaction
         }
     }
 
-    protected float attackedOnNormal(float damage, ElementType myElement, ElementType otherElement)
+    protected float attackedOnNormal(float damage)
     {
         int adventage = CheckAdventage(MyElement, EnemyElement);
         switch (adventage)
@@ -124,7 +119,7 @@ public class ElementControl : ElementRule, IElementReaction
     public virtual void Fusion()
     {
         //일단, 공격속도를 50퍼센트 늦춘다.
-        StartCoroutine(fusion(10.0f));
+        StartCoroutine(fusion(100.0f));
     }
     public virtual void Freezing()
     {
@@ -195,17 +190,8 @@ public class ElementControl : ElementRule, IElementReaction
     }
 
     // 임시 추가부분. 적과 연동하기 위한 코드, 작성자: 류창렬
-    protected void enemyElementCheck(EnemyElement element)
+    protected void setEnemyElement(ElementType element)
     {
-        if ((int)element == 0)
-            this.EnemyElement = ElementType.NONE;
-        else if ((int)element == 1)
-            this.EnemyElement = ElementType.FIRE;
-        else if ((int)element == 2)
-            this.EnemyElement = ElementType.ICE;
-        else if ((int)element == 3)
-            this.EnemyElement = ElementType.WATER;
-        else if ((int)element == 4)
-            this.EnemyElement = ElementType.ELECTRICITY;
+        EnemyElement = element;
     }
 }

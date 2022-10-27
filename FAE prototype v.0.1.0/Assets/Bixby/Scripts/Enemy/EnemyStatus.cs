@@ -8,14 +8,14 @@ public class EnemyStatus
     public EnemyType enemyType { get; }
     public float maxHp { get; set; }
     public float hp { get; set; }
-    public EnemyElement enemyElement { get; set; }
+    public ElementRule.ElementType enemyElement { get; set; }
 
     public EnemyStatus()
     {
 
     }
 
-    public EnemyStatus(EnemyType enemyType, float maxHp, EnemyElement enemyElement)
+    public EnemyStatus(EnemyType enemyType, float maxHp, ElementRule.ElementType enemyElement)
     {
         this.enemyType = enemyType;
         this.maxHp = maxHp;
@@ -23,7 +23,7 @@ public class EnemyStatus
         this.enemyElement = enemyElement;
     }
 
-    public EnemyStatus SetEnemyStatus(EnemyType enemyType, EnemyElement enemyElement)
+    public EnemyStatus SetEnemyStatus(EnemyType enemyType, ElementRule.ElementType enemyElement)
     {
         EnemyStatus stat = null;
 

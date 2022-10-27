@@ -70,9 +70,36 @@ public class PlayerContorl : PlayerStatusControl
     }
 
     // Update is called once per frame
-    protected override void Update()
+    void Update()
     {
-        base.Update();
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            this.mySkillStartColor = FireSkillStartColor;
+            this.mySkillEndColor = FireSkillEndColor;
+            this.MyElement = ElementType.FIRE;
+            Debug.Log("current element : FIRE");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            this.mySkillStartColor = IceSkillStartColor;
+            this.mySkillEndColor = IceSkillEndColor;
+            this.MyElement = ElementType.ICE;
+            Debug.Log("current element : ICE");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            this.mySkillStartColor = WaterSkillStartColor;
+            this.mySkillEndColor = WaterSkillEndColor;
+            this.MyElement = ElementType.WATER;
+            Debug.Log("current element : WATER");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            this.mySkillStartColor = ElectroSkillStartColor;
+            this.mySkillEndColor = ElectroSkillEndColor;
+            this.MyElement = ElementType.ELECTRICITY;
+            Debug.Log("current element : ELECTRICITY");
+        }
 
         vectorAlign();
         this.StateTimer += Time.deltaTime;
@@ -725,7 +752,6 @@ public class PlayerContorl : PlayerStatusControl
                     StartCoroutine(shootEffect());
                     if (hitInfo.collider.tag == "Enemy")
                     {
-                        enemyElementCheck(hitInfo.collider.GetComponent<Enemy>().Stat.enemyElement);
                         hitInfo.collider.GetComponent<Enemy>().TakeDamage(attackDamage);
                     }
                 }
@@ -747,7 +773,6 @@ public class PlayerContorl : PlayerStatusControl
                     StartCoroutine(shootEffect());
                     if (hitInfo.collider.tag == "Enemy")
                     {
-                        enemyElementCheck(hitInfo.collider.GetComponent<Enemy>().Stat.enemyElement);
                         hitInfo.collider.GetComponent<Enemy>().TakeDamage(attackDamage);
                     }
                 }
@@ -778,8 +803,8 @@ public class PlayerContorl : PlayerStatusControl
             StartCoroutine(shootEffect());
             if (hitInfo.collider.tag == "Enemy")
             {
-                enemyElementCheck(hitInfo.collider.GetComponent<Enemy>().Stat.enemyElement);
-                hitInfo.collider.GetComponent<Enemy>().TakeDamage(attackedOnNormal(attackDamage, MyElement, EnemyElement));
+                setEnemyElement(hitInfo.collider.GetComponent<Enemy>().Stat.enemyElement);
+                hitInfo.collider.GetComponent<Enemy>().TakeDamage(attackedOnNormal(attackDamage));
             }
         }
         else

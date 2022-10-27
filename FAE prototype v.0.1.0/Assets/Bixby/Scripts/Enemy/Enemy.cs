@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public EnemyStatus Stat;
     public EnemyType Type;
-    public EnemyElement Element;
+    public ElementRule.ElementType Element;
 
     public float EnemySight;
     public float Timer;

@@ -50,37 +50,6 @@ public class PlayerStatusControl : ElementControl, IDamgeable
         MyCurrentSpeed = Speed;
         isDashed = false;
     }
-    protected override void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            this.mySkillStartColor = FireSkillStartColor;
-            this.mySkillEndColor = FireSkillEndColor;
-            this.MyElement = ElementType.FIRE;
-            Debug.Log("current element : FIRE");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            this.mySkillStartColor = IceSkillStartColor;
-            this.mySkillEndColor = IceSkillEndColor;
-            this.MyElement = ElementType.ICE;
-            Debug.Log("current element : ICE");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            this.mySkillStartColor = WaterSkillStartColor;
-            this.mySkillEndColor = WaterSkillEndColor;
-            this.MyElement = ElementType.WATER;
-            Debug.Log("current element : WATER");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            this.mySkillStartColor = ElectroSkillStartColor;
-            this.mySkillEndColor = ElectroSkillEndColor;
-            this.MyElement = ElementType.ELECTRICITY;
-            Debug.Log("current element : ELECTRICITY");
-        }
-    }
 
     public virtual void TakeHit(float damage)
     {
@@ -92,32 +61,44 @@ public class PlayerStatusControl : ElementControl, IDamgeable
             die();
         }
     }
-    public virtual void TakeElementHit(float damage, ElementControl.ElementType elementType)
+    //public virtual void TakeElementHit(float damage, ElementRule.ElementType elementType)
+    //{
+    //    isHitted = true;
+    //    if (elementType != ElementType.NONE && elementType != ElementStack.Peek())
+    //    {
+    //        this.ElementStack.Push(elementType);
+    //    }
+    //    Health -= damage * AdditionalDamage;
+    //    DealtDamage = Mathf.Round(damage * 10) * 0.1f;
+    //    if (Health <= 0 && !Dead)
+    //    {
+    //        die();
+    //    }
+    //}
+
+    public virtual void TakeElementHit(float damage, ElementRule.ElementType enemyElement) //나중에 삭제될 가능성 있음.
     {
         isHitted = true;
-        if (elementType != ElementType.NONE && elementType != ElementStack.Peek())
-        {
-            this.ElementStack.Push(elementType);
-        }
-        Health -= damage * AdditionalDamage;
-        DealtDamage = Mathf.Round(damage * 10) * 0.1f;
-        if (Health <= 0 && !Dead)
-        {
-            die();
-        }
-    }
+        setEnemyElement(enemyElement); // 이렇게 EnemyElement로 바꿔서 쓰거나 enemyElement그대로 써도 될듯.
+        float curDamage = attackedOnNormal(damage);
 
-    public virtual void TakeElementHit(float damage, EnemyElement element) //나중에 삭제될 가능성 있음.
-    {
-        isHitted = true;
-        enemyElementCheck(element);
-        float curDamage = attackedOnNormal(damage, EnemyElement, MyElement);
+        if (EnemyElement != ElementType.NONE)
+        {
+            if (ElementStack.Count != 0)
+            {
+                if (EnemyElement != this.ElementStack.Peek())
+                {
+                    this.ElementStack.Push(EnemyElement);
+                    checkIsPopTime();
+                }
+            }
+            else
+            {
+                this.ElementStack.Push(EnemyElement);
+                checkIsPopTime();
+            }
+        }
 
-        // 처음에 빈 stack에서 peek하려다보니 문제가 생기는 것 같음. 아닐 수도 ㅎ
-        // if (EnemyElement != ElementType.NONE && EnemyElement != ElementStack.Peek())
-        // {
-        //     this.ElementStack.Push(EnemyElement);
-        // }
         Health -= curDamage;
         DealtDamage = Mathf.Round(curDamage * 10) * 0.1f;
         if (Health <= 0 && !Dead)
