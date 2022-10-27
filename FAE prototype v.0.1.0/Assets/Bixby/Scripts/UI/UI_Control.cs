@@ -27,6 +27,7 @@ public class UI_Control : MonoBehaviour
     GameObject aimPoint;
     public Shop Shop;
     public Mission Mission;
+    [SerializeField] GameObject damagePrefab;
     void Start()
     {
         windows = new List<GameObject>();
@@ -114,5 +115,11 @@ public class UI_Control : MonoBehaviour
             }
         }
         return result;
+    }
+
+    public void damageSet(float damage, GameObject subject)
+    {
+        GameObject temp = Instantiate(damagePrefab, subject.transform);
+        temp.GetComponent<TMPro.TextMeshPro>().text = damage.ToString();
     }
 }

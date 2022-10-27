@@ -105,6 +105,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float value)
     {
         isHitted = true;
+        UI_Control.Inst.damageSet(value, this.gameObject);
         Stat.hp -= value;
     }
 
