@@ -32,7 +32,11 @@ public class UI_EnemyHp : MonoBehaviour
         {
             int index = EnemyHps.hpObjects.IndexOf(item);
             Enemy target = EnemyHps.enemies[index];
-            if (target.State == Enemy.STATE.CHASE)
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(target.gameObject.transform.position);
+            bool isInScreen = screenPos.z > 0
+                && screenPos.x > 0 && screenPos.x < 1920f
+                && screenPos.y > 0 && screenPos.y < 1080f;
+            if (target.State == Enemy.STATE.CHASE && isInScreen)
             {
                 item.SetActive(true);
                 item.transform.position = Camera.main.WorldToScreenPoint(target.gameObject.transform.position + Vector3.up * 5f);

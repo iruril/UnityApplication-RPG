@@ -105,7 +105,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float value)
     {
         isHitted = true;
-        UI_Control.Inst.damageSet(value, this.gameObject);
+        UI_Control.Inst.damageSet(value, this.gameObject);//대미지 UI 추가 부분
         Stat.hp -= value;
     }
 
@@ -119,5 +119,11 @@ public class Enemy : MonoBehaviour
         if(Stat.hp == Stat.maxHp)
             State = STATE.IDLE;
     }
-
+    private void OnDestroy()//에너미 HP바 해제 및 파괴 추가 부분
+    {
+        int index = UI_EnemyHp.EnemyHps.enemies.IndexOf(this);
+        UI_EnemyHp.EnemyHps.enemies.RemoveAt(index);
+        Destroy(UI_EnemyHp.EnemyHps.hpObjects[index]);
+        UI_EnemyHp.EnemyHps.hpObjects.RemoveAt(index);
+    }
 }

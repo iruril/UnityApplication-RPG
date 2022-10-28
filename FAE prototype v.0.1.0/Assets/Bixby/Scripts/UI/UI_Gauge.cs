@@ -8,22 +8,28 @@ public class UI_Gauge : MonoBehaviour
     Slider hp;
     Slider stamina;
     PlayerContorl playerControl;
+    GameObject hpBack;
     GameObject staminaBack;
     float staminaBackAmount;
+    float hpBackAmount;
     float timeTack;
     Slider attackCharge;
     CamControl cameraControl;
     Vector3 staminaOriginPos;
+    GameObject hpObj;
     GameObject staminaObj;
     void Start()
     {
-        staminaObj = this.transform.GetChild(1).gameObject;
         hp = this.transform.GetChild(0).GetComponent<Slider>();
-        stamina = staminaObj.GetComponent<Slider>();
+        stamina = this.transform.GetChild(1).GetComponent<Slider>();
+        hpObj = hp.gameObject;
+        staminaObj = stamina.gameObject;
         attackCharge = this.transform.GetChild(2).GetComponent<Slider>();
         playerControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerContorl>();
+        hpBack = hpObj.transform.GetChild(1).gameObject;
         staminaBack = staminaObj.transform.GetChild(1).gameObject;
         cameraControl = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamControl>();
+        hpBackAmount = playerControl.MyStartingHealth;
         staminaBackAmount = playerControl.MyStartingStamina;
         timeTack = 0f;
         staminaOriginPos = staminaObj.transform.position;
@@ -47,6 +53,8 @@ public class UI_Gauge : MonoBehaviour
         {
             staminaBackAmount = Mathf.Abs(staminaBackAmount - playerControl.Stamina) < 1 ? playerControl.Stamina : Mathf.Lerp(playerControl.Stamina, staminaBackAmount, 0.5f);
             staminaBack.GetComponent<RectTransform>().sizeDelta = new Vector2(staminaBackAmount / playerControl.MyStartingStamina * 200f, 0);
+            hpBackAmount = Mathf.Abs(hpBackAmount - playerControl.Health) < 1 ? playerControl.Health : Mathf.Lerp(playerControl.Health, hpBackAmount, 0.5f);
+            hpBack.GetComponent<RectTransform>().sizeDelta = new Vector2(hpBackAmount / playerControl.MyStartingHealth * 600f, 0);
             timeTack = 0f;
         }
     }
