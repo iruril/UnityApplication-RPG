@@ -207,7 +207,7 @@ public class PlayerAnimation : MonoBehaviour
 
     void ultCheck()
     {
-        Debug.Log("현재 애니메이션 속도 : " + animator.speed);
+        //Debug.Log("현재 애니메이션 속도 : " + animator.speed);
         if (animator.GetCurrentAnimatorStateInfo(2).IsName("Ultimate"))         // 현재 궁극기 애니메이션을 재생 중일 때
         {
             if (modelContorl.State != PlayerContorl.STATE.ELEMENT_ULT_SKILL)     // 궁극기 사용 상태가 아닐 때(switch에 넣으면 중복이 많아서 분리함)
@@ -222,21 +222,21 @@ public class PlayerAnimation : MonoBehaviour
             if (animator.GetCurrentAnimatorStateInfo(2).normalizedTime >= 0.45f && // 궁극기 애니메이션 진행 상황이 45%를 넘어갔고
                 (animator.speed == 1f || animator.speed == 0f))                    // 애니메이션의 속도가 1f 혹은 0f일 때(이미 좌클릭을 누르지 않았을 때, Anim이 정지되어 있을 때)             
             {
-                Debug.Log("반 넘음");
+                //Debug.Log("반 넘음");
                 if (!Input.GetKeyDown(KeyCode.Mouse0))               // 마우스 좌클릭 입력이 발생하지 않는다면
                 {
                     animator.speed = 0f;                            // 애니메이션 일시 정지
                 }
                 else                                                // 마우스 좌클릭 입력이 발생했다면
                 {
-                    Debug.Log("발사");
+                    //Debug.Log("발사");
                     animator.speed = 2.5f;                       // 발사 부분 애니메이션 재생
                 }
             }
             else if (animator.GetCurrentAnimatorStateInfo(2).normalizedTime < 0.45f && // 궁극기 애니메이션 진행 상황이 45%보다 낮고
                 Input.GetKeyDown(KeyCode.Mouse0))                                     // 마우스 좌클릭 입력이 발생했을 때
             {
-                Debug.Log("빨리발사");
+                //Debug.Log("빨리발사");
                 animator.Play("immediateUltimate", 2);                          // 즉발 애니메이션 실행
             }
         }

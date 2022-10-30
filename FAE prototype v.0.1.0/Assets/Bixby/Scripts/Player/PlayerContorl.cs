@@ -339,7 +339,7 @@ public class PlayerContorl : PlayerStatusControl
 
                         break;
                     case STATE.MOVE:
-                        MyCurrentSpeed = Speed * SpeedMultiply;
+                        MyCurrentSpeed = Speed;
                         camera.GetComponent<CamControl>().isOnAim = false;
                         break;
                     case STATE.AIM:
@@ -352,11 +352,11 @@ public class PlayerContorl : PlayerStatusControl
                         isDashed = false;
                         break;
                     case STATE.RUN:
-                        MyCurrentSpeed = RunSpeed * SpeedMultiply;
+                        MyCurrentSpeed = RunSpeed;
                         camera.GetComponent<CamControl>().isOnAim = false;
                         break;
                     case STATE.ATTACK:
-                        MyCurrentSpeed = Speed * SpeedMultiply;
+                        MyCurrentSpeed = Speed;
                         switch (this.isAimAttack)
                         {
                             case true:
@@ -367,7 +367,7 @@ public class PlayerContorl : PlayerStatusControl
                         }
                         break;
                     case STATE.CHARGE_ATTACK:
-                        MyCurrentSpeed = Speed * SpeedMultiply;
+                        MyCurrentSpeed = Speed;
                         camera.GetComponent<CamControl>().isOnAim = true;
                         break;
                     case STATE.ELEMENT_SKILL:
@@ -380,7 +380,7 @@ public class PlayerContorl : PlayerStatusControl
                         camera.GetComponent<CamControl>().isOnAim = true;
                         break;
                     case STATE.SWIMMING:
-                        MyCurrentSpeed = SwimSpeed * SpeedMultiply;
+                        MyCurrentSpeed = SwimSpeed;
                         camera.GetComponent<CamControl>().isOnAim = false;
                         break;
                     case STATE.STUNNED:
@@ -589,7 +589,7 @@ public class PlayerContorl : PlayerStatusControl
             else playerDirection = new Vector3(0, 0, 0);
 
             playerDirection = player.transform.TransformDirection(playerDirection);
-            playerDirection *= MyCurrentSpeed;
+            playerDirection *= MyCurrentSpeed * SpeedMultiply;
 
             if (isJumpPressed == false && Input.GetButton("Jump"))
             {
@@ -677,7 +677,7 @@ public class PlayerContorl : PlayerStatusControl
             else playerDirection = new Vector3(0, 0, 0);
 
             playerDirection = player.transform.TransformDirection(playerDirection);
-            playerDirection *= MyCurrentSpeed;
+            playerDirection *= MyCurrentSpeed * SpeedMultiply;
         }
         else
         {
@@ -699,7 +699,7 @@ public class PlayerContorl : PlayerStatusControl
         {
             playerDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             playerDirection = player.transform.TransformDirection(playerDirection);
-            playerDirection *= (float)(Speed / 2);
+            playerDirection *= (float)(Speed / 2) * SpeedMultiply;
         }
         else
             playerDirection.y -= GravityForce * Time.deltaTime;

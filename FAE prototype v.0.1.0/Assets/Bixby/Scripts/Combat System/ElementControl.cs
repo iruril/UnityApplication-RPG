@@ -6,7 +6,7 @@ public class ElementControl : ElementRule, IElementReaction
 {
     public ElementType MyElement;
     public ElementType EnemyElement;
-    public Stack<ElementType> ElementStack = new Stack<ElementType>(); // 속성 합성 시너지 스택. 2스택 쌓이면 바로 전부 팝!
+    public Stack<ElementType> ElementStack; // 속성 합성 시너지 스택. 2스택 쌓이면 바로 전부 팝!
 
     protected Color mySkillStartColor = Color.yellow;
     protected Color mySkillEndColor = Color.white;
@@ -23,9 +23,17 @@ public class ElementControl : ElementRule, IElementReaction
     public static Color ElectroSkillStartColor = new Color(112 / 255f, 69 / 255f, 255 / 255f);
     public static Color ElectroSkillEndColor = new Color(112 / 255f, 69 / 255f, 255 / 255f);
 
+    public bool IsFusion = false;
+    public bool IsEvaporation = false;
+    public bool IsElectronicShock = false;
+    public bool IsExplosion = false;
+    public bool IsFreezing = false;
+    public bool IsTransmission = false;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        ElementStack = new Stack<ElementType>();
         if (Elements.Count < 4)
         {
             Elements.AddLast(ElementType.WATER);
@@ -54,33 +62,65 @@ public class ElementControl : ElementRule, IElementReaction
         ElementType firstElement = ElementStack.Pop();
         ElementType secondElement = ElementStack.Pop();
 
-        if (firstElement == ElementType.FIRE && secondElement == ElementType.ICE) //융해
+        if ((firstElement == ElementType.FIRE && secondElement == ElementType.ICE)
+            || (secondElement == ElementType.FIRE && firstElement == ElementType.ICE)) //융해
         {
-            Fusion();
+            if (!IsFusion)
+            {
+                Debug.Log("융해!");
+                Fusion();
+                IsFusion = true;
+            }
         }
-        else if (firstElement == ElementType.WATER && secondElement == ElementType.ICE) //빙결
+        if ((firstElement == ElementType.WATER && secondElement == ElementType.ICE)
+            || (secondElement == ElementType.WATER && firstElement == ElementType.ICE)) //빙결
         {
-            Freezing();
+            if (!IsFreezing)
+            {
+                Debug.Log("빙결!");
+                Freezing();
+                IsFreezing = true;
+            }
         }
-        else if (firstElement == ElementType.ELECTRICITY && secondElement == ElementType.ICE) //전도
+        if ((firstElement == ElementType.ELECTRICITY && secondElement == ElementType.ICE)
+            || (secondElement == ElementType.ELECTRICITY && firstElement == ElementType.ICE)) //전도
         {
-            Transmission();
+            if (!IsTransmission)
+            {
+                Debug.Log("전도!");
+                Transmission();
+                IsTransmission = true;
+            }
         }
-        else if (firstElement == ElementType.ELECTRICITY && secondElement == ElementType.FIRE) //폭발
+        if ((firstElement == ElementType.ELECTRICITY && secondElement == ElementType.FIRE)
+            || (secondElement == ElementType.ELECTRICITY && firstElement == ElementType.FIRE)) //폭발
         {
-            Explosion();
+            if (!IsExplosion)
+            {
+                Debug.Log("폭발!");
+                Explosion();
+                IsExplosion = true;
+            }
         }
-        else if (firstElement == ElementType.ELECTRICITY && secondElement == ElementType.WATER) //감전
+        if ((firstElement == ElementType.ELECTRICITY && secondElement == ElementType.WATER)
+            || (secondElement == ElementType.ELECTRICITY && firstElement == ElementType.WATER)) //감전
         {
-            ElectricShock();
+            if (!IsElectronicShock)
+            {
+                Debug.Log("감전!");
+                ElectricShock();
+                IsElectronicShock = true;
+            }
         }
-        else if (firstElement == ElementType.WATER && secondElement == ElementType.FIRE) //증발
+        if ((firstElement == ElementType.WATER && secondElement == ElementType.FIRE)
+            || (secondElement == ElementType.WATER && firstElement == ElementType.FIRE)) //증발
         {
-            Evaporation();
-        }
-        else
-        {
-            return;
+            if (!IsEvaporation)
+            {
+                Debug.Log("증발!");
+                Evaporation();
+                IsEvaporation = true;
+            }
         }
     }
 
@@ -118,12 +158,12 @@ public class ElementControl : ElementRule, IElementReaction
 
     public virtual void Fusion()
     {
-        //일단, 공격속도를 50퍼센트 늦춘다.
-        StartCoroutine(fusion(100.0f));
+        //일단, 공격속도를 100퍼센트 늦춘다.
+        StartCoroutine(fusion(30.0f));
     }
     public virtual void Freezing()
     {
-        StartCoroutine(freezing(10.0f));
+        StartCoroutine(freezing(30.0f));
         //이동속도를 50퍼센트 늦춘다.
     }
     public virtual void ElectricShock()
@@ -136,7 +176,7 @@ public class ElementControl : ElementRule, IElementReaction
     }
     public virtual void Evaporation()
     {
-        StartCoroutine(evaporation(10.0f));
+        StartCoroutine(evaporation(30.0f));
     }
     public virtual void Transmission()
     {
@@ -145,48 +185,59 @@ public class ElementControl : ElementRule, IElementReaction
 
     IEnumerator fusion(float time)
     {
-        float temp = this.gameObject.GetComponent<PlayerStatusControl>().FireRate;
+        float temp = this.gameObject.GetComponent<CombatStatus>().FireRate;
 
-        this.gameObject.GetComponent<PlayerStatusControl>().FireRate =
-        this.gameObject.GetComponent<PlayerStatusControl>().FireRate * 1.5f;
+        this.gameObject.GetComponent<CombatStatus>().FireRate =
+        this.gameObject.GetComponent<CombatStatus>().FireRate * 2.0f;
         while (time > 0)
         {
             time--;
             yield return new WaitForSeconds(1.0f);
         }
-        this.gameObject.GetComponent<PlayerStatusControl>().FireRate = temp;
+        IsFusion = false;
+        this.gameObject.GetComponent<CombatStatus>().FireRate = temp;
     }
 
     IEnumerator freezing(float time)
     {
-        this.gameObject.GetComponent<PlayerStatusControl>().SpeedMultiply = 0.5f;
+        this.gameObject.GetComponent<CombatStatus>().SpeedMultiply = 0.5f;
         while (time > 0)
         {
             time--;
             yield return new WaitForSeconds(1.0f);
         }
-        this.gameObject.GetComponent<PlayerStatusControl>().SpeedMultiply = 1.0f;
+        IsFreezing = false;
+        this.gameObject.GetComponent<CombatStatus>().SpeedMultiply = 1.0f;
     }
 
     IEnumerator eletricShock(float time, float damage)
     {
         while(time > 0)
         {
-            this.gameObject.GetComponent<PlayerStatusControl>().TakeHit(damage);
+            if (this.gameObject.tag == "Player")
+            {
+                this.gameObject.GetComponent<PlayerStatusControl>().TakeHit(damage);
+            }
+            else if(this.gameObject.tag == "Enemy")
+            {
+                this.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+            }
             time--;
             yield return new WaitForSeconds(1.0f);
         }
+        IsElectronicShock = false;
     }
 
     IEnumerator evaporation(float time)
     {
-        this.gameObject.GetComponent<PlayerStatusControl>().AdditionalDamage = 1.5f; //50퍼 받피증
+        this.gameObject.GetComponent<CombatStatus>().AdditionalDamage = 1.5f; //50퍼 받피증
         while (time > 0)
         {
             time--;
             yield return new WaitForSeconds(1.0f);
         }
-        this.gameObject.GetComponent<PlayerStatusControl>().AdditionalDamage = 1.0f;
+        IsEvaporation = false;
+        this.gameObject.GetComponent<CombatStatus>().AdditionalDamage = 1.0f;
     }
 
     // 임시 추가부분. 적과 연동하기 위한 코드, 작성자: 류창렬

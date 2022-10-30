@@ -105,7 +105,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float value)
     {
         isHitted = true;
-        UI_Control.Inst.damageSet(value, this.gameObject);//대미지 UI 추가 부분
+        UI_Control.Inst.damageSet(value.ToString(), this.gameObject);//대미지 UI 추가 부분
         Stat.hp -= value;
     }
 

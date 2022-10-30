@@ -19,7 +19,7 @@ public class UI_CharacterFrame : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKeyDown)//아바타 변경 키를 눌렀을 때로 변경가능, 퍼블릭이라 플레이어 컨트롤에서 불러도 됨
+        if (Input.anyKey)//아바타 변경 키를 눌렀을 때로 변경가능, 퍼블릭이라 플레이어 컨트롤에서 불러도 됨
             NowAvater();
     }
     public void SetAvatars()//가능한 아바타들 가시화, 불가능한 아바타 비가시화

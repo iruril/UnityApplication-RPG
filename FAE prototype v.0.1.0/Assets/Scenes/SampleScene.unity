@@ -276,6 +276,10 @@ PrefabInstance:
       value: ElectroElemental (Test)
       objectReference: {fileID: 0}
     - target: {fileID: 4155676553942198843, guid: 1b888472d320ac04ba24106ac0e3225e, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1169534517}
+    - target: {fileID: 4155676553942198843, guid: 1b888472d320ac04ba24106ac0e3225e, type: 3}
       propertyPath: Element
       value: 3
       objectReference: {fileID: 0}
@@ -629,6 +633,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterElemental (Test)
       objectReference: {fileID: 0}
+    - target: {fileID: 4155676553942198843, guid: 1b888472d320ac04ba24106ac0e3225e, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1169534517}
     - target: {fileID: 4155676553942198843, guid: 1b888472d320ac04ba24106ac0e3225e, type: 3}
       propertyPath: Element
       value: 2
@@ -2539,6 +2547,10 @@ PrefabInstance:
     - target: {fileID: 2970369942042931982, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970369942042931983, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
+      propertyPath: MyStartingHealth
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4957901255302217315, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
       propertyPath: m_ApplyRootMotion
