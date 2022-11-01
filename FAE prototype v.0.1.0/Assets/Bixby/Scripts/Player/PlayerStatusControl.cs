@@ -83,8 +83,8 @@ public class PlayerStatusControl : CombatStatus, IDamgeable
             }
         }
 
-        Health -= curDamage;
-        UI_Control.Inst.damageSet(curDamage.ToString(), GameObject.FindGameObjectWithTag("Player"));//대미지 UI 추가 코드
+        Health -= curDamage * AdditionalDamage;
+        UI_Control.Inst.damageSet((curDamage * AdditionalDamage).ToString(), GameObject.FindGameObjectWithTag("Player"));//대미지 UI 추가 코드
         DealtDamage = Mathf.Round(curDamage * 10) * 0.1f;
         if (Health <= 0 && !Dead)
         {

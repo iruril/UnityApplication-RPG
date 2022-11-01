@@ -8,6 +8,9 @@ public class ElementControl : ElementRule, IElementReaction
     public ElementType EnemyElement;
     public Stack<ElementType> ElementStack; // 속성 합성 시너지 스택. 2스택 쌓이면 바로 전부 팝!
 
+    public GameObject ExplosionObj;
+    public GameObject TransmissionObj;
+
     protected Color mySkillStartColor = Color.yellow;
     protected Color mySkillEndColor = Color.white;
 
@@ -89,7 +92,7 @@ public class ElementControl : ElementRule, IElementReaction
             {
                 Debug.Log("전도!");
                 Transmission();
-                IsTransmission = true;
+                //IsTransmission = true;
             }
         }
         if ((firstElement == ElementType.ELECTRICITY && secondElement == ElementType.FIRE)
@@ -99,7 +102,7 @@ public class ElementControl : ElementRule, IElementReaction
             {
                 Debug.Log("폭발!");
                 Explosion();
-                IsExplosion = true;
+                //IsExplosion = true;
             }
         }
         if ((firstElement == ElementType.ELECTRICITY && secondElement == ElementType.WATER)
@@ -158,12 +161,12 @@ public class ElementControl : ElementRule, IElementReaction
 
     public virtual void Fusion()
     {
-        //일단, 공격속도를 100퍼센트 늦춘다.
-        StartCoroutine(fusion(30.0f));
+        //50퍼 받피증.
+        StartCoroutine(fusion(10.0f));
     }
     public virtual void Freezing()
     {
-        StartCoroutine(freezing(30.0f));
+        StartCoroutine(freezing(10.0f));
         //이동속도를 50퍼센트 늦춘다.
     }
     public virtual void ElectricShock()
@@ -172,19 +175,31 @@ public class ElementControl : ElementRule, IElementReaction
     }
     public virtual void Explosion()
     {
-        //instaciate();
+        Instantiate(ExplosionObj, this.transform.position, this.transform.rotation);
+        IsExplosion = false;
     }
     public virtual void Evaporation()
     {
-        StartCoroutine(evaporation(30.0f));
+        //공격딜레이가 2배로 증가.
+        StartCoroutine(evaporation(10.0f));
     }
     public virtual void Transmission()
     {
-        //instanciate();
+        Instantiate(TransmissionObj, this.transform.position, this.transform.rotation);
+        IsTransmission = false;
     }
 
     IEnumerator fusion(float time)
     {
+        this.gameObject.GetComponent<CombatStatus>().AdditionalDamage = 1.5f; //50퍼 받피증
+        while (time > 0)
+        {
+            time--;
+            yield return new WaitForSeconds(1.0f);
+        }
+        IsEvaporation = false;
+        this.gameObject.GetComponent<CombatStatus>().AdditionalDamage = 1.0f;
+
         float temp = this.gameObject.GetComponent<CombatStatus>().FireRate;
 
         this.gameObject.GetComponent<CombatStatus>().FireRate =
@@ -230,14 +245,17 @@ public class ElementControl : ElementRule, IElementReaction
 
     IEnumerator evaporation(float time)
     {
-        this.gameObject.GetComponent<CombatStatus>().AdditionalDamage = 1.5f; //50퍼 받피증
+        float temp = this.gameObject.GetComponent<CombatStatus>().FireRate;
+
+        this.gameObject.GetComponent<CombatStatus>().FireRate =
+        this.gameObject.GetComponent<CombatStatus>().FireRate * 2.0f;
         while (time > 0)
         {
             time--;
             yield return new WaitForSeconds(1.0f);
         }
-        IsEvaporation = false;
-        this.gameObject.GetComponent<CombatStatus>().AdditionalDamage = 1.0f;
+        IsFusion = false;
+        this.gameObject.GetComponent<CombatStatus>().FireRate = temp;
     }
 
     // 임시 추가부분. 적과 연동하기 위한 코드, 작성자: 류창렬

@@ -2549,9 +2549,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2970369942042931983, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
+      propertyPath: ExplosionObj
+      value: 
+      objectReference: {fileID: 1481134630116024679, guid: 69e99c5333091074b90dac5252d2acd9, type: 3}
+    - target: {fileID: 2970369942042931983, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
       propertyPath: MyStartingHealth
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 2970369942042931983, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
+      propertyPath: TransmmissionObj
+      value: 
+      objectReference: {fileID: 8389957880746753291, guid: 1a891c56444c98145b0268375bb2a6ec, type: 3}
     - target: {fileID: 4957901255302217315, guid: 1d405ba0b29b39441a3ecf4dc84ee5a2, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
