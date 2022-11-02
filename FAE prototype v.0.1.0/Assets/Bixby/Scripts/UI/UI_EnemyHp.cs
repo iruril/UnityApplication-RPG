@@ -16,16 +16,10 @@ public class UI_EnemyHp : MonoBehaviour
         }
     }
     public static enemyHp EnemyHps;
-    void Start()
+    private void Awake()
     {
         EnemyHps = new enemyHp();
-        foreach (var item in GameObject.FindGameObjectsWithTag("Enemy"))
-        {
-            EnemyHps.hpObjects.Add(Instantiate(hpPrefab, GameObject.Find("UI").transform.GetChild(1)));
-            EnemyHps.enemies.Add(item.GetComponent<Enemy>());
-        }
     }
-
     void Update()
     {
         foreach (var item in EnemyHps.hpObjects)
@@ -45,5 +39,9 @@ public class UI_EnemyHp : MonoBehaviour
             else
                 item.SetActive(false);
         }
+    }
+    public GameObject getPrefab()
+    {
+        return hpPrefab;
     }
 }

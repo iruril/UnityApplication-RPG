@@ -11,7 +11,9 @@ public class PlayerStatusControl : CombatStatus, IDamgeable
     public float MyStartingStamina = 100.0f;
     public float Stamina;
 
-    public float attackDamage = 10.0f;
+    public float AttackDamage = 10.0f;
+    public float SkillDamage = 10.0f;
+    public float UltDamage = 50.0f;
 
     protected bool isHitted;
     public bool Dead;
@@ -51,6 +53,7 @@ public class PlayerStatusControl : CombatStatus, IDamgeable
     {
         isHitted = true;
         Health -= damage * AdditionalDamage;
+        UI_Control.Inst.damageSet((damage * AdditionalDamage).ToString(), GameObject.FindGameObjectWithTag("Player"));//대미지 UI 추가 코드
         DealtDamage = Mathf.Round(damage * 10) * 0.1f;
         if (Health <= 0 && !Dead)
         {

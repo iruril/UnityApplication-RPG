@@ -41,6 +41,9 @@ public class Enemy : MonoBehaviour
 
         rigid = GetComponent<Rigidbody>();
         Anim = GetComponent<Animator>();
+
+        UI_EnemyHp.EnemyHps.hpObjects.Add(Instantiate(UI_Control.Inst.EnemyHp.getPrefab(), GameObject.Find("UI").transform.GetChild(1)));
+        UI_EnemyHp.EnemyHps.enemies.Add(this);
     }
 
     // Update is called once per frame

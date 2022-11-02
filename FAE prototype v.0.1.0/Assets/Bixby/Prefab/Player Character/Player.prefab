@@ -81,10 +81,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyElement: 0
   EnemyElement: 0
-  MyStartingHealth: 100
+  ExplosionObj: {fileID: 1481134630116024679, guid: 69e99c5333091074b90dac5252d2acd9, type: 3}
+  TransmissionObj: {fileID: 8389957880746753291, guid: 1a891c56444c98145b0268375bb2a6ec, type: 3}
+  IsFusion: 0
+  IsEvaporation: 0
+  IsElectronicShock: 0
+  IsExplosion: 0
+  IsFreezing: 0
+  IsTransmission: 0
+  FireRate: 0.5
+  AdditionalDamage: 1
+  SpeedMultiply: 1
+  MyStartingHealth: 500
   Health: 0
   MyStartingStamina: 100
   Stamina: 0
+  AttackDamage: 10
+  SkillDamage: 10
+  UltDamage: 50
   Dead: 0
   DealtDamage: 0
   DashStaminaAmount: 10
@@ -100,7 +114,6 @@ MonoBehaviour:
   JumpPower: 10
   ShootDistance: 50
   SwitchToChargeTime: 1
-  FireRate: 0.5
   ProjectileStart: {fileID: 2970369940586204732}
   State: -1
   NextState: -1
@@ -253,6 +266,11 @@ MonoBehaviour:
   ChargeSkill_Ice: {fileID: 5112403345868107899, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
   ChargeSkill_Water: {fileID: 8205706795460263316, guid: 326e86d5729c54e479798cacab220bb2, type: 3}
   ChargeSkill_Electro: {fileID: 2708598583397607910, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
+  NormalElementSkill: {fileID: 215409008223582073, guid: 421167a22e1e6d04e9b5514a2d3215fe, type: 3}
+  ElementSkill_Fire: {fileID: 8309009602280410490, guid: ecc8fbc029299bd46bcbea025a4d74f1, type: 3}
+  ElementSkill_Ice: {fileID: 1466611192770828274, guid: 1a52dab36b11e22489089433d397f196, type: 3}
+  ElementSkill_Water: {fileID: 5830344669474769435, guid: 534e450f1094e22408a87418f933dc53, type: 3}
+  ElementSkill_Electro: {fileID: 7786393705202471738, guid: e5bae8c0ce971544f94be960ee7e2aac, type: 3}
   EnemyHitParticle: {fileID: 1429954232896169632, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
 --- !u!1001 &1559535496877622258
 PrefabInstance:

@@ -17,6 +17,7 @@ public class UI_Control : MonoBehaviour
         Shop = this.gameObject.GetComponent<Shop>();
         Mission = this.gameObject.GetComponent<Mission>();
         player = GameObject.FindGameObjectWithTag("Player");
+        EnemyHp = this.gameObject.GetComponent<UI_EnemyHp>();
     }
     GameObject optionObj;
     UI_Option option;
@@ -31,6 +32,7 @@ public class UI_Control : MonoBehaviour
     [SerializeField] GameObject damagePrefab;
     float elementalLast;
     GameObject player;
+    public UI_EnemyHp EnemyHp;
     void Start()
     {
         windows = new List<GameObject>();

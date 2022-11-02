@@ -73,6 +73,7 @@ public class ElementControl : ElementRule, IElementReaction
                 Debug.Log("À¶ÇØ!");
                 Fusion();
                 IsFusion = true;
+                UI_Control.Inst.damageSet("À¶ÇØ", this.gameObject);
             }
         }
         if ((firstElement == ElementType.WATER && secondElement == ElementType.ICE)
@@ -83,6 +84,7 @@ public class ElementControl : ElementRule, IElementReaction
                 Debug.Log("ºù°á!");
                 Freezing();
                 IsFreezing = true;
+                UI_Control.Inst.damageSet("ºù°á", this.gameObject);
             }
         }
         if ((firstElement == ElementType.ELECTRICITY && secondElement == ElementType.ICE)
@@ -93,6 +95,7 @@ public class ElementControl : ElementRule, IElementReaction
                 Debug.Log("Àüµµ!");
                 Transmission();
                 //IsTransmission = true;
+                UI_Control.Inst.damageSet("Àüµµ", this.gameObject);
             }
         }
         if ((firstElement == ElementType.ELECTRICITY && secondElement == ElementType.FIRE)
@@ -103,6 +106,7 @@ public class ElementControl : ElementRule, IElementReaction
                 Debug.Log("Æø¹ß!");
                 Explosion();
                 //IsExplosion = true;
+                UI_Control.Inst.damageSet("Æø¹ß", this.gameObject);
             }
         }
         if ((firstElement == ElementType.ELECTRICITY && secondElement == ElementType.WATER)
@@ -113,6 +117,7 @@ public class ElementControl : ElementRule, IElementReaction
                 Debug.Log("°¨Àü!");
                 ElectricShock();
                 IsElectronicShock = true;
+                UI_Control.Inst.damageSet("°¨Àü", this.gameObject);
             }
         }
         if ((firstElement == ElementType.WATER && secondElement == ElementType.FIRE)
@@ -123,6 +128,7 @@ public class ElementControl : ElementRule, IElementReaction
                 Debug.Log("Áõ¹ß!");
                 Evaporation();
                 IsEvaporation = true;
+                UI_Control.Inst.damageSet("Áõ¹ß", this.gameObject);
             }
         }
     }

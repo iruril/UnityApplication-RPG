@@ -243,6 +243,8 @@ MonoBehaviour:
   OpenedWindow: {fileID: 0}
   Shop: {fileID: 0}
   Mission: {fileID: 0}
+  damagePrefab: {fileID: 0}
+  EnemyHp: {fileID: 0}
 --- !u!114 &4136791963225882027
 MonoBehaviour:
   m_ObjectHideFlags: 0
