@@ -17,8 +17,6 @@ namespace MBT
         public float UpdateInterval = 2.0f;
         public float Time_ = 0.0f;
 
-        public float AttackRange = 0.0f;
-
         public override NodeResult Execute()
         {
             // int Element;
@@ -43,9 +41,9 @@ namespace MBT
 
         public override void OnExit()
         {
-            // if (Variable.Value <= AttackRange)
-            // {
-                Collider[] colliders = Physics.OverlapSphere(transform.position, AttackRange, 
+            if (Variable.Value <= ObjRef.Value.GetComponent<Enemy>().Stat.attackRange)
+            {
+                Collider[] colliders = Physics.OverlapSphere(transform.position, ObjRef.Value.GetComponent<Enemy>().Stat.attackRange, 
                                                 ObjRef.Value.GetComponent<Enemy>().Mask, 
                                                 QueryTriggerInteraction.Ignore);
             
@@ -54,7 +52,7 @@ namespace MBT
                     //colliders[0].GetComponent<Player>().TakeDamage(5.0f);
                     Debug.Log("Hit");
                 }
-            // }
+            }
         }
     }
 }

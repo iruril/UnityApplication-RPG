@@ -6,7 +6,7 @@ public class ElementControl : ElementRule, IElementReaction
 {
     public ElementType MyElement;
     public ElementType EnemyElement;
-    public Stack<ElementType> ElementStack; // 속성 합성 시너지 스택. 2스택 쌓이면 바로 전부 팝!
+    public Stack<ElementType> ElementStack = new Stack<ElementType>(); // 속성 합성 시너지 스택. 2스택 쌓이면 바로 전부 팝!
 
     public GameObject ExplosionObj;
     public GameObject TransmissionObj;
@@ -36,7 +36,6 @@ public class ElementControl : ElementRule, IElementReaction
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        ElementStack = new Stack<ElementType>();
         if (Elements.Count < 4)
         {
             Elements.AddLast(ElementType.WATER);
@@ -235,13 +234,9 @@ public class ElementControl : ElementRule, IElementReaction
     {
         while(time > 0)
         {
-            if (this.gameObject.tag == "Player")
+            if (this.gameObject.tag == "Player" || this.gameObject.tag == "Enemy")
             {
-                this.gameObject.GetComponent<PlayerStatusControl>().TakeHit(damage);
-            }
-            else if(this.gameObject.tag == "Enemy")
-            {
-                this.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+                this.gameObject.GetComponent<IDamgeable>().TakeHit(damage);
             }
             time--;
             yield return new WaitForSeconds(1.0f);

@@ -30,6 +30,8 @@ public class PlayerContorl : PlayerStatusControl
     private float latestActionTime = 0f;
     private float myAFKTime = 5.0f; //5초 후 Idle로 전환함.
 
+    float genTerm; //현재 묻어있는 속성을 TextMeshPro로 나타내는 부분.
+
     public STATE State = STATE.NONE; // 현재 상태.
     public STATE NextState = STATE.NONE; // 다음 상태.
     public STATE PrevState = STATE.NONE; // 이전 상태.
@@ -67,11 +69,21 @@ public class PlayerContorl : PlayerStatusControl
         player = this.GetComponent<CharacterController>();
         projectileLine = this.GetComponent<LineRenderer>();
         projectileLine.enabled = false;
+        genTerm = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //현재 묻어있는 속성을 TextMeshPro로 나타내는 부분.
+        this.genTerm += Time.deltaTime;
+        if (genTerm >= 0.5f)
+        {
+            UI_Control.Inst.ElementStateGen(this.gameObject, this.genTerm);
+            genTerm = 0.0f;
+        }
+        //현재 묻어있는 속성을 TextMeshPro로 나타내는 부분.
+
         if (this.State == STATE.MOVE || this.State == STATE.RUN || this.State == STATE.IDLE || this.State == STATE.AIM)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -722,7 +734,7 @@ public class PlayerContorl : PlayerStatusControl
         Vector3 snapGround = Vector3.zero;
         if (player.isGrounded) snapGround = Vector3.down;
         float startTime = Time.time; //대쉬를 누른 시간
-        while (Time.time < startTime + 0.3f) //대쉬가 지속될 시간, 0.1초
+        while (Time.time < startTime + 0.3f) //대쉬가 지속될 시간, 0.3초
         {
             player.Move(this.transform.forward * DashSpeed * Time.deltaTime + snapGround);
             yield return null;
@@ -755,7 +767,7 @@ public class PlayerContorl : PlayerStatusControl
                     StartCoroutine(shootEffect());
                     if (hitInfo.collider.tag == "Enemy")
                     {
-                        hitInfo.collider.GetComponent<Enemy>().TakeDamage(AttackDamage);
+                        hitInfo.collider.GetComponent<Enemy>().TakeHit(AttackDamage);
                     }
                 }
                 else
@@ -776,7 +788,7 @@ public class PlayerContorl : PlayerStatusControl
                     StartCoroutine(shootEffect());
                     if (hitInfo.collider.tag == "Enemy")
                     {
-                        hitInfo.collider.GetComponent<Enemy>().TakeDamage(AttackDamage);
+                        hitInfo.collider.GetComponent<Enemy>().TakeHit(AttackDamage);
                     }
                 }
                 else
@@ -806,8 +818,8 @@ public class PlayerContorl : PlayerStatusControl
             StartCoroutine(shootEffect());
             if (hitInfo.collider.tag == "Enemy")
             {
-                setEnemyElement(hitInfo.collider.GetComponent<Enemy>().Stat.enemyElement);
-                hitInfo.collider.GetComponent<Enemy>().TakeDamage(attackedOnNormal(AttackDamage));
+                setEnemyElement(hitInfo.collider.GetComponent<Enemy>().Stat.element);
+                hitInfo.collider.GetComponent<Enemy>().TakeElementHit(AttackDamage, MyElement);
             }
         }
         else
@@ -853,8 +865,8 @@ public class PlayerContorl : PlayerStatusControl
             StartCoroutine(shootEffect());
             if (hitInfo.collider.tag == "Enemy")
             {
-                setEnemyElement(hitInfo.collider.GetComponent<Enemy>().Stat.enemyElement);
-                hitInfo.collider.GetComponent<Enemy>().TakeDamage(attackedOnNormal(UltDamage));
+                setEnemyElement(hitInfo.collider.GetComponent<Enemy>().Stat.element);
+                hitInfo.collider.GetComponent<Enemy>().TakeHit(attackedOnNormal(UltDamage));
             }
         }
         projectileLine.SetPosition(1, rayOrigin + (m_camera.transform.forward * ShootDistance));

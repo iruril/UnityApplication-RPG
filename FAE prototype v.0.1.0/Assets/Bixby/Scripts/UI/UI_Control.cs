@@ -16,7 +16,6 @@ public class UI_Control : MonoBehaviour
         aimPoint = GameObject.Find("AimPoint");
         Shop = this.gameObject.GetComponent<Shop>();
         Mission = this.gameObject.GetComponent<Mission>();
-        player = GameObject.FindGameObjectWithTag("Player");
         EnemyHp = this.gameObject.GetComponent<UI_EnemyHp>();
     }
     GameObject optionObj;
@@ -30,9 +29,9 @@ public class UI_Control : MonoBehaviour
     public Shop Shop;
     public Mission Mission;
     [SerializeField] GameObject damagePrefab;
-    float elementalLast;
-    GameObject player;
     public UI_EnemyHp EnemyHp;
+
+    private float genCoolDown = 0.5f;
     void Start()
     {
         windows = new List<GameObject>();
@@ -43,31 +42,10 @@ public class UI_Control : MonoBehaviour
         Map.SetActive(false);
         OpenedWindow = null;
         Cursor.lockState = CursorLockMode.Locked;
-        elementalLast = 0f;
     }
 
     void Update()
     {
-        elementalLast += Time.deltaTime;
-        if (player.GetComponent<PlayerContorl>().ElementStack.Count != 0 && elementalLast > 0.5f)
-        {
-            switch (player.GetComponent<PlayerContorl>().ElementStack.Peek())
-            {
-                case ElementRule.ElementType.FIRE:
-                    damageSet("열기", player);
-                    break;
-                case ElementRule.ElementType.ICE:
-                    damageSet("냉기", player);
-                    break;
-                case ElementRule.ElementType.WATER:
-                    damageSet("습기", player);
-                    break;
-                case ElementRule.ElementType.ELECTRICITY:
-                    damageSet("전기", player);
-                    break;
-            }
-            elementalLast = 0f;
-        }
         if (Input.GetKeyDown(KeyCode.Escape))
             optionWindow();
         if (Input.anyKeyDown)
@@ -147,5 +125,27 @@ public class UI_Control : MonoBehaviour
     {
         GameObject temp = Instantiate(damagePrefab, subject.transform);
         temp.GetComponent<TMPro.TextMeshPro>().text = content;
+    }
+
+    public void ElementStateGen(GameObject victim, float timming)
+    {
+        if (victim.GetComponent<ElementControl>().ElementStack.Count != 0 && timming >= 0.5f)
+        {
+            switch (victim.GetComponent<ElementControl>().ElementStack.Peek())
+            {
+                case ElementRule.ElementType.FIRE:
+                    UI_Control.Inst.damageSet("열기", victim.gameObject);
+                    break;
+                case ElementRule.ElementType.ICE:
+                    UI_Control.Inst.damageSet("냉기", victim.gameObject);
+                    break;
+                case ElementRule.ElementType.WATER:
+                    UI_Control.Inst.damageSet("습기", victim.gameObject);
+                    break;
+                case ElementRule.ElementType.ELECTRICITY:
+                    UI_Control.Inst.damageSet("전기", victim.gameObject);
+                    break;
+            }
+        }
     }
 }

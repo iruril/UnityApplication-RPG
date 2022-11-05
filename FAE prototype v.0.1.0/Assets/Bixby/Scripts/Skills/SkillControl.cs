@@ -27,8 +27,8 @@ public class SkillControl : ElementControl
     {
         if (other.gameObject.tag == "Enemy")
         {
-            setEnemyElement(other.gameObject.GetComponent<Enemy>().Stat.enemyElement);
-            other.gameObject.GetComponent<Enemy>().TakeDamage(attackedOnNormal(Damage));
+            setEnemyElement(other.gameObject.GetComponent<Enemy>().Stat.element);
+            other.gameObject.GetComponent<Enemy>().TakeHit(attackedOnNormal(Damage));
         }
     }
 }

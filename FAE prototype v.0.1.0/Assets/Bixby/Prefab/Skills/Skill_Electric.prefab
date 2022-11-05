@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 8645971665916900508}
   - component: {fileID: -820038995579066507}
   - component: {fileID: -7312831241309548286}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Skill_Electric
   m_TagString: Untagged
   m_Icon: {fileID: 0}

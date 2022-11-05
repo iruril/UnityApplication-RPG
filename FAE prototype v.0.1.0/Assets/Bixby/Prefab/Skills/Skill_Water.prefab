@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 5412184565623893437}
   - component: {fileID: -7249447823483541961}
   - component: {fileID: 5620894450774093025}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Skill_Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}

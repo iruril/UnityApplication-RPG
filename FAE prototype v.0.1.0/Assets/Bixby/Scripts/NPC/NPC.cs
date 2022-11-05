@@ -5,10 +5,10 @@ using UnityEngine.UI;
 public class NPC : MonoBehaviour
 {
     Speech speech;
-    [SerializeField] string npcName;
+    string npcName;
     bool playerClose;
     GameObject keyInst;
-    [SerializeField] int talkIndex;
+    int talkIndex;
     GameObject canvasObj;
     GameObject nameObj;
     Text nameUI;
@@ -16,6 +16,7 @@ public class NPC : MonoBehaviour
     Shop shop;
     void Start()
     {
+        npcName = this.gameObject.name;
         canvasObj = this.transform.GetChild(0).gameObject;
         nameObj = canvasObj.transform.GetChild(0).gameObject;
         speech = UI_Control.Inst.Speech;
@@ -27,7 +28,7 @@ public class NPC : MonoBehaviour
         nameUI.text = npcName;
         nameObj.SetActive(playerClose);
         shop = UI_Control.Inst.Shop;
-        keyInst = Instantiate(inventoryObject.Inst.getObj("KeyF"), GameObject.Find("Canvas").transform);
+        keyInst = Instantiate(inventoryObject.Inst.getObj("KeyF"), this.gameObject.transform.GetChild(0));
         keyInst.SetActive(false);
     }
 
@@ -37,6 +38,11 @@ public class NPC : MonoBehaviour
         Vector3 camRotate = GameObject.FindGameObjectWithTag("MainCamera").transform.eulerAngles;
         camRotate -= Vector3.right * 90f;
         notify.transform.rotation = Quaternion.Euler(camRotate);
+        if(keyInst.activeSelf)
+        {
+            var wantedPos = Camera.main.WorldToScreenPoint(this.transform.position);
+            keyInst.transform.position = wantedPos + Vector3.right * 200f;
+        }
         if (UI_Control.Inst.OpenedWindow != null)
         {
             if (UI_Control.Inst.OpenedWindow.name == "Map")
@@ -56,19 +62,7 @@ public class NPC : MonoBehaviour
             }
             else
             {
-                speech.setUp(npcName, talkIndex);
-                if (npcName == "Quest")
-                {
-                    switch (talkIndex)
-                    {
-                        case 0:
-                            UI_Control.Inst.Mission.misssionSet("Æ©Åä¸®¾ó", "¾îÂ¼±¸¸¦ ÀúÂ¼±¸ ÇÏ¼¼¿ä");
-                            talkIndex++;
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                speech.setUp(npcName, npcName + talkIndex.ToString());
             }
             keyInst.SetActive(false);
         }
@@ -78,8 +72,6 @@ public class NPC : MonoBehaviour
         if (other.tag == "Player" && !keyInst.activeSelf)
         {
             keyInst.SetActive(true);
-            var wantedPos = Camera.main.WorldToScreenPoint(this.transform.position);
-            keyInst.transform.position = wantedPos + Vector3.right * 200f;
             playerClose = true;
             nameObj.SetActive(playerClose);
         }
@@ -92,6 +84,14 @@ public class NPC : MonoBehaviour
             playerClose = false;
             nameObj.SetActive(playerClose);
         }
+    }
+    public int GetIndex()
+    {
+        return talkIndex;
+    }
+    public void SetIndex(int value)
+    {
+        talkIndex = value;
     }
 }
 

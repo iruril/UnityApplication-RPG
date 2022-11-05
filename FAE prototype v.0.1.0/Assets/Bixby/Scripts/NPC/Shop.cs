@@ -12,13 +12,20 @@ public class Shop : MonoBehaviour
     List<GameObject> shopItems;
     void Awake()
     {
-        itemJsonData = json.LoadJsonFile<itemJsonData>(Application.dataPath, "shop");//json로드
-        shopData = itemJsonData.itemList;
         shopWindow = GameObject.Find("Shop");
         shopWindow.SetActive(false);
     }
     private void Start()
     {
+        if (!json.FileExist(Application.dataPath, "items"))
+        {
+            itemJsonData = new itemJsonData();
+            string tempData = json.ObjectToJson(itemJsonData);
+            json.CreateJsonFile(Application.dataPath, "items", tempData);
+        }
+        itemJsonData = json.LoadJsonFile<itemJsonData>(Application.dataPath, "shop");//json로드
+        shopData = itemJsonData.itemList;
+
         shopWindow.GetComponent<RectTransform>().sizeDelta = new Vector2(shopXSize * inventoryObject.Inst.Cell, shopYSize * inventoryObject.Inst.Cell);//상점창 크기
         float Cell = inventoryObject.Inst.Cell;
         Vector3 zero = new Vector3(shopXSize * Cell / -2f, shopYSize * Cell / 2f, 0f);//json저장용 좌표 0,0의 실제 위치

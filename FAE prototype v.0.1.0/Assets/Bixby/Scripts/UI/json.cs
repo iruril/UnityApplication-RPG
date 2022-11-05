@@ -42,6 +42,53 @@ public class speechJsonData
         speechDatas.Add("");
     }
 }
+
+public enum QuestKind     // 퀘스트 종류
+{
+    management,             // 디버깅용 변수(0)
+    kill,                   // 처치(1)
+    cook,                   // 요리(2)
+    hunt,                   // 수렵(3)
+    interactive             // 상호작용(4)
+};
+
+[System.Serializable]
+public class questData
+{
+    public QuestKind questObject;
+    public int objectVar;       // 각 목적에 따라 사용할 변수(처치 적 수, 요리 아이템 및 상호작용 오브젝트 ID 등
+    public float time;          // 제한 시간
+    public string npcName;      // 퀘스트 조건 만족 후 완료를 위해 대화해야 하는 npc 이름(없으면 -1 등과 같은 특정 기호로 표시할 것)
+
+    public questData()
+    {
+        questObject = QuestKind.management;
+        objectVar = -1;
+        time = -1f;
+        npcName = "missingNo";
+    }
+
+    public void Log()
+    {
+        Debug.Log(questObject);
+        Debug.Log(objectVar);
+        Debug.Log(time);
+        Debug.Log(npcName);
+    }
+}
+
+public class questJsonData
+{
+    public List<questData> questList = new List<questData>();
+    public int questIndex;      // 메인 퀘스트 플롯 순서 변수
+    public questJsonData()
+    {
+        questData nullQuest = new questData();
+        questList.Add(nullQuest);
+        questIndex = -1;
+    }
+}
+
 public class json
 {
     public static string ObjectToJson(object obj) { return JsonUtility.ToJson(obj); }

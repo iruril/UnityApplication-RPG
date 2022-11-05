@@ -12,9 +12,8 @@ namespace MBT
         public GameObjectReference ObjRef = new GameObjectReference(VarRefMode.DisableConstant);
         public GameObjectReference TargetObjRef = new GameObjectReference(VarRefMode.DisableConstant);
         public FloatReference Variable = new FloatReference(VarRefMode.DisableConstant);
-        
-        public float AttackRange = 0.0f;
 
+        float delay;
 
         public override NodeResult Execute()
         {
@@ -24,10 +23,12 @@ namespace MBT
             Vector3 rayVector = new Vector3(self.position.x, self.position.y + 1.0f, self.position.z);
             RaycastHit hitInfo;
 
+            delay += Time.deltaTime / ObjRef.Value.GetComponent<Enemy>().FireRate;
+
             //(Time_ > UpdateInterval) || 
-            if(Physics.Raycast(rayVector, self.forward, out hitInfo, 10.0f, ObjRef.Value.GetComponent<Enemy>().Mask) ||
+            if((((delay > ObjRef.Value.GetComponent<Enemy>().Stat.attackSpeed) && Physics.Raycast(rayVector, self.forward, out hitInfo, 10.0f, ObjRef.Value.GetComponent<Enemy>().Mask)) ||
                 ((int)ObjRef.Value.GetComponent<Enemy>().State == 3) || (ObjRef.Value.GetComponent<Enemy>().Stat.hp <= 0) || 
-                (Variable.Value > AttackRange))
+                (Variable.Value > ObjRef.Value.GetComponent<Enemy>().Stat.attackRange)))
             {
                 // Reset time and update destination
                 return NodeResult.success;

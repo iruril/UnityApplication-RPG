@@ -32,6 +32,11 @@ public class fieldItem : MonoBehaviour
         this.transform.localEulerAngles = new Vector3(0f, angle, 15f);
         if (isPlayerClose && Input.GetKeyDown(KeyCode.F))
             inventoryObject.Inst.getFieldItem(this.gameObject);
+        if (isPlayerClose && inventoryObject.Inst.FieldFKey != null)
+        {
+            var wantedPos = Camera.main.WorldToScreenPoint(this.transform.position);
+            inventoryObject.Inst.FieldFKey.transform.position = wantedPos + Vector3.right * 200f;
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -41,8 +46,6 @@ public class fieldItem : MonoBehaviour
             {
                 isPlayerClose = true;
                 inventoryObject.Inst.FieldFKey = Instantiate(inventoryObject.Inst.getObj("KeyF"), GameObject.Find("Canvas").transform);
-                var wantedPos = Camera.main.WorldToScreenPoint(this.transform.position);
-                inventoryObject.Inst.FieldFKey.transform.position = wantedPos + Vector3.right * 200f;
             }
         }
     }

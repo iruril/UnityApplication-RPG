@@ -19,7 +19,7 @@ namespace MBT
             if (obj == null)
                 return;
 
-            Variable.Value = (int)obj.GetComponent<Enemy>().Stat.enemyType;
+            Variable.Value = (int)obj.GetComponent<Enemy>().Stat.type;
         }
     }
 }

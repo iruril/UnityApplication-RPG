@@ -19,13 +19,9 @@ public class UI_DamageObject : MonoBehaviour
         lastTime = 1f;
         upSpeed = 2.5f;
         int temp;
-        if (this.transform.root.tag == "Player")//플레이어의 경우
-        {
-            TMP.fontSize = 6f;
-            upSpeed = 1f;
-        }
         if (!int.TryParse(TMP.text, out temp))//대미지가 아닐 경우
         {
+            TMP.fontSize = 6f;
             TMP.fontMaterial = fontMaterials[0];
             basePos = this.transform.root.position + Vector3.up * 2.5f;
             basePos.y = basePos.y + timeLast * upSpeed;
@@ -40,33 +36,43 @@ public class UI_DamageObject : MonoBehaviour
             bool isSynergy = false;
             switch (TMP.text)
             {
-                case "열기":  TMP.color = ElementControl.FireSkillStartColor;
+                case "열기":
+                    TMP.color = ElementControl.FireSkillStartColor;
                     break;
-                case "냉기":  TMP.color = ElementControl.IceSkillStartColor;
+                case "냉기":
+                    TMP.color = ElementControl.IceSkillStartColor;
                     break;
-                case "습기":  TMP.color = ElementControl.WaterSkillStartColor;
+                case "습기":
+                    TMP.color = ElementControl.WaterSkillStartColor;
                     break;
-                case "전기":  TMP.color = ElementControl.ElectroSkillStartColor;
+                case "전기":
+                    TMP.color = ElementControl.ElectroSkillStartColor;
                     break;
                 default:
                     isSynergy = true;
                     break;
             }
-            if(isSynergy)
+            if (isSynergy)
             {
                 switch (TMP.text)
                 {
-                    case "융해":  TMP.color = ElementControl.IceSkillStartColor;
+                    case "융해":
+                        TMP.color = ElementControl.IceSkillStartColor;
                         break;
-                    case "빙결":  TMP.color = ElementControl.IceSkillStartColor;
+                    case "빙결":
+                        TMP.color = ElementControl.IceSkillStartColor;
                         break;
-                    case "전도":  TMP.color = ElementControl.ElectroSkillStartColor;
+                    case "전도":
+                        TMP.color = ElementControl.ElectroSkillStartColor;
                         break;
-                    case "폭발":  TMP.color = ElementControl.FireSkillStartColor;
+                    case "폭발":
+                        TMP.color = ElementControl.FireSkillStartColor;
                         break;
-                    case "감전":  TMP.color = ElementControl.ElectroSkillStartColor;
+                    case "감전":
+                        TMP.color = ElementControl.ElectroSkillStartColor;
                         break;
-                    case "증발":  TMP.color = ElementControl.WaterSkillStartColor;
+                    case "증발":
+                        TMP.color = ElementControl.WaterSkillStartColor;
                         break;
                     default:
                         break;
@@ -82,8 +88,55 @@ public class UI_DamageObject : MonoBehaviour
 
         }
         else
-            TMP.color = Color.yellow;
-        //switch (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerContorl>().MyElement)
+        {
+            if (this.transform.root.tag == "Player")//플레이어가 대미지를 받는 경우
+            {
+                TMP.fontSize = 6f;
+                upSpeed = 1f;
+                switch (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerContorl>().EnemyElement)
+                {
+                    case ElementRule.ElementType.FIRE:
+                        TMP.color = ElementControl.FireSkillStartColor;
+                        break;
+                    case ElementRule.ElementType.ICE:
+                        TMP.color = ElementControl.IceSkillStartColor;
+                        break;
+                    case ElementRule.ElementType.WATER:
+                        TMP.color = ElementControl.WaterSkillStartColor;
+                        break;
+                    case ElementRule.ElementType.ELECTRICITY:
+                        TMP.color = ElementControl.ElectroSkillStartColor;
+                        break;
+                    default:
+                        TMP.color = Color.yellow;
+                        break;
+                }
+                //if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerContorl>().IsElectronicShock ||
+                //    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerContorl>().IsTransmission)
+                //    TMP.color = ElementControl.ElectroSkillStartColor;
+            }
+            else//적이 대미지를 받는 경우
+            {
+                switch (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerContorl>().MyElement)
+                {
+                    case ElementRule.ElementType.FIRE:
+                        TMP.color = ElementControl.FireSkillStartColor;
+                        break;
+                    case ElementRule.ElementType.ICE:
+                        TMP.color = ElementControl.IceSkillStartColor;
+                        break;
+                    case ElementRule.ElementType.WATER:
+                        TMP.color = ElementControl.WaterSkillStartColor;
+                        break;
+                    case ElementRule.ElementType.ELECTRICITY:
+                        TMP.color = ElementControl.ElectroSkillStartColor;
+                        break;
+                    default:
+                        TMP.color = Color.yellow;
+                        break;
+                }
+            }
+        }
     }
     void Update()
     {

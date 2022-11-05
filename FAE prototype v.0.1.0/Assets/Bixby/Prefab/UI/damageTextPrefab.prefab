@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 145655665981231654}
   - component: {fileID: 145655665981231655}
   - component: {fileID: 145655665981231648}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: damageTextPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

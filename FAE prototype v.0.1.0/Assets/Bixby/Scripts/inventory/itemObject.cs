@@ -105,7 +105,7 @@ public class itemObject : MonoBehaviour
                 {
                     inventoryObject.Inst.itemGet(ItemData.xSize, ItemData.ySize, tempPos.x, tempPos.y, ItemData);
                     inventoryObject.Inst.Gold -= Mathf.FloorToInt(ItemData.price * 1.5f);
-                    inventoryObject.Inst.setGold();
+                    inventoryObject.Inst.goldSet();
                 }
                 //알림창 만들면 else에서 칸 부족하다고 알릴 것
             }
@@ -131,7 +131,7 @@ public class itemObject : MonoBehaviour
                 //알림창 만들면 여기에서 팔건지 물어볼 것
                 inventoryObject.Inst.Gold += this.ItemData.price;
                 inventoryObject.Inst.throwItem(this.gameObject, false);
-                inventoryObject.Inst.setGold();
+                inventoryObject.Inst.goldSet();
             }
             else
             {

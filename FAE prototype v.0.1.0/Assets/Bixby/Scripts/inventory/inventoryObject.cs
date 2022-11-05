@@ -20,15 +20,6 @@ public class inventoryObject : MonoBehaviour
         itemDescription = inventoryCanvas.transform.GetChild(3).gameObject;
         closeBtn = inventoryCanvas.transform.GetChild(4).gameObject.GetComponent<Button>();
         closeBtn.onClick.AddListener(() => UI_Control.Inst.windowClose());
-
-        itemJsonData = json.LoadJsonFile<itemJsonData>(Application.dataPath, "items");//json로드
-        Gold = itemJsonData.gold;//골드 값 로드
-        goldObj.GetComponent<RectTransform>().sizeDelta = new Vector2(XSize * Cell, 50f);//골드창 크기
-        goldObj.transform.localPosition = new Vector3(0f, -1 * (inventoryObj.GetComponent<RectTransform>().rect.height / 2f + 25f), 0f);//골드창 위치
-        setGold();
-        items.items = new List<itemData>();
-        foreach (var item in itemJsonData.itemList)
-            items.items.Add(item);//itemSO 데이터 추가
     }
     itemSO items;//itemSO, 인벤토리 내 아이템들을 이 안의 items에 저장해둔다
     [SerializeField] GameObject itemPrefab;//아이템 프리팹, 인벤토리 열때, 혹은 아이템 획득할때 인스턴트에 사용
@@ -51,6 +42,15 @@ public class inventoryObject : MonoBehaviour
     Button closeBtn;
     void Start()
     {
+        itemJsonData = json.LoadJsonFile<itemJsonData>(Application.dataPath, "items");//json로드
+        Gold = itemJsonData.gold;//골드 값 로드
+        goldObj.GetComponent<RectTransform>().sizeDelta = new Vector2(XSize * Cell, 50f);//골드창 크기
+        goldObj.transform.localPosition = new Vector3(0f, -1 * (inventoryObj.GetComponent<RectTransform>().rect.height / 2f + 25f), 0f);//골드창 위치
+        goldSet();
+        items.items = new List<itemData>();
+        foreach (var item in itemJsonData.itemList)
+            items.items.Add(item);//itemSO 데이터 추가
+
         inventoryObj.GetComponent<RectTransform>().sizeDelta = new Vector2(XSize * Cell, YSize * Cell);//인벤창 크기
         closeBtn.gameObject.transform.position
             = inventoryObj.transform.position
@@ -125,9 +125,8 @@ public class inventoryObject : MonoBehaviour
         {
             temp.itemList.Add(Item);
         }
-        setGold();
-        int gold = this.Gold;
-        temp.gold = gold;
+        goldSet();
+        temp.gold = this.Gold;
         string tempStr = json.ObjectToJson(temp);
         json.CreateJsonFile(Application.dataPath, "items", tempStr);
     }
@@ -234,6 +233,10 @@ public class inventoryObject : MonoBehaviour
         }
         return Vector2.zero - Vector2.one;
     }
+    public void goldSet()
+    {
+        goldObj.transform.GetChild(0).GetComponent<Text>().text = "G " + Gold.ToString();//골드 값 적용
+    }
     #region 아이템 마우스 조작
     public void itemHover(itemObject itemObj)//아이템에 마우스 올렸을 때
     {
@@ -322,10 +325,6 @@ public class inventoryObject : MonoBehaviour
             default:
                 return null;
         }
-    }
-    public void setGold()
-    {
-        goldObj.transform.GetChild(0).GetComponent<Text>().text = "G " + Gold.ToString();//골드 값 적용
     }
     #endregion
 }

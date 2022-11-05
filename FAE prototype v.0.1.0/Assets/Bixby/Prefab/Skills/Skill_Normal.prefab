@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1805719029582270687}
   - component: {fileID: 7316116292498576379}
   - component: {fileID: -2564705317679727875}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Skill_Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

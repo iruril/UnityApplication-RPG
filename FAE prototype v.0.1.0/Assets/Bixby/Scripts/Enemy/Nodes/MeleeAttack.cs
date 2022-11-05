@@ -15,9 +15,6 @@ namespace MBT
         public float UpdateInterval = 2.0f;
         public float Time_ = 0.0f;
 
-        public float AttackRange = 0.0f;
-
-
         public override void OnEnter()
         {
             ObjRef.Value.GetComponent<Enemy>().Anim.SetBool("IsAttack", true);
@@ -32,7 +29,7 @@ namespace MBT
             Time_ += Time.deltaTime * 1.5f;
 
             if((Time_ > UpdateInterval) || ((int)ObjRef.Value.GetComponent<Enemy>().State == 3) ||
-                (ObjRef.Value.GetComponent<Enemy>().Stat.hp <= 0) || (Variable.Value > AttackRange))
+                (ObjRef.Value.GetComponent<Enemy>().Stat.hp <= 0) || (Variable.Value > ObjRef.Value.GetComponent<Enemy>().Stat.attackRange))
             {
                 // Reset time and update destination
                 Time_ = 0.0f;
@@ -46,17 +43,9 @@ namespace MBT
 
         public override void OnExit()
         {
-            if (Variable.Value <= AttackRange)
+            if (Variable.Value <= ObjRef.Value.GetComponent<Enemy>().Stat.attackRange)
             {
-                Collider[] colliders = Physics.OverlapSphere(transform.position, AttackRange, 
-                                                ObjRef.Value.GetComponent<Enemy>().Mask, 
-                                                QueryTriggerInteraction.Ignore);
-            
-                if(colliders.Length > 0)
-                {
-                    colliders[0].GetComponent<PlayerContorl>().TakeElementHit(10.0f, ObjRef.Value.GetComponent<Enemy>().Stat.enemyElement);
-                    Debug.Log("Hit");
-                }
+                //ObjRef.Value.GetComponent<Enemy>().MeleeAttack();
             }
             
 

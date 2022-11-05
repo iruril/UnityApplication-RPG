@@ -55,7 +55,7 @@ public class PlayerAnimation : MonoBehaviour
                 animator.SetBool("isSwimming", false);                  // 수영 애니메이션 정지
                 animator.SetBool("isDash", false);                      // 대시 애니메이션 정지
                 animator.SetBool("isUlt", false);                       // 궁극기 애니메이션 정지
-
+                animator.SetBool("isSkill", false);                     // 원소 스킬 애니메이션 정지
                 moveCheck();
 
                 break;
@@ -97,6 +97,11 @@ public class PlayerAnimation : MonoBehaviour
 
                 break;
 
+            case PlayerContorl.STATE.ELEMENT_SKILL:                     // 원소 스킬 사용 상태
+                animator.SetBool("isCombat", true);                     // 비전투 상태 비활성화
+                animator.SetBool("isSkill", true);                      // 원소 스킬 애니메이션 실행
+                break;
+
             case PlayerContorl.STATE.ELEMENT_ULT_SKILL:                 // 궁극기 사용 상태
                 animator.SetBool("isCombat", true);                     // 비전투 상태 비활성화
                 animator.SetBool("isUlt", true);                        // 궁극기 애니메이션 실행
@@ -124,6 +129,7 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("isSwimming", false);
         animator.SetBool("isDash", false);
         animator.SetBool("isUlt", false);
+        animator.SetBool("isSkill", false);
     }
 
 

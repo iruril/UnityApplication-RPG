@@ -44,7 +44,8 @@ namespace MBT
             }
             // Check if agent is very close to destination
             if ((Agent.remainingDistance <= StopDistance) || 
-                (ObjRef.Value.GetComponent<Enemy>().Stat.hp <= 0))
+                (ObjRef.Value.GetComponent<Enemy>().Stat.hp <= 0) ||
+                ((int)ObjRef.Value.GetComponent<Enemy>().State == 2))
             {
                 return NodeResult.success;
             }

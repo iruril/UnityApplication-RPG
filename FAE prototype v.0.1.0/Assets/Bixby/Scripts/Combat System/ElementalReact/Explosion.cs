@@ -24,14 +24,7 @@ public class Explosion : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Player")
         {
-            if (other.gameObject.tag == "Player")
-            {
-                other.gameObject.GetComponent<PlayerStatusControl>().TakeHit(Damage);
-            }
-            else
-            {
-                other.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
-            }
+            other.gameObject.GetComponent<IDamgeable>().TakeHit(Damage);
         }
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1128162314726961236}
   - component: {fileID: 981752553172995685}
   - component: {fileID: -1019575052683163454}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Skill_Ice
   m_TagString: Untagged
   m_Icon: {fileID: 0}

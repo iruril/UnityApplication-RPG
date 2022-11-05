@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BulletEne : MonoBehaviour
 {
+    public GameObject ObjRef;
+
     // Update is called once per frame
     void Update()
     {
@@ -14,6 +16,7 @@ public class BulletEne : MonoBehaviour
     {
         if(other.tag == "Player")
         {
+            other.gameObject.GetComponent<PlayerContorl>().TakeElementHit(ObjRef.GetComponent<Enemy>().Stat.damage, ObjRef.GetComponent<Enemy>().Stat.element);
             Debug.Log("Hit");
             Destroy(gameObject);
         }
