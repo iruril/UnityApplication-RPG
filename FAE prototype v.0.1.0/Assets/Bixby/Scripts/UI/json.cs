@@ -49,31 +49,38 @@ public enum QuestKind     // 퀘스트 종류
     kill,                   // 처치(1)
     cook,                   // 요리(2)
     hunt,                   // 수렵(3)
-    interactive             // 상호작용(4)
+    interactive,            // 상호작용(4)
+    spot                    // 특정 위치 도달(5)
 };
 
 [System.Serializable]
 public class questData
 {
     public QuestKind questObject;
-    public int objectVar;       // 각 목적에 따라 사용할 변수(처치 적 수, 요리 아이템 및 상호작용 오브젝트 ID 등
+    public int objectId;        // 각 목적에 따라 사용할 변수(처치 적, 요리 아이템 및 상호작용 오브젝트 ID)
+    public int objectCnt;       // 각 목적에 따라 사용할 변수(카운트)
     public float time;          // 제한 시간
     public string npcName;      // 퀘스트 조건 만족 후 완료를 위해 대화해야 하는 npc 이름(없으면 -1 등과 같은 특정 기호로 표시할 것)
+    public float[] position;    // spot quest의 위치 변수
 
     public questData()
     {
         questObject = QuestKind.management;
-        objectVar = -1;
+        objectId = -1;
+        objectCnt = -1;
         time = -1f;
         npcName = "missingNo";
+        position = new float[] { -999, -999, -999 };
     }
 
     public void Log()
     {
         Debug.Log(questObject);
-        Debug.Log(objectVar);
+        Debug.Log(objectId);
+        Debug.Log(objectCnt);
         Debug.Log(time);
         Debug.Log(npcName);
+        Debug.Log(position);
     }
 }
 
@@ -85,7 +92,7 @@ public class questJsonData
     {
         questData nullQuest = new questData();
         questList.Add(nullQuest);
-        questIndex = -1;
+        questIndex = 0;
     }
 }
 

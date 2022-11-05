@@ -2,21 +2,27 @@
   "questList": [
     {
       "questObject": 0,
-      "objectVar": -1,
+      "objectId": -1,
+      "objectCnt": -1,
       "time": -1.0,
-      "npcName": "villagerA"
-    },
-    {
-      "questObject": 2,
-      "objectVar": -2,
-      "time": -1.0,
-      "npcName": "villagerA"
+      "npcName": "missingNo",
+      "position": [ -999.0, -999.0, -999.0 ]
     },
     {
       "questObject": 1,
-      "objectVar": 4,
+      "objectId": -1,
+      "objectCnt": 1,
       "time": -1.0,
-      "npcName": "villagerA"
+      "npcName": "villagerA",
+      "position": [ -999.0, -999.0, -999.0 ]
+    },
+    {
+      "questObject": 1,
+      "objectId": -1,
+      "objectCnt": 2,
+      "time": -1.0,
+      "npcName": "villagerA",
+      "position": [ -999.0, -999.0, -999.0 ]
     }
   ],
   "questIndex": 0

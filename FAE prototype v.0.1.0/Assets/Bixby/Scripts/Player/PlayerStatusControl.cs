@@ -43,6 +43,10 @@ public class PlayerStatusControl : CombatStatus, IDamgeable
     protected override void Start()
     {
         base.Start();
+
+        MyElement = ElementType.NONE;
+        EnemyElement = ElementType.NONE;
+
         Health = MyStartingHealth;
         Stamina = MyStartingStamina;
         MyCurrentSpeed = Speed;
