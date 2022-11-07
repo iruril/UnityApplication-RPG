@@ -769,6 +769,17 @@ public class PlayerContorl : PlayerStatusControl
                     {
                         hitInfo.collider.GetComponent<Enemy>().TakeHit(AttackDamage);
                     }
+
+                    //퍼즐오브젝트와 상호작용 부분 추가
+                    if (hitInfo.collider.gameObject.tag == "pattern")
+                    {
+                        hitInfo.collider.GetComponent<Pattern>().GetP(hitInfo.point, hitInfo.normal);
+                    }
+                    else if (hitInfo.collider.gameObject.tag == "connect")
+                    {
+                        hitInfo.collider.GetComponent<Connect>().GetP(hitInfo.point, hitInfo.normal);
+                    }
+
                 }
                 else
                 {
@@ -821,6 +832,12 @@ public class PlayerContorl : PlayerStatusControl
                 setEnemyElement(hitInfo.collider.GetComponent<Enemy>().Stat.element);
                 hitInfo.collider.GetComponent<Enemy>().TakeElementHit(AttackDamage, MyElement);
             }
+
+            //퍼즐오브젝트와 상호작용 추가
+            if (hitInfo.collider.gameObject.tag == "etrigger")
+            {
+                hitInfo.collider.GetComponent<Etrigger>().GetElement(MyElement);
+            }
         }
         else
         {
@@ -866,7 +883,7 @@ public class PlayerContorl : PlayerStatusControl
             if (hitInfo.collider.tag == "Enemy")
             {
                 setEnemyElement(hitInfo.collider.GetComponent<Enemy>().Stat.element);
-                hitInfo.collider.GetComponent<Enemy>().TakeHit(attackedOnNormal(UltDamage));
+                hitInfo.collider.GetComponent<Enemy>().TakeElementHit(UltDamage, MyElement);
             }
         }
         projectileLine.SetPosition(1, rayOrigin + (m_camera.transform.forward * ShootDistance));

@@ -32,7 +32,7 @@ public class fieldItem : MonoBehaviour
         this.transform.localEulerAngles = new Vector3(0f, angle, 15f);
         if (isPlayerClose && Input.GetKeyDown(KeyCode.F))
             inventoryObject.Inst.getFieldItem(this.gameObject);
-        if (isPlayerClose && inventoryObject.Inst.FieldFKey != null)
+        if (isPlayerClose && inventoryObject.Inst.FieldFKey.activeSelf)
         {
             var wantedPos = Camera.main.WorldToScreenPoint(this.transform.position);
             inventoryObject.Inst.FieldFKey.transform.position = wantedPos + Vector3.right * 200f;
@@ -42,10 +42,10 @@ public class fieldItem : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (inventoryObject.Inst.FieldFKey == null)
+            if (!inventoryObject.Inst.FieldFKey.activeSelf)
             {
                 isPlayerClose = true;
-                inventoryObject.Inst.FieldFKey = Instantiate(inventoryObject.Inst.getObj("KeyF"), GameObject.Find("Canvas").transform);
+                inventoryObject.Inst.FieldFKey.SetActive(true);
             }
         }
     }
@@ -53,8 +53,7 @@ public class fieldItem : MonoBehaviour
     {
         if (other.tag=="Player")
         {
-            Destroy(inventoryObject.Inst.FieldFKey);
-            inventoryObject.Inst.FieldFKey = null;
+            inventoryObject.Inst.FieldFKey.SetActive(false);
             isPlayerClose = false;
         }
     }

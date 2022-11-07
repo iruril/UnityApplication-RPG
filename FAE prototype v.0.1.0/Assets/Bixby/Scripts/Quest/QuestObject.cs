@@ -76,16 +76,14 @@ public class QuestObject : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))//퀘스트 테스트용 임시 코드
         {
             itemData tempItem = new itemData();
-            tempItem.itemID = -2;
+            tempItem.itemID = currentQuest.objectId;
             tempItem.xSize = tempItem.ySize = 1f;
             System.Array.Resize(ref tempItem.tag, 2);
-            tempItem.itemName = "무언가";
+            tempItem.itemName = "퀘스트 음식";
             tempItem.tag[0] = "food";
             tempItem.tag[1] = "cooked";
             Vector2 itemPos = inventoryObject.Inst.emptyCell(1f, 1f);
             inventoryObject.Inst.itemGet(1f, 1f, itemPos.x, itemPos.y, tempItem);
-            SetObjectIndex(tempItem.itemID);
-            GameObject.Find(currentQuest.npcName).GetComponent<NPC>().SetIndex(GameObject.Find(currentQuest.npcName).GetComponent<NPC>().GetIndex() + 1);
         }
 
     }
@@ -143,8 +141,9 @@ public class QuestObject : MonoBehaviour
         JsonData.questIndex += 1;                               // Quest Index++
         currentQuest = JsonData.questList[JsonData.questIndex]; // Update Current Quest
         isClear = false;
-        SetObjectIndex(-1);
+        SetObjectIndex(0);
         MissionSet();
+        GameObject.Find(currentQuest.npcName).GetComponent<NPC>().SetIndex(GameObject.Find(currentQuest.npcName).GetComponent<NPC>().GetIndex() + 1);
     }
 
     public bool GetIsClear()
@@ -185,8 +184,8 @@ public class QuestObject : MonoBehaviour
                 missionText = "적을" + questPurpose + "마리 사냥하시오";
                 break;
             case QuestKind.cook:
-                if (currentQuest.objectId == -2)
-                    questPurpose = "무언가";
+                if (currentQuest.objectId == 2001)
+                    questPurpose = "과일주스";
                 missionText = questPurpose + "을(를) 만드시오";
                 break;
             case QuestKind.interactive:
@@ -194,21 +193,17 @@ public class QuestObject : MonoBehaviour
             default:
                 break;
         }
-        switch (JsonData.questIndex)
-        {
-            case 1:
-                missionTitle = "Quest 1";
-                break;
-            case 2:
-                missionTitle = "Quest 2";
-                break;
-            default:
-                break;
-        }
+
+        missionTitle = "Quest " + JsonData.questIndex.ToString();
+
         UI_Control.Inst.Mission.misssionSet(missionTitle, missionText);
     }
     public int GetIndex()
     {
         return JsonData.questIndex;
+    }
+    public QuestKind GetQuestKind()
+    {
+        return currentQuest.questObject;
     }
 }

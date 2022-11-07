@@ -21,7 +21,8 @@ public class inventoryObject : MonoBehaviour
         closeBtn = inventoryCanvas.transform.GetChild(4).gameObject.GetComponent<Button>();
         closeBtn.onClick.AddListener(() => UI_Control.Inst.windowClose());
     }
-    itemSO items;//itemSO, 인벤토리 내 아이템들을 이 안의 items에 저장해둔다
+    //이거 변경됨
+    public itemSO items;//itemSO, 인벤토리 내 아이템들을 이 안의 items에 저장해둔다
     [SerializeField] GameObject itemPrefab;//아이템 프리팹, 인벤토리 열때, 혹은 아이템 획득할때 인스턴트에 사용
     itemJsonData itemJsonData;//json데이터
     GameObject inventoryCanvas;
@@ -31,7 +32,8 @@ public class inventoryObject : MonoBehaviour
     public float Cell;
     public float XSize;
     public float YSize;
-    List<GameObject> itemObjects;
+    //이거 변경됨
+    public List<GameObject> itemObjects;
     Vector3 zero;
     public int Gold;
     [SerializeField] GameObject fieldItemPrefab;
@@ -75,11 +77,19 @@ public class inventoryObject : MonoBehaviour
             itemObjects.Add(temp);
         }//아이템 가시화
         inventoryCanvas.SetActive(false);//시작시 인벤창 닫혀있음
-        FieldFKey = null;
+        FieldFKey = Instantiate(keyF, GameObject.Find("Canvas").transform);
+        FieldFKey.SetActive(false);
         itemSummary.SetActive(false);
         itemDescription.SetActive(false);
     }
-
+    private void Update()
+    {
+        if (FieldFKey.activeSelf)
+        {
+            Vector3 wantedPos = Camera.main.WorldToScreenPoint(GameObject.FindGameObjectWithTag("Player").transform.position);
+            FieldFKey.transform.position = wantedPos + Vector3.right * 200f + Vector3.up * 200f;
+        }
+    }
     public void setItemPos(GameObject item, Vector3 newOrigonPos)//인벤 내 아이템 위치 이동시 실행(겹침확인)
     {
         itemObject itemObj = item.GetComponent<itemObject>();
@@ -117,7 +127,8 @@ public class inventoryObject : MonoBehaviour
         float tempD = upA + ySizeA > upB + ysizeB ? upB + ysizeB : upA + ySizeA;
         return tempL < tempR && tempU < tempD;
     }
-    void jsonSave()//json저장
+    //이거 변경됨
+    public void jsonSave()//json저장
     {
         itemJsonData temp = new itemJsonData();
         temp.itemList = new List<itemData>();
@@ -141,8 +152,7 @@ public class inventoryObject : MonoBehaviour
             itemGet(newXSize, newYSize, tempPos.x, tempPos.y, newData);
             Destroy(newItem);
             jsonSave();
-            Destroy(FieldFKey);
-            FieldFKey = null;
+            FieldFKey.SetActive(false);
         }
         //알림창 만들면 else에서 아이템 획득 불가 알릴 것
     }
@@ -199,6 +209,12 @@ public class inventoryObject : MonoBehaviour
         tempItem.ItemData.Left = itemX;
         tempItem.ItemData.Up = itemY;
         items.items.Add(tempItem.ItemData);
+
+        QuestObject quest = GameObject.Find("GameManager").GetComponent<QuestObject>();
+
+        if (quest.GetQuestKind() == QuestKind.cook
+            && itemData.itemID == quest.GetObjectId())
+            quest.SetObjectIndex(quest.GetObjectIndex() + 1);
     }
     public Vector2 emptyCell(float newXSize, float newYSize)//인벤토리에서 해당 크기의 아이템이 들어올 수 있는 위치
     {

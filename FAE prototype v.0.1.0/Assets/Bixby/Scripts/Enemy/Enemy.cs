@@ -195,6 +195,19 @@ public class Enemy : CombatStatus, IDamgeable
     }
     private void OnDestroy()//���ʹ� HP�� ���� �� �ı� �߰� �κ�
     {
+        QuestObject questObject = GameObject.Find("GameManager").GetComponent<QuestObject>();
+        switch (questObject.GetQuestKind())
+        {
+            case QuestKind.kill:
+                //if(questObject.GetObjectId()) 에너미 ID 설정 후 조정할 것
+                int sum = questObject.GetObjectIndex() + 1;
+                questObject.SetObjectIndex(sum);
+                break;
+            default:
+                break;
+        }
+        questObject = null;
+
         int index = UI_EnemyHp.EnemyHps.enemies.IndexOf(this);
         UI_EnemyHp.EnemyHps.enemies.RemoveAt(index);
         Destroy(UI_EnemyHp.EnemyHps.hpObjects[index]);

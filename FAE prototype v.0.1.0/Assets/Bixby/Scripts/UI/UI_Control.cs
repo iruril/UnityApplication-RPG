@@ -38,6 +38,7 @@ public class UI_Control : MonoBehaviour
         windows.Add(inventory);
         windows.Add(Map);
         windows.Add(Shop.getWindow());
+        windows.Add(GameObject.Find("COOK").transform.GetChild(0).gameObject);
         option.Set();
         Map.SetActive(false);
         OpenedWindow = null;
