@@ -62,6 +62,25 @@ public class NPC : MonoBehaviour
             }
             else
             {
+                QuestObject quest = GameObject.Find("GameManager").GetComponent<QuestObject>();
+                if (npcName == quest.GetNPCName())
+                {
+                    switch (quest.GetIndex())
+                    {
+                        case 1:
+                            talkIndex = quest.GetIsClear() ? quest.GetIndex() + 1 : quest.GetIndex();
+                            break;
+                        case 2:
+                            talkIndex = quest.GetIndex() + 1;
+                            break;
+                        case 3:
+                            talkIndex = quest.GetIsClear() ? quest.GetIndex() + 2 : quest.GetIndex() + 1;
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                }
                 speech.setUp(npcName, npcName + talkIndex.ToString());
             }
             keyInst.SetActive(false);

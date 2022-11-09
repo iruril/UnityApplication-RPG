@@ -10,6 +10,9 @@ public class PlayerStatusControl : CombatStatus, IDamgeable
     public float Health;
     public float MyStartingStamina = 100.0f;
     public float Stamina;
+    public float ElementGauge = 0.0f; //원소게이지
+
+    public float ElementGaugeChargeAmount = 25.0f; //원소게이지 차지 량
 
     public float AttackDamage = 10.0f;
     public float SkillDamage = 10.0f;
@@ -39,6 +42,39 @@ public class PlayerStatusControl : CombatStatus, IDamgeable
 
     protected float rotationSpeed = 45.0f;
     protected float nextFire = 0.0f;
+
+    protected bool isSkillCoolDown = false;
+    public float SkillCoolDown = 10.0f;
+    public float RemainTimeForSkill = 0; //UI에 쿨타임 시간을 제공할 부분.
+
+    protected bool isUltimateSkillCoolDown = false;
+    public float UltimateSkillCoolDown = 15.0f;
+    public float RemainTimeForUltSkill = 0; //UI에 쿨타임 시간을 제공할 부분.
+
+    protected IEnumerator skillCoolDownCalc()
+    {
+        RemainTimeForSkill = SkillCoolDown;
+        isSkillCoolDown = true;
+        while(RemainTimeForSkill > 0)
+        {
+            RemainTimeForSkill--;
+            yield return new WaitForSeconds(1.0f);
+        }
+        RemainTimeForSkill = 0;
+        isSkillCoolDown = false;
+    }
+    protected IEnumerator ultSkillCoolDownCalc()
+    {
+        RemainTimeForUltSkill = UltimateSkillCoolDown;
+        isUltimateSkillCoolDown = true;
+        while (RemainTimeForUltSkill > 0)
+        {
+            RemainTimeForUltSkill--;
+            yield return new WaitForSeconds(1.0f);
+        }
+        RemainTimeForUltSkill = 0;
+        isUltimateSkillCoolDown = false;
+    }
 
     protected override void Start()
     {
@@ -77,14 +113,12 @@ public class PlayerStatusControl : CombatStatus, IDamgeable
             {
                 if (EnemyElement != this.ElementStack.Peek())
                 {
-                    Debug.Log("Pushed!");
                     this.ElementStack.Push(EnemyElement);
                     checkIsPopTime();
                 }
             }
             else
             {
-                Debug.Log("Pushed!");
                 this.ElementStack.Push(EnemyElement);
                 checkIsPopTime();
             }

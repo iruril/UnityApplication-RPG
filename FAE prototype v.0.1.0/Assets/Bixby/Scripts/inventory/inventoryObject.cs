@@ -319,6 +319,12 @@ public class inventoryObject : MonoBehaviour
                     case 3:
                         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerContorl>().Stamina += 10f;
                         break;
+                    case 2001:
+                        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerContorl>().Health += 10f;
+                        break;
+                    case 2002:
+                        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerContorl>().Health += 20f;
+                        break;
                     default:
                         break;
                 }

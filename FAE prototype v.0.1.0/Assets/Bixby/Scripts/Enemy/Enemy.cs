@@ -143,7 +143,7 @@ public class Enemy : CombatStatus, IDamgeable
             findPlayer(100.0f);
         }
         Stat.hp -= damage * AdditionalDamage;
-        UI_Control.Inst.damageSet((damage * AdditionalDamage).ToString(), this.gameObject);//����� UI �߰� �ڵ�
+        UI_Control.Inst.damageSet((damage * AdditionalDamage).ToString(), this.gameObject);//대미지 UI 추가 코드
         DealtDamage = Mathf.Round(damage * 10) * 0.1f;
         
     }

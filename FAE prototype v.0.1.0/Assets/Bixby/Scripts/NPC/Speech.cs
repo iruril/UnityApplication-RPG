@@ -37,7 +37,8 @@ public class Speech : MonoBehaviour
         speechIndex = 0;//대화 인덱스로 쓸것임
         UI_Control.Inst.windowSet(speechWindow);
         if (quest.GetNPCName() == this.talker.text
-            && quest.GetIndex()==0)
+            && (quest.GetIndex()==0||quest.GetIndex()==2)
+            )
         {
             quest.SetIsClear(true);
         }
@@ -55,8 +56,29 @@ public class Speech : MonoBehaviour
             if (quest.GetIsClear()
                 && this.talker.text == quest.GetNPCName())
             {
+                //GameObject.Find(this.talker.text).GetComponent<NPC>().SetIndex(GameObject.Find(this.talker.text).GetComponent<NPC>().GetIndex() + 1);
+                switch (quest.GetQuestKind())
+                {
+                    case QuestKind.kill:
+                        break;
+                    case QuestKind.cook:
+                        foreach (var item in inventoryObject.Inst.itemObjects)
+                        {
+                            if (item.GetComponent<itemObject>().ItemData.itemID == quest.GetObjectId())
+                            {
+                                inventoryObject.Inst.throwItem(item, false);
+                                break;
+                            }
+                        }
+                        break;
+                    case QuestKind.hunt:
+                        break;
+                    case QuestKind.interactive:
+                        break;
+                    case QuestKind.spot:
+                        break;
+                }
                 quest.SetNextQuest();
-                GameObject.Find(this.talker.text).GetComponent<NPC>().SetIndex(GameObject.Find(this.talker.text).GetComponent<NPC>().GetIndex() + 1);
             }
             speechIndex = 0;//초기화
             UI_Control.Inst.windowSet(speechWindow);

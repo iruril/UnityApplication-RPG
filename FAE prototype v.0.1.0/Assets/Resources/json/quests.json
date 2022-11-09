@@ -17,9 +17,9 @@
       "position": [ -999.0, -999.0, -999.0 ]
     },
     {
-      "questObject": 1,
-      "objectId": -1,
-      "objectCnt": 2,
+      "questObject": 0,
+      "objectId": 0,
+      "objectCnt": 1,
       "time": -1.0,
       "npcName": "villagerA",
       "position": [ -999.0, -999.0, -999.0 ]
@@ -27,7 +27,7 @@
     {
       "questObject": 1,
       "objectId": -1,
-      "objectCnt": 9999,
+      "objectCnt": 2,
       "time": -1.0,
       "npcName": "villagerA",
       "position": [ -999.0, -999.0, -999.0 ]

@@ -103,7 +103,7 @@ public class CookingGage : MonoBehaviour
 
                 //아이템 지정 스크립트
                 cookData.itemID = 2003; cookData.tag = new string[] { "food", "cooked" }; cookData.itemName = "실패한 요리";
-                cookData.Left = -1; cookData.Up = -1; cookData.xSize = 3; cookData.ySize = 3;
+                cookData.Left = -1; cookData.Up = -1; cookData.xSize = 2; cookData.ySize = 2;
                 cookData.isEquip = false; cookData.isSell = false;
                 cookData.price = 2; //나중에 가격 변경
             }

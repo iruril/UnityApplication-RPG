@@ -7,13 +7,11 @@ public class Mission : MonoBehaviour
     GameObject missionWindow;
     UnityEngine.UI.Text missionTitle;
     UnityEngine.UI.Text missionText;
-    void Start()
+    void Awake()
     {
         missionWindow = GameObject.Find("Mission");
         missionTitle = missionWindow.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>();
         missionText = missionWindow.transform.GetChild(1).GetComponent<UnityEngine.UI.Text>();
-        missionTitle.text = missionText.text = "Å×½ºÆ®";
-        missionWindow.SetActive(false);
     }
 
     // Update is called once per frame

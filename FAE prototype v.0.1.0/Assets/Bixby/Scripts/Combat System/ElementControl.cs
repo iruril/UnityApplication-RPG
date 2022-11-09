@@ -66,7 +66,6 @@ public class ElementControl : ElementRule, IElementReaction
         {
             if (!IsFusion)
             {
-                Debug.Log("À¶ÇØ!");
                 Fusion();
                 IsFusion = true;
                 UI_Control.Inst.damageSet("À¶ÇØ", this.gameObject);
@@ -77,7 +76,6 @@ public class ElementControl : ElementRule, IElementReaction
         {
             if (!IsFreezing)
             {
-                Debug.Log("ºù°á!");
                 Freezing();
                 IsFreezing = true;
                 UI_Control.Inst.damageSet("ºù°á", this.gameObject);
@@ -88,7 +86,6 @@ public class ElementControl : ElementRule, IElementReaction
         {
             if (!IsTransmission)
             {
-                Debug.Log("Àüµµ!");
                 Transmission();
                 //IsTransmission = true;
                 UI_Control.Inst.damageSet("Àüµµ", this.gameObject);
@@ -99,7 +96,6 @@ public class ElementControl : ElementRule, IElementReaction
         {
             if (!IsExplosion)
             {
-                Debug.Log("Æø¹ß!");
                 Explosion();
                 //IsExplosion = true;
                 UI_Control.Inst.damageSet("Æø¹ß", this.gameObject);
@@ -110,7 +106,6 @@ public class ElementControl : ElementRule, IElementReaction
         {
             if (!IsElectronicShock)
             {
-                Debug.Log("°¨Àü!");
                 ElectricShock();
                 IsElectronicShock = true;
                 UI_Control.Inst.damageSet("°¨Àü", this.gameObject);
@@ -121,7 +116,6 @@ public class ElementControl : ElementRule, IElementReaction
         {
             if (!IsEvaporation)
             {
-                Debug.Log("Áõ¹ß!");
                 Evaporation();
                 IsEvaporation = true;
                 UI_Control.Inst.damageSet("Áõ¹ß", this.gameObject);

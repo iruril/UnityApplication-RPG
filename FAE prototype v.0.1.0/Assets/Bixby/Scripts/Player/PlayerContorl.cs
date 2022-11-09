@@ -148,12 +148,13 @@ public class PlayerContorl : PlayerStatusControl
                             this.PrevState = this.State;
                             this.NextState = STATE.DASH;
                         }
-                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded && !isSkillCoolDown)
                         {
                             this.PrevState = this.State;
                             this.NextState = STATE.ELEMENT_SKILL;
                         }
-                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded && !isUltimateSkillCoolDown
+                            && ElementGauge >= 100.0f && this.MyElement != ElementType.NONE)
                         {
                             this.PrevState = this.State;
                             this.NextState = STATE.ELEMENT_ULT_SKILL;
@@ -176,12 +177,13 @@ public class PlayerContorl : PlayerStatusControl
                             this.PrevState = this.State;
                             this.NextState = STATE.DASH;
                         }
-                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded && !isSkillCoolDown)
                         {
                             this.PrevState = this.State;
                             this.NextState = STATE.ELEMENT_SKILL;
                         }
-                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded && !isUltimateSkillCoolDown 
+                            && ElementGauge >= 100.0f && this.MyElement != ElementType.NONE)
                         {
                             this.PrevState = this.State;
                             this.NextState = STATE.ELEMENT_ULT_SKILL;
@@ -209,12 +211,13 @@ public class PlayerContorl : PlayerStatusControl
                             this.PrevState = this.State;
                             this.NextState = STATE.DASH;
                         }
-                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded && !isSkillCoolDown)
                         {
                             this.PrevState = this.State;
                             this.NextState = STATE.ELEMENT_SKILL;
                         }
-                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded && !isUltimateSkillCoolDown
+                            && ElementGauge >= 100.0f && this.MyElement != ElementType.NONE)
                         {
                             this.PrevState = this.State;
                             this.NextState = STATE.ELEMENT_ULT_SKILL;
@@ -238,12 +241,12 @@ public class PlayerContorl : PlayerStatusControl
                             this.PrevState = this.State;
                             this.NextState = STATE.MOVE;
                         }
-                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded)
+                        if (Input.GetKeyDown(KeyCode.E) && player.isGrounded && !isSkillCoolDown)
                         {
                             this.PrevState = this.State;
                             this.NextState = STATE.ELEMENT_SKILL;
                         }
-                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded)
+                        if (Input.GetKeyDown(KeyCode.Q) && player.isGrounded && !isUltimateSkillCoolDown && ElementGauge >= 100.0f)
                         {
                             this.PrevState = this.State;
                             this.NextState = STATE.ELEMENT_ULT_SKILL;
@@ -300,7 +303,7 @@ public class PlayerContorl : PlayerStatusControl
                         }
                         break;
                     case STATE.ELEMENT_SKILL:
-
+                       
                         break;
                     case STATE.ELEMENT_ULT_SKILL:
                         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Q))
@@ -308,11 +311,15 @@ public class PlayerContorl : PlayerStatusControl
                             nextFire = Time.time + FireRate;
                             elementUltSkill();
                             StartCoroutine(fallBack());
+                            StartCoroutine(ultSkillCoolDownCalc());
+                            ElementGauge = 0.0f;
                             this.PrevState = this.State;
                             this.NextState = STATE.MOVE;
                         }
                         if (this.StateTimer >= 3.0f)
                         {
+                            StartCoroutine(ultSkillCoolDownCalc());
+                            ElementGauge = 0.0f;
                             this.PrevState = this.State;
                             this.NextState = STATE.MOVE;
                         }
@@ -483,7 +490,6 @@ public class PlayerContorl : PlayerStatusControl
     {
         if (other.gameObject.tag == "Water")
         {
-            Debug.Log("Swimming!");
             isSwimming = true;
         }
     }
@@ -491,7 +497,6 @@ public class PlayerContorl : PlayerStatusControl
     {
         if (other.gameObject.tag == "Water")
         {
-            Debug.Log("Not Swimming!");
             isSwimming = false;
         }
     }
@@ -831,6 +836,12 @@ public class PlayerContorl : PlayerStatusControl
             {
                 setEnemyElement(hitInfo.collider.GetComponent<Enemy>().Stat.element);
                 hitInfo.collider.GetComponent<Enemy>().TakeElementHit(AttackDamage, MyElement);
+
+                if (MyElement != ElementType.NONE)
+                {
+                    ElementGauge += ElementGaugeChargeAmount; //원소게이지 ++
+                }
+                if (ElementGauge > 100.0f) ElementGauge = 100.0f;
             }
 
             //퍼즐오브젝트와 상호작용 추가
@@ -850,6 +861,14 @@ public class PlayerContorl : PlayerStatusControl
     private void elementSkill()
     {
         this.gameObject.GetComponent<PlayerLineSkill>().ShowSkillEffect((int)this.MyElement, ProjectileStart);
+
+        if (MyElement != ElementType.NONE)
+        {
+            ElementGauge += ElementGaugeChargeAmount; //원소게이지 ++
+        }
+        if (ElementGauge > 100.0f) ElementGauge = 100.0f;
+
+        StartCoroutine(skillCoolDownCalc());
         StartCoroutine(fallBack()); //후퇴
         this.NextState = STATE.MOVE;
     }
