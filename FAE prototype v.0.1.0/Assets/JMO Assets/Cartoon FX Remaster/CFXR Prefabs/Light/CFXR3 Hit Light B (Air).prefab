@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2832608919354171473}
   - component: {fileID: 4317077836563233687}
   - component: {fileID: 4077434153767840873}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Ring outer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4885,7 +4885,7 @@ GameObject:
   - component: {fileID: 1800347497806655306}
   - component: {fileID: 4218550677005678463}
   - component: {fileID: 4955925660939126461}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Rings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9817,7 +9817,7 @@ GameObject:
   - component: {fileID: 2486974564379276315}
   - component: {fileID: 5595010364606615787}
   - component: {fileID: 3096051239679259079}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Stars remains
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14704,7 +14704,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8771972552251130938}
   - component: {fileID: 8771972552251130939}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14799,7 +14799,7 @@ GameObject:
   - component: {fileID: 8771972552311404737}
   - component: {fileID: 8771972552311404798}
   - component: {fileID: 8771972552311404739}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CFXR3 Hit Light B (Air)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

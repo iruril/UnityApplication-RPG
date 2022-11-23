@@ -38,6 +38,8 @@ public class UI_Gauge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
         staminaObj.SetActive(stamina.value != 1);
         staminaObj.transform.position = cameraControl.step == CamControl.STATE.AIM ? staminaOriginPos :
             Vector3.Lerp(staminaObj.transform.position, Camera.main.WorldToScreenPoint(playerControl.gameObject.transform.position + Vector3.up * 1.3f) + Vector3.right * 200f, Time.deltaTime * 15.0f);

@@ -24,7 +24,8 @@ public class Mission : MonoBehaviour
         else
             missionWindow.SetActive(!(UI_Control.Inst.OpenedWindow.name == "Inventory"
                                     || UI_Control.Inst.OpenedWindow.name == "Shop"
-                                    || UI_Control.Inst.OpenedWindow.name == "Speech"));
+                                    || UI_Control.Inst.OpenedWindow.name == "Speech"
+                                    || UI_Control.Inst.OpenedWindow.transform.parent.gameObject.name == "COOK"));
     }
     public void misssionSet(string missionTitle, string missionText)
     {

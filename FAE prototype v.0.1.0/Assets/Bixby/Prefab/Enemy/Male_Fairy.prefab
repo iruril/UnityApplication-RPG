@@ -1115,8 +1115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyElement: 0
   EnemyElement: 0
-  ExplosionObj: {fileID: 0}
-  TransmissionObj: {fileID: 0}
+  ExplosionObj: {fileID: 1481134630116024679, guid: 69e99c5333091074b90dac5252d2acd9, type: 3}
+  TransmissionObj: {fileID: 8389957880746753291, guid: 1a891c56444c98145b0268375bb2a6ec, type: 3}
   IsFusion: 0
   IsEvaporation: 0
   IsElectronicShock: 0
@@ -1132,10 +1132,10 @@ MonoBehaviour:
   State: 0
   Mask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 8
   target: {fileID: 0}
   isHitted: 0
-  runChance: 1
+  runChance: 0
   MyAgent: {fileID: 0}
   Anim: {fileID: 0}
   DealtDamage: 0

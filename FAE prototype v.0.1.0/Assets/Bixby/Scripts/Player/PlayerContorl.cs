@@ -55,6 +55,8 @@ public class PlayerContorl : PlayerStatusControl
         NUM = 12, // 상태 종류
     };
 
+    PlayerMesh playerMesh;      // 클래스 체인지 변경을 위한 컴포넌트 변수
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -70,6 +72,8 @@ public class PlayerContorl : PlayerStatusControl
         projectileLine = this.GetComponent<LineRenderer>();
         projectileLine.enabled = false;
         genTerm = 0f;
+
+        playerMesh = transform.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerMesh>();   // Player -> FemaleMage_A -> Margot
     }
 
     // Update is called once per frame
@@ -92,6 +96,8 @@ public class PlayerContorl : PlayerStatusControl
                 this.mySkillEndColor = FireSkillEndColor;
                 this.MyElement = ElementType.FIRE;
                 Debug.Log("current element : FIRE");
+
+                playerMesh.ChangeClass((int)this.MyElement);            // 메쉬 변경
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
@@ -99,6 +105,8 @@ public class PlayerContorl : PlayerStatusControl
                 this.mySkillEndColor = IceSkillEndColor;
                 this.MyElement = ElementType.ICE;
                 Debug.Log("current element : ICE");
+
+                playerMesh.ChangeClass((int)this.MyElement);            // 메쉬 변경
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
@@ -106,6 +114,8 @@ public class PlayerContorl : PlayerStatusControl
                 this.mySkillEndColor = WaterSkillEndColor;
                 this.MyElement = ElementType.WATER;
                 Debug.Log("current element : WATER");
+
+                playerMesh.ChangeClass((int)this.MyElement);            // 메쉬 변경
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
@@ -113,6 +123,8 @@ public class PlayerContorl : PlayerStatusControl
                 this.mySkillEndColor = ElectroSkillEndColor;
                 this.MyElement = ElementType.ELECTRICITY;
                 Debug.Log("current element : ELECTRICITY");
+
+                playerMesh.ChangeClass((int)this.MyElement);            // 메쉬 변경
             }
         }
 
@@ -530,6 +542,15 @@ public class PlayerContorl : PlayerStatusControl
             return false;
         }
     }
+
+    //private bool isCheckGrounded()
+    //{
+    //    if (player.isGrounded) return true;
+    //    var ray = new Ray(this.transform.position + Vector3.up * 0.1f, Vector3.down);
+    //    var maxDistance = 1.5f;
+    //    Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * maxDistance, Color.red);
+    //    return Physics.Raycast(ray, maxDistance, LayerMask.GetMask("Ground"));
+    //}
 
     private void vectorAlign()
     {

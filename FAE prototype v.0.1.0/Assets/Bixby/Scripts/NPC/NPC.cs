@@ -8,7 +8,7 @@ public class NPC : MonoBehaviour
     string npcName;
     bool playerClose;
     GameObject keyInst;
-    int talkIndex;
+    string talkIndex;
     GameObject canvasObj;
     GameObject nameObj;
     Text nameUI;
@@ -22,7 +22,7 @@ public class NPC : MonoBehaviour
         speech = UI_Control.Inst.Speech;
         notify = this.transform.GetChild(1).gameObject;
         playerClose = false;
-        talkIndex = 0;
+        talkIndex = "0";
         canvasObj.SetActive(true);
         nameUI = nameObj.transform.GetChild(0).GetComponent<Text>();
         nameUI.text = npcName;
@@ -65,23 +65,9 @@ public class NPC : MonoBehaviour
                 QuestObject quest = GameObject.Find("GameManager").GetComponent<QuestObject>();
                 if (npcName == quest.GetNPCName())
                 {
-                    switch (quest.GetIndex())
-                    {
-                        case 1:
-                            talkIndex = quest.GetIsClear() ? quest.GetIndex() + 1 : quest.GetIndex();
-                            break;
-                        case 2:
-                            talkIndex = quest.GetIndex() + 1;
-                            break;
-                        case 3:
-                            talkIndex = quest.GetIsClear() ? quest.GetIndex() + 2 : quest.GetIndex() + 1;
-                            break;
-                        default:
-                            break;
-                    }
-                    
+                    talkIndex = quest.GetIsClear() ? quest.GetIndex().ToString()+"o": quest.GetIndex().ToString() + "x";//퀘스트 NPC일때 퀘스트에 따라 인덱스 조정
                 }
-                speech.setUp(npcName, npcName + talkIndex.ToString());
+                speech.setUp(npcName, npcName + talkIndex);//그 외의 경우, 인덱스 조정 필요
             }
             keyInst.SetActive(false);
         }
@@ -104,13 +90,9 @@ public class NPC : MonoBehaviour
             nameObj.SetActive(playerClose);
         }
     }
-    public int GetIndex()
-    {
-        return talkIndex;
-    }
     public void SetIndex(int value)
     {
-        talkIndex = value;
+        talkIndex = value.ToString();
     }
 }
 

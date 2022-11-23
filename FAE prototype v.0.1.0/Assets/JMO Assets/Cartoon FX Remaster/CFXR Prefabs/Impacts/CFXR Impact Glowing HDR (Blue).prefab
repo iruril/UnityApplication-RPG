@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2708598583165999484}
   - component: {fileID: 2708598583165999486}
   - component: {fileID: 2708598583165999487}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4884,7 +4884,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2708598583372993826}
   - component: {fileID: 2708598583372993827}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4979,7 +4979,7 @@ GameObject:
   - component: {fileID: 2708598583397607897}
   - component: {fileID: 2708598583397607910}
   - component: {fileID: 2708598583397607899}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CFXR Impact Glowing HDR (Blue)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9875,7 +9875,7 @@ GameObject:
   - component: {fileID: 2708598584241629779}
   - component: {fileID: 2708598584241629781}
   - component: {fileID: 2708598584241629778}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14749,7 +14749,7 @@ GameObject:
   - component: {fileID: 2708598584738834257}
   - component: {fileID: 2708598584738834259}
   - component: {fileID: 2708598584738834256}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}

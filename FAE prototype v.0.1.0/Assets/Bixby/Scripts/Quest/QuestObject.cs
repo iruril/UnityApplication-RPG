@@ -10,11 +10,13 @@ public class QuestObject : MonoBehaviour
     {
         isClear = false;
         objectIndex = 0;
+        questSubIndex = 0;
     }
 
     questJsonData JsonData;         // Quest Json Data
     bool isClear;                   // Quest isClear bool var
     questData currentQuest;
+    int questSubIndex;              // Quest sub Index var;
     int objectIndex;                // Quest Object Index var;
     //GameObject tutorialImage;
     // Start is called before the first frame update
@@ -53,17 +55,18 @@ public class QuestObject : MonoBehaviour
             UI_Control.Inst.Mission.misssionSet("튜토리얼", "villagerA에게 말을 거시오");
         //tutorialImage = GameObject.Find("TutorialImage");
     }
-
+    int tmp;//인덱스 확인용 임시 변수
     // Update is called once per frame
     void Update()
     {
+        tmp = JsonData.questIndex;//인덱스 확인용 임시 변수
         //if (JsonData.questIndex == 0 && Input.anyKeyDown)
         //{
         //    tutorialImage.SetActive(false);
         //    UI_Control.Inst.Mission.misssionSet("튜토리얼", "villagerA에게 말을 거시오");
         //}
         // 퀘스트 진행 여부 확인
-        switch (currentQuest.questObject)
+        switch (currentQuest.questObject[questSubIndex])
         {
             case QuestKind.management:
                 //Debug.Log("Developer's Kind");
@@ -78,7 +81,7 @@ public class QuestObject : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))//퀘스트 테스트용 임시 코드
         {
             itemData tempItem = new itemData();
-            tempItem.itemID = currentQuest.objectId;
+            tempItem.itemID = currentQuest.objectId[questSubIndex];
             tempItem.xSize = tempItem.ySize = 1f;
             System.Array.Resize(ref tempItem.tag, 2);
             tempItem.itemName = "퀘스트 음식";
@@ -92,12 +95,13 @@ public class QuestObject : MonoBehaviour
 
     public int GetObjectId()
     {
-        return currentQuest.objectId;
+        return currentQuest.objectId[questSubIndex];
     }
 
-    public float[] GetPosition()
+    public Vector3 GetPosition()
     {
-        return currentQuest.position;
+        Debug.Log("현재 위치 : " + currentQuest.position[questSubIndex].x);
+        return currentQuest.position[questSubIndex];
     }
 
 
@@ -115,7 +119,7 @@ public class QuestObject : MonoBehaviour
 
     void CheckQuestCount()                                      // Quest Index Check Func
     {
-        if (objectIndex == currentQuest.objectCnt)
+        if (objectIndex == currentQuest.objectCnt[questSubIndex])
         {
             SetIsClear(true);
         }
@@ -143,16 +147,19 @@ public class QuestObject : MonoBehaviour
     {
         JsonData.questIndex += 1;                               // Quest Index++
         isClear = false;
+        questSubIndex = 0;
         SetObjectIndex(0);
         if (JsonData.questList.Count <= JsonData.questIndex)
         {
-            GameObject.Find(currentQuest.npcName).GetComponent<NPC>().SetIndex(100);
+            //GameObject.Find(currentQuest.npcName).GetComponent<NPC>().SetIndex(100);
             UI_Control.Inst.Mission.misssionSet("", "");
             return;
         }
         currentQuest = JsonData.questList[JsonData.questIndex]; // Update Current Quest
         MissionSet();
-        GameObject.Find(currentQuest.npcName).GetComponent<NPC>().SetIndex(GameObject.Find(currentQuest.npcName).GetComponent<NPC>().GetIndex() + 1);
+        //GameObject.Find(currentQuest.npcName).GetComponent<NPC>().SetIndex(GameObject.Find(currentQuest.npcName).GetComponent<NPC>().GetIndex() + 1);
+        //NPC 대화 인덱스 조정함수, 조정 위치를 NPC 스크립트 내로 이동
+        GameObject.Find("GameManager").GetComponent<SetPositionParticle>().InitializeVariable();    // 파티클 위치 변경
     }
 
     public bool GetIsClear()
@@ -166,10 +173,19 @@ public class QuestObject : MonoBehaviour
 
         if (idx)
         {
-            if (currentQuest.npcName == "none")//NPC에게 가지않고 퀘스트가 클리어되는 경우
-                SetNextQuest();
+            if(questSubIndex != currentQuest.objectId.Count - 1)     // 서브 퀘스트가 마지막이 아닐 때
+            {
+                questSubIndex++;
+                isClear = false;
+                SetObjectIndex(0);                  // 변수 초기화
+            }
             else
-                UI_Control.Inst.Mission.misssionSet(UI_Control.Inst.Mission.GetMissionTitle(), currentQuest.npcName + "에게 가시오");
+            {
+                if (currentQuest.npcName == "none")//NPC에게 가지않고 퀘스트가 클리어되는 경우
+                    SetNextQuest();
+                else
+                    UI_Control.Inst.Mission.misssionSet(UI_Control.Inst.Mission.GetMissionTitle(), currentQuest.npcName + "에게 가시오");
+            }
         }
     }
     public string GetNPCName()
@@ -182,42 +198,40 @@ public class QuestObject : MonoBehaviour
         string missionTitle = "";
         string missionText = "";
         string questPurpose = "";
-        switch (currentQuest.questObject)//요리와 상호작용의 경우 여기에서 어떤 요리 혹은 어떤 상호작용인지 설정
+        questPurpose = " " + currentQuest.objectCnt[questSubIndex].ToString();//공통적 사용부분(목표)
+        string questProgress = "(" + objectIndex.ToString() + "/" + questPurpose + ")";//공통적 사용부분(퀘스트 진행상황)
+        switch (currentQuest.questObject[questSubIndex])//요리와 상호작용의 경우 여기에서 어떤 요리 혹은 어떤 상호작용인지 설정
         {
             case QuestKind.kill:
-                questPurpose = currentQuest.objectCnt.ToString();
-                missionText = "적을" + questPurpose + "마리 처치하기" + "(" + objectIndex.ToString() + "/" + currentQuest.objectCnt.ToString() + ")";
+                missionText = "적을" + questPurpose + "마리 처치하기" + questProgress;
                 break;
             case QuestKind.hunt:
-                questPurpose = currentQuest.objectCnt.ToString();
-                missionText = "적을" + questPurpose + "마리 사냥하기" + "(" + objectIndex.ToString() + "/" + currentQuest.objectCnt.ToString() + ")";
+                missionText = "적을" + questPurpose + "마리 사냥하기" + questProgress;
                 break;
             case QuestKind.cook:
-                if (currentQuest.objectId == 2001)
-                    questPurpose = "과일주스";
-                missionText = questPurpose + "을(를) 만들기";
+                switch (currentQuest.objectId[questSubIndex])//if문 switch문으로 변경
+                {//이후 json에서 퀘스트 관련 아이템 리스트를 제작하여 해당 id에 맞는 이름이 나오도록 수정 예정
+                    case 1000:
+                        missionText = "과일을";
+                        break;
+                    case 2001:
+                        missionText = "과일주스를";
+                        break;
+                    default:
+                        missionText = "현재 등록되어 있지 않은 아이템을";
+                        break;
+                }
+                missionText += questPurpose + "개 얻거나 만들기" + questProgress;
                 break;
             case QuestKind.interactive:
                 break;
-            default:
-                break;
-        }
-        switch (JsonData.questIndex)
-        {
-            case 1:
-                missionTitle = "Quest " + JsonData.questIndex.ToString();
-                break;
-            case 2:
-            case 4:
-                missionTitle = "";
-                break;
-            case 3:
-                missionTitle = "Quest " + (JsonData.questIndex - 1).ToString();
+            case QuestKind.spot://특정 위치 이동 부분 추가
+                missionText = "어디어디로 가시오.";//위치 지정 필요
                 break;
             default:
                 break;
         }
-
+        missionTitle = JsonData.questIndex % 2 == 0 ? "" : "Quest " + ((JsonData.questIndex + 1) / 2).ToString();
         UI_Control.Inst.Mission.misssionSet(missionTitle, missionText);
     }
     public int GetIndex()
@@ -226,6 +240,6 @@ public class QuestObject : MonoBehaviour
     }
     public QuestKind GetQuestKind()
     {
-        return currentQuest.questObject;
+        return currentQuest.questObject[questSubIndex];
     }
 }

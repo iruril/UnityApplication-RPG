@@ -44,7 +44,8 @@ GameObject:
   - component: {fileID: 2970369942042931969}
   - component: {fileID: 2970369942042931970}
   - component: {fileID: 2970369942042931981}
-  m_Layer: 6
+  - component: {fileID: 2370523564879107491}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -96,6 +97,8 @@ MonoBehaviour:
   Health: 0
   MyStartingStamina: 100
   Stamina: 0
+  ElementGauge: 0
+  ElementGaugeChargeAmount: 25
   AttackDamage: 10
   SkillDamage: 10
   UltDamage: 50
@@ -114,6 +117,10 @@ MonoBehaviour:
   JumpPower: 10
   ShootDistance: 50
   SwitchToChargeTime: 1
+  SkillCoolDown: 10
+  RemainTimeForSkill: 0
+  UltimateSkillCoolDown: 15
+  RemainTimeForUltSkill: 0
   ProjectileStart: {fileID: 2970369940586204732}
   State: -1
   NextState: -1
@@ -272,6 +279,18 @@ MonoBehaviour:
   ElementSkill_Water: {fileID: 5830344669474769435, guid: 534e450f1094e22408a87418f933dc53, type: 3}
   ElementSkill_Electro: {fileID: 7786393705202471738, guid: e5bae8c0ce971544f94be960ee7e2aac, type: 3}
   EnemyHitParticle: {fileID: 1429954232896169632, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
+--- !u!114 &2370523564879107491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2970369942042931971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7cb7506d92cb6a46bd1fe900e5904e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1559535496877622258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,6 +354,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FemaleMage_A
       objectReference: {fileID: 0}
+    - target: {fileID: 1214354999163415460, guid: ceb678b43e6e601479f93e22c1f76f59, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 2846301133277766637, guid: bdc63acfdc99aff48b71ef3040791a65, type: 3}
     - target: {fileID: 5866666021909216657, guid: ceb678b43e6e601479f93e22c1f76f59, type: 3}
       propertyPath: m_Controller
       value: 
@@ -354,3 +377,30 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ceb678b43e6e601479f93e22c1f76f59, type: 3}
   m_PrefabInstance: {fileID: 1559535496877622258}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8010145875455863614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8830807346559822028, guid: ceb678b43e6e601479f93e22c1f76f59, type: 3}
+  m_PrefabInstance: {fileID: 1559535496877622258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &973100628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8010145875455863614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a886ea96222a04fae17cafb842c0c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterMaterial:
+  - {fileID: 2100000, guid: 11d3953f12833a741812e5678136db32, type: 2}
+  - {fileID: 2100000, guid: 59d2610b0b8f1ac42ad5cea813cc0840, type: 2}
+  - {fileID: 2100000, guid: 592c0dd6bcca6684fac1614c99802283, type: 2}
+  - {fileID: 2100000, guid: e8f749732390f7d498ebbe15085c2ab3, type: 2}
+  CharacterMesh:
+  - {fileID: 2846301133277766637, guid: bdc63acfdc99aff48b71ef3040791a65, type: 3}
+  - {fileID: 4447587663168874157, guid: 53f899941e561954fa4cce523c5bee4c, type: 3}
+  - {fileID: -1079144299286940660, guid: 6083bcd8c77ea414fb9e18f1c81f5cb8, type: 3}
+  - {fileID: 5534076107548217279, guid: 26eaa4ae9d49168428d70c144e77231e, type: 3}

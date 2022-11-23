@@ -510,10 +510,10 @@ MonoBehaviour:
   State: 0
   Mask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 8
   target: {fileID: 0}
   isHitted: 0
-  runChance: 1
+  runChance: 0
   MyAgent: {fileID: 0}
   Anim: {fileID: 0}
   DealtDamage: 0
@@ -659,10 +659,42 @@ PrefabInstance:
       propertyPath: agent
       value: 
       objectReference: {fileID: 4155676553942198844}
+    - target: {fileID: 2864931736226062169, guid: 68fcf36fbd7e7814dbef78839a64b710, type: 3}
+      propertyPath: bounds.m_Center.y
+      value: 3.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864931736226062169, guid: 68fcf36fbd7e7814dbef78839a64b710, type: 3}
+      propertyPath: bounds.m_Center.z
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864931736226062169, guid: 68fcf36fbd7e7814dbef78839a64b710, type: 3}
+      propertyPath: bounds.m_Extent.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864931736226062169, guid: 68fcf36fbd7e7814dbef78839a64b710, type: 3}
+      propertyPath: bounds.m_Extent.z
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5147453314305512548, guid: 68fcf36fbd7e7814dbef78839a64b710, type: 3}
       propertyPath: agent
       value: 
       objectReference: {fileID: 4155676553942198844}
+    - target: {fileID: 5571327126005989340, guid: 68fcf36fbd7e7814dbef78839a64b710, type: 3}
+      propertyPath: bounds.m_Center.y
+      value: 3.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571327126005989340, guid: 68fcf36fbd7e7814dbef78839a64b710, type: 3}
+      propertyPath: bounds.m_Center.z
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571327126005989340, guid: 68fcf36fbd7e7814dbef78839a64b710, type: 3}
+      propertyPath: bounds.m_Extent.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571327126005989340, guid: 68fcf36fbd7e7814dbef78839a64b710, type: 3}
+      propertyPath: bounds.m_Extent.z
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5822289333866428226, guid: 68fcf36fbd7e7814dbef78839a64b710, type: 3}
       propertyPath: Agent
       value: 

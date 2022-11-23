@@ -12,6 +12,7 @@ public class HarvestField : MonoBehaviour
 
     private void Awake()
     {
+        this.rangeObject.transform.position = new Vector3(this.rangeObject.transform.position.x, 35.0f, this.rangeObject.transform.position.z);
         rangeCollider = rangeObject.GetComponent<BoxCollider>();
     }
 
@@ -38,7 +39,7 @@ public class HarvestField : MonoBehaviour
 
         if (Physics.Raycast(respawnPosition, look, out hit, 100, LayerMask.GetMask("Ground")))
         {
-            respawnPosition = hit.point + new Vector3(0,1,0);
+            respawnPosition = hit.point;
         }
 
         return respawnPosition;

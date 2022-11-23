@@ -43,6 +43,11 @@ public class PlayerAnimation : MonoBehaviour
         // 그 외 상태 별 설정
         switch (modelContorl.State)
         {
+            case PlayerContorl.STATE.DEAD:                              // 사망 상태
+                animator.SetTrigger("isDead");                          // 사망 상태 활성화
+                initializeAnimParameter();                            // isDead를 제외한 모든 파라미터 비활성화
+                break;
+
             case PlayerContorl.STATE.IDLE:                              // 비전투 상태
                 animator.SetBool("isCombat", false);                    // 비전투 상태 활성화
                 animator.SetBool("isAim", false);                       // 조준 애니메이션 정지

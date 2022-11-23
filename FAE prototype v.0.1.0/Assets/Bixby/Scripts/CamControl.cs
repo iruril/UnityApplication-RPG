@@ -101,7 +101,8 @@ public class CamControl : MonoBehaviour
             Time.deltaTime * transitionSpeed);
 
         RaycastHit hitinfo;
-        if (Physics.Linecast((player.transform.position + playerCenterCustom), this.transform.position, out hitinfo, 1 << LayerMask.NameToLayer("Ground")))
+        if (Physics.Linecast((player.transform.position + playerCenterCustom), this.transform.position, out hitinfo, 1 << LayerMask.NameToLayer("Ground")) ||
+            Physics.Linecast((player.transform.position + playerCenterCustom), this.transform.position, out hitinfo, 1 << LayerMask.NameToLayer("Water")))
         {
             this.transform.position = hitinfo.point;
         }
@@ -115,7 +116,8 @@ public class CamControl : MonoBehaviour
             Time.deltaTime * transitionSpeed);
 
         RaycastHit hitinfo;
-        if (Physics.Linecast((player.transform.position + playerCenterCustom), this.transform.position, out hitinfo, 1 << LayerMask.NameToLayer("Ground")))
+        if (Physics.Linecast((player.transform.position + playerCenterCustom), this.transform.position, out hitinfo, 1 << LayerMask.NameToLayer("Ground")) ||
+            Physics.Linecast((player.transform.position + playerCenterCustom), this.transform.position, out hitinfo, 1 << LayerMask.NameToLayer("Water")))
         {
             this.transform.position = hitinfo.point;
         }

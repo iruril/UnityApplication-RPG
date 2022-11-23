@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2504214343101900868}
   - component: {fileID: 2504214343101900870}
   - component: {fileID: 2504214343101900871}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Ember
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4886,7 +4886,7 @@ GameObject:
   - component: {fileID: 2504214343621411456}
   - component: {fileID: 2504214343621411457}
   - component: {fileID: 4741991464754137355}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CFXR3 Hit Fire B (Air)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9905,7 +9905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8234944510094819725}
   - component: {fileID: 2106199445405006127}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

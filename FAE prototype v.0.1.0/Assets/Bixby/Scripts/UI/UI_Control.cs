@@ -30,6 +30,7 @@ public class UI_Control : MonoBehaviour
     public Mission Mission;
     [SerializeField] GameObject damagePrefab;
     public UI_EnemyHp EnemyHp;
+    bool isField;
 
     private float genCoolDown = 0.5f;
     void Start()
@@ -38,7 +39,9 @@ public class UI_Control : MonoBehaviour
         windows.Add(inventory);
         windows.Add(Map);
         windows.Add(Shop.getWindow());
-        windows.Add(GameObject.Find("COOK").transform.GetChild(0).gameObject);
+        isField = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "FieldScene";
+        if (isField)
+            windows.Add(GameObject.Find("COOK").transform.GetChild(0).gameObject);
         option.Set();
         Map.SetActive(false);
         OpenedWindow = null;
@@ -59,7 +62,8 @@ public class UI_Control : MonoBehaviour
                     windowSet(inventory);
                     break;
                 case "m":
-                    windowSet(Map);
+                    if (isField)
+                        windowSet(Map);
                     break;
             }
         }
@@ -83,6 +87,9 @@ public class UI_Control : MonoBehaviour
                 case "Shop":
                     inventory.SetActive(true);
                     break;
+                //case "Map":
+                //    print("맵 열림");
+                //    break;열 때 맵 위치를 플레이어 중점으로 할 것
             }
             Cursor.lockState = CursorLockMode.None;
             aimPoint.SetActive(false);
