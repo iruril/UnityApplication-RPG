@@ -1,0 +1,40 @@
+﻿{
+  "itemList": [
+    {
+      "itemID": 2001,
+      "tag": [ "food", "cooked" ],
+      "itemName": "과일주스",
+      "Left":  -1.0,
+      "Up":  -1.0,
+      "xSize": 1.0,
+      "ySize": 2.0,
+      "isEquip": false,
+      "price": 2,
+      "isSell": false
+    },
+    {
+      "itemID": 2002,
+      "tag": [ "food", "cooked" ],
+      "itemName": "야채죽",
+      "Left":  -1.0,
+      "Up":  -1.0,
+      "xSize": 2.0,
+      "ySize": 1.0,
+      "isEquip": false,
+      "price": 2,
+      "isSell": false
+    },
+    {
+      "itemID": 2003,
+      "tag": [ "food", "cooked" ],
+      "itemName": "실패한 요리",
+      "Left":  -1.0,
+      "Up":  -1.0,
+      "xSize": 3.0,
+      "ySize": 3.0,
+      "isEquip": false,
+      "price": 2,
+      "isSell": false
+    }
+  ]
+}

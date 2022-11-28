@@ -1,0 +1,64 @@
+﻿{
+  "itemList": [
+    {
+      "itemID": 1000,
+      "tag": [ "food", "harvest" ],
+      "itemName": "과일",
+      "Left":  -1.0,
+      "Up":  -1.0,
+      "xSize": 1.0,
+      "ySize": 1.0,
+      "isEquip": false,
+      "price": 1,
+      "isSell": false
+    },
+    {
+      "itemID": 1001,
+      "tag": [ "food", "harvest" ],
+      "itemName": "파",
+      "Left":  -1.0,
+      "Up":  -1.0,
+      "xSize": 1.0,
+      "ySize": 1.0,
+      "isEquip": false,
+      "price": 1,
+      "isSell": false
+    },
+    {
+      "itemID": 1002,
+      "tag": [ "food", "harvest" ],
+      "itemName": "쌀",
+      "Left":  -1.0,
+      "Up":  -1.0,
+      "xSize": 1.0,
+      "ySize": 1.0,
+      "isEquip": false,
+      "price": 1,
+      "isSell": false
+    },
+    {
+      "itemID": 1003,
+      "tag": [ "food", "harvest" ],
+      "itemName": "물고기",
+      "Left":  -1.0,
+      "Up":  -1.0,
+      "xSize": 1.0,
+      "ySize": 1.0,
+      "isEquip": false,
+      "price": 1,
+      "isSell": false
+    },
+    {
+      "itemID": 1004,
+      "tag": [ "food", "harvest" ],
+      "itemName": "동물고기",
+      "Left":  -1.0,
+      "Up":  -1.0,
+      "xSize": 1.0,
+      "ySize": 1.0,
+      "isEquip": false,
+      "price": 1,
+      "isSell": false
+    }
+  ]
+}
