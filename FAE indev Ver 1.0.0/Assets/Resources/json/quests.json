@@ -1,0 +1,379 @@
+{
+  "questList": [
+    {
+      "questObject": [ 0 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ 5, 2, 2 ],
+      "objectId": [ -1, 1000, 2001 ],
+      "objectCnt": [ -1, 2, 1 ],
+      "time": [ -1.0, -1.0, -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": 26.79,
+          "y": 19.16,
+          "z": 17.45
+        },
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        },
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ -1 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ 5, 1 ],
+      "objectId": [ -1, 3000 ],
+      "objectCnt": [ -1, 2 ],
+      "time": [ -1.0, -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -46.2,
+          "y": 21.6,
+          "z": -45.0
+        },
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ -1 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ 5, 1, 5 ],
+      "objectId": [ -1, 3000, -1 ],
+      "objectCnt": [ -1, 19, -1 ],
+      "time": [ -1.0, -1.0, -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -279.6392,
+          "y": 12.41701,
+          "z": -289.6075
+        },
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        },
+        {
+          "x": -305.02,
+          "y": 2.26,
+          "z": 140.18
+        }
+      ]
+    },
+    {
+      "questObject": [ -1 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ 5, 1, 1, 5 ],
+      "objectId": [ -1, 3000, 3002, -1 ],
+      "objectCnt": [ -1, 18, 1, -1 ],
+      "time": [ -1.0, -1.0, -1.0, -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -323.07,
+          "y": 13.53,
+          "z": 340.34
+        },
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        },
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        },
+        {
+          "x": -88,
+          "y": 5,
+          "z": -36
+        }
+      ]
+    },
+    {
+      "questObject": [ -1 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ 0 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "partnerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ -1 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ 5, 1, 1, 5 ],
+      "objectId": [ -1, 3000, 3003, -1 ],
+      "objectCnt": [ -1, 18, 1, -1 ],
+      "time": [ -1.0, -1.0, -1.0, -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": 197.67,
+          "y": 12.11,
+          "z": 210.81
+        },
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        },
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        },
+        {
+          "x": 384,
+          "y": 9,
+          "z": 360
+        }
+      ]
+    },
+    {
+      "questObject": [ -1 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ 0 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "partnerB",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ -1 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ 5, 1, 1, 5 ],
+      "objectId": [ -1, 3000, 3004, -1 ],
+      "objectCnt": [ -1, 18, 1, -1 ],
+      "time": [ -1.0, -1.0, -1.0, -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": 289.92,
+          "y": 13.53,
+          "z": -278.20
+        },
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        },
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        },
+        {
+          "x": 976,
+          "y": 9,
+          "z": 360
+        }
+      ]
+    },
+    {
+      "questObject": [ -1 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ 0 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "partnerC",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ -1 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    },
+    {
+      "questObject": [ 5, 1, 5 ],
+      "objectId": [ -1, 3005, -1 ],
+      "objectCnt": [ -1, 1, -1 ],
+      "time": [ -1.0, -1.0, -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": 76.74,
+          "y": 9,
+          "z": -157.88
+        },
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        },
+        {
+          "x": 1121.2,
+          "y": 0.1,
+          "z": 391.8
+        }
+      ]
+    },
+    {
+      "questObject": [ -1 ],
+      "objectId": [ -1 ],
+      "objectCnt": [ -1 ],
+      "time": [ -1.0 ],
+      "npcName": "villagerA",
+      "position": [
+        {
+          "x": -999.0,
+          "y": -999.0,
+          "z": -999.0
+        }
+      ]
+    }
+  ],
+  "questIndex": 0
+}
